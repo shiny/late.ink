@@ -20,15 +20,15 @@ const authConfig: AuthConfig = {
     guard: 'web',
     guards: {
         /*
-    |--------------------------------------------------------------------------
-    | Web Guard
-    |--------------------------------------------------------------------------
-    |
-    | Web guard uses classic old school sessions for authenticating users.
-    | If you are building a standard web application, it is recommended to
-    | use web guard with session driver
-    |
-    */
+        |--------------------------------------------------------------------------
+        | Web Guard
+        |--------------------------------------------------------------------------
+        |
+        | Web guard uses classic old school sessions for authenticating users.
+        | If you are building a standard web application, it is recommended to
+        | use web guard with session driver
+        |
+        */
         web: {
             driver: 'session',
 
