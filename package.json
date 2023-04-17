@@ -4,7 +4,9 @@
     "private": true,
     "scripts": {
         "dev": "node ace serve --watch",
+        "dev:ui": "cd web-ui && npm run dev",
         "build": "node ace build --production",
+        "build:ui": "cd web-ui && npm run build",
         "start": "node server.js",
         "test": "node ace test",
         "lint": "eslint . --ext=.ts",
