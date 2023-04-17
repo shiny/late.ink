@@ -1,4 +1,5 @@
 import { BaseCommand, args } from '@adonisjs/core/build/standalone'
+import { UserExistsError } from 'App/Models/User'
 
 export default class UserCreate extends BaseCommand {
     public static commandName = 'user:create'
@@ -30,16 +31,19 @@ export default class UserCreate extends BaseCommand {
     }
 
     public async create(userName: string) {
-        const User = (await import('App/Models/User')).default
-        const existUser = await User.findBy('name', userName)
-        if (existUser) {
-            throw new Error(`User ${this.colors.green(userName)} already exists`)
+        try {
+            const User = (await import('App/Models/User')).default
+            const password = await User.register({
+                userName,
+                passwordSize: this.passwordSize,
+            })
+            return password
+        } catch (err) {
+            if (err instanceof UserExistsError) {
+                throw new Error(`User ${this.colors.green(userName)} already exists`)
+            } else {
+                throw err
+            }
         }
-        const password = User.generateRandomizePassword(this.passwordSize)
-        await User.create({
-            name: userName,
-            password,
-        })
-        return password
     }
 }
