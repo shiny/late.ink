@@ -7,6 +7,6 @@ export default defineConfig({
     plugins: [react(), eslint()],
     build: {
         manifest: true,
-        outDir: "../public",
+        outDir: "../src/public",
     },
 })
