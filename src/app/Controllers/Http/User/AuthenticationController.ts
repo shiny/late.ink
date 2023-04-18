@@ -28,8 +28,7 @@ export default class AuthenticationController {
     public async state({ auth, session }: HttpContextContract) {
         return {
             name: auth.user?.name,
-            workspace: session.get('workspace_id'),
-            state: 'fine',
+            workspaceId: session.get('workspace_id'),
         }
     }
 }
