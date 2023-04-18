@@ -1,0 +1,27 @@
+{
+    "loginPage": {
+        "issue_by_web_panel": "Issue ACME SSL certificate by Web Panel",
+        "cert_renewal": "Auto renewal",
+        "cert_deployment": "SSL Certificates deployment",
+        "form": {
+            "login": "Login",
+            "title": "Certification Management",
+            "username": "User Name",
+            "password": "Password",
+            "forget_password": "Forget Pasword?"
+        }
+    },
+    "nav": {
+        "cert": "Certificates",
+        "org": "Organization",
+        "ACME_account": "ACME Account",
+        "deployment": "Cert Deployment",
+        "DNS_verfication": "DNS Verfication"
+    },
+    "certificate": {
+        "input_domains": "Input Domains",
+        "choose_ca_account": "Choose CA & Account",
+        "DNS_Verification": "DNS Verification",
+        "finish": "Finish Order"
+    }
+}

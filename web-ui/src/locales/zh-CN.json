@@ -1,0 +1,27 @@
+{
+    "loginPage": {
+        "issue_by_web_panel": "Web 面板自动申请 SSL 证书",
+        "cert_renewal": "证书自动续期",
+        "cert_deployment": "证书自动部署",
+        "form": {
+            "login": "登录",
+            "title": "证书管理",
+            "username": "用户名",
+            "password": "密码",
+            "forget_password": "忘记密码？"
+        }
+    },
+    "nav": {
+        "cert": "证书",
+        "org": "组织",
+        "ACME_account": "ACME 账户",
+        "deployment": "证书部署",
+        "DNS_verfication": "DNS 自动验证"
+    },
+    "certificate": {
+        "input_domains": "输入域名",
+        "choose_ca_account": "证书颁发机构/账号",
+        "DNS_Verification": "DNS 验证",
+        "finish": "完成订单"
+    }
+}
