@@ -19,6 +19,10 @@ export const IconMoon = ({ className }: IconProps = defaultProps) => <svg
     <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
 </svg>
 
+export const IconLang = ({ className }: IconProps) => <svg
+    className={`${className}`}
+    viewBox="0 0 48 48" fill="none"><path d="M42 43l-2.385-6M26 43l2.384-6m11.231 0l-.795-2-4.18-10h-1.28l-4.181 10-.795 2m11.231 0h-11.23M17 5l1 5M5 11h26M11 11s1.889 7.826 6.611 12.174C22.333 27.522 30 31 30 31" stroke="#4E5969" strokeWidth="2" /><path d="M25 11s-1.889 7.826-6.611 12.174C13.667 27.522 6 31 6 31" stroke="#4E5969" strokeWidth="2" /></svg>
+
 export const IconCert = ({ className }: IconProps) => <svg
     className={className ?? ''}
     viewBox="0 0 48 48" >
