@@ -11,6 +11,7 @@
   "dependencies": {
     "daisyui": "^2.51.5",
     "i18next": "^22.4.14",
+    "ky": "^0.33.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-head": "^3.4.2",
