@@ -39,6 +39,7 @@ module.exports = {
             'never'
         ],
         'react/react-in-jsx-scope': 'off',
-        'react/jsx-no-target-blank': 'off'
+        'react/jsx-no-target-blank': 'off',
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }
