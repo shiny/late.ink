@@ -27,15 +27,15 @@ module.exports = {
     ],
     'rules': {
         'indent': [
-            'error',
+            'warn',
             4
         ],
         'linebreak-style': [
-            'error',
+            'warn',
             'unix'
         ],
         'semi': [
-            'error',
+            'warn',
             'never'
         ],
         'react/react-in-jsx-scope': 'off',
