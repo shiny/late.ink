@@ -25,6 +25,14 @@ export default class AuthenticationController {
         }
     }
 
+    public async logout({ auth, session }: HttpContextContract) {
+        await auth.use('web').logout()
+        session.clear()
+        return {
+            success: true
+        }
+    }
+
     public async state({ auth, session }: HttpContextContract) {
         return {
             name: auth.user?.name,
