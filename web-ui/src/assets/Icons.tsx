@@ -48,3 +48,22 @@ export const IconDeployment = ({ className }: IconProps) => <svg
     viewBox="0 0 48 48">
     <path fillRule="evenodd" clipRule="evenodd" d="M46 8a2 2 0 00-2-2H4a2 2 0 00-2 2v32a2 2 0 002 2h40a2 2 0 002-2V8zM6 12h36v26H6V12zm23 4a1 1 0 011 1v2a1 1 0 01-1 1H11a1 1 0 01-1-1v-2a1 1 0 011-1h18zm9 4v-4h-4v4h4z" />
 </svg>
+
+export const IconLoading = ({ className }: IconProps) => <svg
+    className={`animate-spin w-6 h-6 ${className}`}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+</svg>
+
+export const IconInfo = ({ className }: IconProps) => <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg>
