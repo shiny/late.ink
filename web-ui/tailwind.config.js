@@ -14,7 +14,7 @@ export default {
         logs: false,
         themes: [
             {
-                late: {
+                light: {
                     'primary': '#65c3c8',
                     'primary-focus': '#42b2b8',
                     'primary-content': '#ffffff',
