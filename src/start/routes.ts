@@ -20,3 +20,4 @@
 
 import './routes/user'
 import './routes/spa'
+import './routes/authority'
