@@ -19,9 +19,16 @@
         "DNS_verfication": "DNS Verfication"
     },
     "certificate": {
+        "next": "Next",
         "input_domains": "Input Domains",
         "choose_ca_account": "Choose CA & Account",
         "DNS_Verification": "DNS Verification",
-        "finish": "Finish Order"
+        "finish": "Finish Order",
+        "cert_domain": "Cert's Domain",
+        "authority_account": "Cert Authority Account",
+        "cert_authority": "Cert Authority",
+        "select_account": "Select {name}'s Account",
+        "create_account": "Create {name}'s account",
+        "submit_account_creation": "Submit"
     }
 }
