@@ -1,7 +1,8 @@
 import { create } from "zustand"
 import { persist } from 'zustand/middleware'
 import { getUserDefaultLanguage, resources } from './'
-import i18n from "i18next"
+import i18n, { use } from "i18next"
+import ICU from "i18next-icu"
 import { initReactI18next } from "react-i18next"
 
 
@@ -16,6 +17,7 @@ const useLocaleStore = create(
         locale: getUserDefaultLanguage('en'),
         init: () => {
             i18n.use(initReactI18next)
+                use(ICU)
                 .init({
                     resources,
                     lng: get().locale,
