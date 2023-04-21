@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export default function SelectCaAccount() {
-    const { authorities, initiated, fetchFromServer, accounts, fetchAccounts } = useAuthority()
+    const { authorities, initiated, fetchFromServer, accounts, fetchAccounts, createAccount } = useAuthority()
     const findAuthority = (authorityId: number) => authorities.find(item => item.id === authorityId)
     const { t } = useTranslation('translation', { keyPrefix: "certificate" })
     const [ authorityId, selectAuthorityId ] = useState<number|undefined>()
@@ -25,6 +25,12 @@ export default function SelectCaAccount() {
             fetchAccounts(authorityId)
         }
     }, [ authorityId ])
+
+    const [ email, setEmail ] = useState('')
+    const onCreateAccount = () => {
+        if (authorityId && email)
+            createAccount({ authorityId, email })
+    }
 
     return <div>
         <div>
@@ -66,8 +72,8 @@ export default function SelectCaAccount() {
                     name: authority.ca
                 })}</div>
             <div>
-                <input type="email" placeholder="E-Mail" className="input input-bordered w-full max-w-xs" />
-                <button className="btn">{t('submit_account_creation')}</button>
+                <input type="email" onChange={e => setEmail(e.target.value)} placeholder="E-Mail" className="input input-bordered w-full max-w-xs" />
+                <button className="btn ml-3" onClick={onCreateAccount}>{t('submit_account_creation')}</button>
             </div>
         </div>}
         

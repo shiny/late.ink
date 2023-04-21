@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, scope } from '@ioc:Adonis/Lucid/Orm'
 
 export default class AuthorityAccount extends BaseModel {
   @column({ isPrimary: true })
@@ -18,9 +18,14 @@ export default class AuthorityAccount extends BaseModel {
   public accountUrl: string
 
   @column({
-    consume: (value: string) => JSON.parse(value)
+    consume: (value: string) => JSON.parse(value),
+    serializeAs: null
   })
   public jwk: string
+
+  public static inWorkspace = scope((query, workspaceId: number) => {
+    query.where('workspace_id', workspaceId)
+  })
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

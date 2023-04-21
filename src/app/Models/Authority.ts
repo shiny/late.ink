@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import ACME from 'handyacme'
+import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import ACME, { Ca } from 'handyacme'
+import AuthorityAccount from './AuthorityAccount'
 
 export type AvailableAuthority = 'LetsEncrypt' | 'ZeroSSL' | 'BuyPass'
 export type AvailableEnvironment = 'staging' | 'production'
@@ -10,7 +11,7 @@ export default class Authority extends BaseModel {
     public id: number
 
     @column()
-    public ca: string
+    public ca: AvailableAuthority
 
     @column()
     public type: AvailableEnvironment
@@ -42,12 +43,24 @@ export default class Authority extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
+    @hasMany(() => AuthorityAccount)
+    public accounts: HasMany<typeof AuthorityAccount>
+
+    private acmeInstance: Ca
+
+    public async resolveInstance(): Promise<Ca> {
+        if (!this.acmeInstance) {
+            this.acmeInstance = await ACME.create(this.ca, this.type)
+        }
+        return this.acmeInstance
+    }
+
     public static async discoverAndSave(
         authorityName: AvailableAuthority,
         type: AvailableEnvironment
     ) {
         const ca = await ACME.create(authorityName, type)
-        return await Authority.updateOrCreate(
+        return Authority.updateOrCreate(
             {
                 ca: authorityName,
                 type,
@@ -64,5 +77,19 @@ export default class Authority extends BaseModel {
                 externalAccountRequired: ca.directory.meta?.externalAccountRequired ?? false,
             }
         )
+    }
+
+    public async createAccount({ email, workspaceId }: { email: string, workspaceId: number }) {
+        const client = await this.resolveInstance()
+        await client.createAccount(email)
+        
+        const accountInfo = {
+            jwk: await client.account.exportPrivateJwk(),
+            email: client.account.email,
+            accountUrl: client.account.accountUrl,
+            authorityId: this.id,
+            workspaceId
+        }
+      return AuthorityAccount.create(accountInfo)
     }
 }

@@ -13,12 +13,18 @@ interface Account {
     id: number
 }
 
+interface CreateAccountOptions {
+    authorityId: number
+    email: string
+}
+
 interface UseAuthority {
     authorities: Authority[]
     accounts: Account[],
     initiated: boolean
     fetchFromServer: () => Promise<void>
     fetchAccounts: (authorityId: number) => Promise<void>
+    createAccount: (form: CreateAccountOptions) => Promise<any>
     clearAccounts: () => void
 }
 
@@ -43,6 +49,12 @@ const useAuthority = create<UseAuthority>((set) => {
                     accounts
                 })
             }
+        },
+        createAccount: async ({ authorityId, email }: CreateAccountOptions) => {
+            const account = await post(`authority/${authorityId}/account`, {
+                email
+            })
+            return account
         },
         clearAccounts: () => {
             set({
