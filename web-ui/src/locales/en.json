@@ -23,6 +23,7 @@
         "input_domains": "Input Domains",
         "choose_ca_account": "Choose CA & Account",
         "DNS_Verification": "DNS Verification",
+        "select_DNS_provider": "Select DNS Provider",
         "finish": "Finish Order",
         "cert_domain": "Cert's Domain",
         "authority_account": "Cert Authority Account",
@@ -30,5 +31,10 @@
         "select_account": "Select {name}'s Account",
         "create_account": "Create {name}'s account",
         "submit_account_creation": "Submit"
+    },
+    "dnsProvider": {
+        "aliyun": "Alibaba Cloud Dns",
+        "cloudflare": "Cloudflare",
+        "qcloud": "Tencent Cloud (DNSPod)"
     }
 }

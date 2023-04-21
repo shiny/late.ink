@@ -23,6 +23,7 @@
         "input_domains": "输入域名",
         "choose_ca_account": "证书颁发机构/账号",
         "DNS_Verification": "DNS 验证",
+        "select_DNS_provider": "选择 DNS 服务商",
         "finish": "完成订单",
         "cert_domain": "证书的域名",
         "authority_account": "颁发机构账号",
@@ -30,5 +31,10 @@
         "select_account": "选择 {name} 账号",
         "create_account": "创建 {name} 账号",
         "submit_account_creation": "创建账号"
+    },
+    "dnsProvider": {
+        "aliyun": "阿里云 DNS",
+        "cloudflare": "Cloudflare",
+        "qcloud": "腾讯云（DNSPod）"
     }
 }
