@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist } from 'zustand/middleware'
-import { fetcher, poster } from './request'
+import { fetch, post } from './request'
 
 interface UserState {
     workspaceId: number
@@ -36,7 +36,7 @@ interface Response {
 }
 
 export async function postLogin(user: User) {
-    const res = await poster("/user/login", user)
+    const res = await post("user/login", user)
     console.log(res)
     return {
         errors: res.errors ?? [],
@@ -60,12 +60,12 @@ const useUserState = create(
                     }
                 },
                 logout: async () => {
-                    await fetcher("/user/logout")
+                    await fetch("user/logout")
                     get().clear()
                 },
                 syncLoginState: async () => {
                     try {
-                        const { name, workspaceId }: UserStateResponse = await fetcher("/user/state")
+                        const { name, workspaceId }: UserStateResponse = await fetch("user/state")
                         console.log('res', name, workspaceId)
                         set({
                             isLoggedIn: true,

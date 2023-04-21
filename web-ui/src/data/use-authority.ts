@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { fetcher } from "./request"
+import { fetch, post } from "./request"
 
 interface Authority {
     id: number
@@ -28,7 +28,7 @@ const useAuthority = create<UseAuthority>((set) => {
         accounts: [] as Account[],
         initiated: false,
         fetchFromServer: async () => {
-            const authorities = await fetcher('/authority')
+            const authorities = await fetch('authority')
             if (Array.isArray(authorities)) {
                 set({
                     initiated: true,
@@ -37,7 +37,7 @@ const useAuthority = create<UseAuthority>((set) => {
             }
         },
         fetchAccounts: async (authorityId: number) => {
-            const accounts = await fetcher(`/authority/${authorityId}/account`)
+            const accounts = await fetch(`authority/${authorityId}/account`)
             if (Array.isArray(accounts)) {
                 set({
                     accounts
