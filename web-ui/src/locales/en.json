@@ -16,9 +16,11 @@
         "org": "Organization",
         "ACME_account": "ACME Account",
         "deployment": "Cert Deployment",
-        "DNS_verfication": "DNS Verfication"
+        "DNS_verfication": "DNS Verfication",
+        "logout": "Logout"
     },
     "certificate": {
+        "create_cert": "Create Certificate",
         "next": "Next",
         "input_domains": "Input Domains",
         "choose_ca_account": "Choose CA & Account",
@@ -26,6 +28,7 @@
         "select_DNS_provider": "Select DNS Provider",
         "finish": "Finish Order",
         "cert_domain": "Cert's Domain",
+        "append_domain": "append another domain",
         "authority_account": "Cert Authority Account",
         "cert_authority": "Cert Authority",
         "select_account": "Select {name}'s Account",
@@ -36,5 +39,11 @@
         "aliyun": "Alibaba Cloud Dns",
         "cloudflare": "Cloudflare",
         "qcloud": "Tencent Cloud (DNSPod)"
+    },
+    "home": "Home",
+    "introduce": {
+        "first_cert": "Get the first certificate",
+        "first_cert_description": "You can get and deploy the SSL certificate by set up the DNS resolver API",
+        "get_started": "Get Started"
     }
 }

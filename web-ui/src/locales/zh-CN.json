@@ -16,9 +16,11 @@
         "org": "组织",
         "ACME_account": "ACME 账户",
         "deployment": "证书部署",
-        "DNS_verfication": "DNS 自动验证"
+        "DNS_verfication": "DNS 自动验证",
+        "logout": "退出登录"
     },
     "certificate": {
+        "create_cert": "创建证书",
         "next": "下一步",
         "input_domains": "输入域名",
         "choose_ca_account": "证书颁发机构/账号",
@@ -26,6 +28,7 @@
         "select_DNS_provider": "选择 DNS 服务商",
         "finish": "完成订单",
         "cert_domain": "证书的域名",
+        "append_domain": "添加另一个域名",
         "authority_account": "颁发机构账号",
         "cert_authority": "证书颁发机构",
         "select_account": "选择 {name} 账号",
@@ -36,5 +39,11 @@
         "aliyun": "阿里云 DNS",
         "cloudflare": "Cloudflare",
         "qcloud": "腾讯云（DNSPod）"
+    },
+    "home": "首页",
+    "introduce": {
+        "first_cert": "获取第一张证书",
+        "first_cert_description": "通过设置域名的自动解析，即可获取并部署免费的 SSL 证书",
+        "get_started": "创建证书"
     }
 }
