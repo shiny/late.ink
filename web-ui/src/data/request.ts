@@ -1,10 +1,9 @@
 import useLocaleStore from "@/locales/store"
-import ky from 'ky'
+import ky, { Options } from 'ky'
 
 
 const controller = new AbortController()
 
-const locale = useLocaleStore.getState().locale
 let isRequesting = false
 const endpointPrefix = '/api/v1'
 const defaultTimeout = 60 * 1000
@@ -12,15 +11,13 @@ const api = ky.create({
     prefixUrl: endpointPrefix,
     signal: controller.signal,
     timeout: defaultTimeout,
+    retry: 1,
+    throwHttpErrors: false,
     hooks: {
         beforeRequest: [
-            request => request.headers.set('Accept-Language', locale),
-            () => {
-                // only one request at a time
-                if (isRequesting)
-                    controller.abort()
-                else 
-                    isRequesting = true
+            request => {
+                const locale = useLocaleStore.getState().locale
+                request.headers.set('Accept-Language', locale)
             }
         ],
         afterResponse: [
@@ -31,13 +28,24 @@ const api = ky.create({
     }
 })
 
-const fetch = async (url: string): Promise<any> => {
-    return api.get(url).json()
+function startRequesting() {
+    // only one request at a time
+    if (isRequesting)
+        controller.abort()
+    else 
+        isRequesting = true
 }
 
-const post = async (url: string, data = {}): Promise<any> => {
+const fetch = async (url: string, options?: Options): Promise<any> => {
+    startRequesting()
+    return api.get(url, options).json()
+}
+
+const post = async (url: string, data = {}, options?: Options): Promise<any> => {
+    startRequesting()
     return api.post(url, {
         json: data,
+        ...options,
     }).json()
 }
 

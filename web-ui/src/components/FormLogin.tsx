@@ -1,49 +1,26 @@
-import type { User } from "@/data/use-user-state"
-import { KeyboardEventHandler, useState } from "react"
+import { IconLoading } from "@/assets/Icons"
+import { PropsWithChildren } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Form, useNavigation, useSubmit } from "react-router-dom"
 
-interface FormLoginProps {
-    onSubmit: (user: User) => Promise<any>,
-    onLoggedIn: (response: any) => any
-}
-
-export default function FormLogin({ onSubmit, onLoggedIn }: FormLoginProps) {
+export default function FormLogin({ children }: PropsWithChildren) {
 
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState([])
     const { t } = useTranslation('translation', {
         keyPrefix: 'loginPage.form'
     })
 
-    async function submit({ name, password }: User) {
-        if (!isAvailble()) {
-            return
-        }
-        setErrors([])
-        const response = await onSubmit({ name, password })
-        const { success, errors } = response
-        if (success) {
-            onLoggedIn(response)
-        } else {
-            setErrors(errors)
-        }
-    }
-
-    const onKeyUp: KeyboardEventHandler = ({ key }) => {
-        if (key === 'Enter') {
-            submit({
-                name,
-                password
-            })
-        }
-    }
+    const navigation = useNavigation()
 
     const isAvailble = () => {
         return name !== '' && password !== ''
     }
 
-    return <div>
+    const isSubmitting = () => navigation.state === 'submitting'
+
+    return <Form method="POST">
         <div>
             <h1 className="text-2xl">{t('title')}</h1>
         </div>
@@ -52,7 +29,7 @@ export default function FormLogin({ onSubmit, onLoggedIn }: FormLoginProps) {
                 value={name}
                 onChange={e => setName(e.target.value)}
                 className="input input-bordered w-full"
-                name="text-input-name"
+                name="name"
                 placeholder={t('login') ?? ''}
             />
         </div>
@@ -60,24 +37,33 @@ export default function FormLogin({ onSubmit, onLoggedIn }: FormLoginProps) {
             <input
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                onKeyUp={onKeyUp}
                 className="input input-bordered w-full"
-                name="text-input-name"
+                name="password"
                 placeholder={t('password') ?? ''}
                 type="password"
             />
         </div>
+        {children}
+        <button
+            className="btn btn-primary btn-block mt-5"
+            disabled={!isAvailble() || isSubmitting()}
+            type="submit"
+        >
+            {isSubmitting() && <>
+                <IconLoading className="w-6 h-6 mr-4" />
+                {t('submitting...')}
+            </>}
+            {!isSubmitting() && t('login')}
+        </button>
+    </Form>
+}
+
+FormLogin.ErrorInfo = function ErrorInfo({ errors }: { errors: { message: string }[] }) {
+    return <>
         {errors.length > 0 && <div className="alert alert-error mt-5">
             {errors.map(({ message }, index) => <span key={index}>
                 {message}
             </span>)}
         </div>}
-        <button
-            className="btn btn-primary btn-block mt-5"
-            disabled={!isAvailble()}
-            onClick={() => submit({ name, password })}
-        >
-            {t('login')}
-        </button>
-    </div>
+    </>
 }

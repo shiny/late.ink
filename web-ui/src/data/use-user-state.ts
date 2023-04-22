@@ -9,7 +9,7 @@ interface UserState {
     loginPage: string
     login: (user: User) => Promise<Response>
     logout: () =>Promise<void>
-    syncLoginState: () => Promise<void>
+    syncLoginState: () => Promise<boolean>
     clear: () => void
 }
 
@@ -31,12 +31,13 @@ export interface User {
 }
 
 interface Response {
-    errors?: string[]
+    errors?: { message: '' }[]
     success: boolean
 }
 
 export async function postLogin(user: User) {
     const res = await post("user/login", user)
+    console.log(res)
     return {
         errors: res.errors ?? [],
         success: res.success ?? false,
@@ -64,14 +65,18 @@ const useUserState = create(
                 },
                 syncLoginState: async () => {
                     try {
-                        const { name, workspaceId }: UserStateResponse = await fetch("user/state")
+                        const { name, workspaceId }: UserStateResponse = await fetch("user/state", {
+                            throwHttpErrors: true
+                        })
                         set({
                             isLoggedIn: true,
                             name,
                             workspaceId
                         })
+                        return true
                     } catch (err) {
                         console.error(err)
+                        return false
                         // get().clear()
                     }
                 },

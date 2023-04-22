@@ -8,7 +8,8 @@
             "title": "Certification Management",
             "username": "User Name",
             "password": "Password",
-            "forget_password": "Forget Pasword?"
+            "forget_password": "Forget Pasword?",
+            "submitting...": "Submitting..."
         }
     },
     "nav": {
