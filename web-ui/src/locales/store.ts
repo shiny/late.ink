@@ -17,7 +17,7 @@ const useLocaleStore = create(
         locale: getUserDefaultLanguage('en'),
         init: () => {
             i18n.use(initReactI18next)
-                use(ICU)
+                .use(ICU)
                 .init({
                     resources,
                     lng: get().locale,
