@@ -7,8 +7,8 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 
 export async function loader({ request }: { request: Request }) {
     const useUserState = (await import('@/data/use-user-state')).default
-    const { syncLoginState, isLoggedIn, loginPage } = useUserState.getState()
-    await syncLoginState()
+    const { syncLoginState, loginPage } = useUserState.getState()
+    const isLoggedIn = await syncLoginState()
     if (!isLoggedIn) {
         return redirect(loginPage + `?next=` + encodeURIComponent(request.url))
     } else {
