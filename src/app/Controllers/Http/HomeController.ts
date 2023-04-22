@@ -10,7 +10,6 @@ export default class HomeController {
     }
 
     public async userState({ session }: HttpContextContract) {
-        console.log(session.all())
         return {
             user: session.get('name'),
         }
