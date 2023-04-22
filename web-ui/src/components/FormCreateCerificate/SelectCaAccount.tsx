@@ -7,7 +7,7 @@ export default function SelectCaAccount() {
     const { authorities, initiated, fetchFromServer, accounts, fetchAccounts, createAccount } = useAuthority()
     const findAuthority = (authorityId: number) => authorities.find(item => item.id === authorityId)
     const { t } = useTranslation('translation', { keyPrefix: "certificate" })
-    const [ authorityId, selectAuthorityId ] = useState<number|undefined>()
+    const [authorityId, selectAuthorityId] = useState<number | undefined>()
     useEffect(() => {
         fetchFromServer()
     }, [])
@@ -24,9 +24,9 @@ export default function SelectCaAccount() {
         if (authorityId) {
             fetchAccounts(authorityId)
         }
-    }, [ authorityId ])
+    }, [authorityId])
 
-    const [ email, setEmail ] = useState('')
+    const [email, setEmail] = useState('')
     const onCreateAccount = () => {
         if (authorityId && email)
             createAccount({ authorityId, email })
@@ -61,7 +61,7 @@ export default function SelectCaAccount() {
         </div>
         {!!authority && <div className="mt-4">
             <label htmlFor="account" className="block text-lg font-semibold leading-6 text-gray-900">
-                {t('select_account', { name: authority?.ca || ''})}
+                {t('select_account', { name: authority?.ca || '' })}
             </label>
             <select id="account" className="select select-bordered text-xl w-full max-w-xs mt-2">
                 {accounts.map(account => <option key={`account-${account.id}`} value={account.id}>
@@ -69,14 +69,14 @@ export default function SelectCaAccount() {
                 </option>)}
             </select>
             <div className="divider">{t('create_account', {
-                    name: authority.ca
-                })}</div>
+                name: authority.ca
+            })}</div>
             <div>
                 <input type="email" onChange={e => setEmail(e.target.value)} placeholder="E-Mail" className="input input-bordered w-full max-w-xs" />
                 <button className="btn ml-3" onClick={onCreateAccount}>{t('submit_account_creation')}</button>
             </div>
         </div>}
-        
+
         <div className="mt-6">
             <button className="btn btn-primary btn-lg">{t('next')}</button>
         </div>

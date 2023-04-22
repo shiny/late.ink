@@ -1,6 +1,6 @@
 
 import { IconCert, IconDnsVerification, IconAcmeAccount, IconDeployment } from '@/assets/Icons'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import LateLogo from "/late.svg"
 import { useTranslation } from 'react-i18next'
 

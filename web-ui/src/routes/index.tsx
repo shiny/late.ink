@@ -1,6 +1,5 @@
 
-import { redirect, RouteObject } from "react-router-dom"
-import { lazy } from "@/utils/router"
+import {  RouteObject } from "react-router-dom"
 
 export const routes: RouteObject[] = [
     {
