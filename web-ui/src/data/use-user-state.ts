@@ -5,7 +5,7 @@ import { fetch, post } from './request'
 interface UserState {
     workspaceId: number
     name: string
-    isLoggedIn: boolean
+    isLoggedIn?: boolean
     loginPage: string
     login: (user: User) => Promise<Response>
     logout: () =>Promise<void>
@@ -20,7 +20,7 @@ interface UserStateResponse {
 
 const defaultState = {
     workspaceId: 0,
-    isLoggedIn: false,
+    isLoggedIn: undefined,
     name: "",
     loginPage: "/login",
 }
@@ -37,7 +37,6 @@ interface Response {
 
 export async function postLogin(user: User) {
     const res = await post("user/login", user)
-    console.log(res)
     return {
         errors: res.errors ?? [],
         success: res.success ?? false,
@@ -66,17 +65,18 @@ const useUserState = create(
                 syncLoginState: async () => {
                     try {
                         const { name, workspaceId }: UserStateResponse = await fetch("user/state")
-                        console.log('res', name, workspaceId)
                         set({
                             isLoggedIn: true,
                             name,
                             workspaceId
                         })
                     } catch (err) {
-                        get().clear()
+                        console.error(err)
+                        // get().clear()
                     }
                 },
                 clear: () => {
+                    console.log('clear')
                     set({
                         workspaceId: 0,
                         isLoggedIn: false,

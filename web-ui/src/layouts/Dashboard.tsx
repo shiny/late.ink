@@ -1,24 +1,29 @@
 import DropdownLanguage from '@/components/DropdownLanguage'
 import Sidebar from '@/components/Sidebar'
 import SwapDarkmode from '@/components/SwapDarkmode'
-import useUserState from '@/data/use-user-state'
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, redirect } from 'react-router-dom'
+import { useDataFromLoader } from '@/utils/router'
+import Breadcrumbs from '@/components/Breadcrumbs'
+
+export async function loader({ request }: { request: Request }) {
+    const useUserState = (await import('@/data/use-user-state')).default
+    const { syncLoginState, isLoggedIn, loginPage } = useUserState.getState()
+    await syncLoginState()
+    if (!isLoggedIn) {
+        return redirect(loginPage + `?next=` + encodeURIComponent(request.url))
+    } else {
+        return {
+            isLoggedIn
+        }
+    }
+}
 
 /**
  * Dashborad Layout File
  * @returns 
  */
-export default function Dashboard() {
-    const { isLoggedIn, loginPage, syncLoginState } = useUserState()
-    const navigate = useNavigate()
-    if (!isLoggedIn) {
-        navigate(loginPage)
-    }
-    console.log(isLoggedIn)
-    useEffect(() => {
-        syncLoginState()
-    }, [])
+export function Component() {
+    useDataFromLoader(loader)
 
     return <div>
         <div className="drawer drawer-mobile bg-base-200">
@@ -29,10 +34,21 @@ export default function Dashboard() {
                         <SwapDarkmode />
                         <DropdownLanguage />
                     </header>
+                    <div className='mx-10 my-5'>
+                        <Breadcrumbs/>
+                    </div>
                     <Outlet />
                 </main>
             </div>
             <Sidebar />
         </div>
     </div>
+}
+
+
+export const handle = {
+    crumb: {
+        title: 'home',
+        to: '/'
+    }
 }

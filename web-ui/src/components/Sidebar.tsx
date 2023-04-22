@@ -3,12 +3,9 @@ import { IconCert, IconDnsVerification, IconAcmeAccount, IconDeployment } from '
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LateLogo from "/late.svg"
 import { useTranslation } from 'react-i18next'
-import useUserState from '@/data/use-user-state'
 
 export default function Sidebar() {
     const { t } = useTranslation()
-    const { logout, loginPage } = useUserState()
-    const navigate = useNavigate()
     const location = useLocation()
 
     const menus = [
@@ -34,10 +31,6 @@ export default function Sidebar() {
         }
     ]
 
-    const onLogout = () => {
-        logout().then(() => navigate(`${loginPage}?next=${encodeURIComponent(location.pathname)}`))
-    }
-
     return <div className="drawer-side py-6 px-12 pr-14 bg-base-100">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <div className='flex flex-col'>
@@ -58,7 +51,7 @@ export default function Sidebar() {
             <div className='grow-0'>
                 <ul className="menu text-base-content">
                     <li><a>Docs</a></li>
-                    <li><span onClick={onLogout}>Logout</span></li>
+                    <li><Link to={`/logout?next=${encodeURIComponent(location.pathname)}`}>{t('nav.logout')}</Link></li>
                 </ul>
             </div>
             <div className="grow-0 divider w-32" />

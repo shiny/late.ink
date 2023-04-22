@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
-export default function Login() {
+export function Component() {
 
     const { isLoggedIn, syncLoginState, login } = useUserState()
     const navigate = useNavigate()
@@ -24,7 +24,6 @@ export default function Login() {
 
     useEffect(() => {
         syncLoginState().then(() => {
-            console.log('isLoggedIn', isLoggedIn)
             if (isLoggedIn) {
                 onLoggedIn()
             }
@@ -70,6 +69,3 @@ export default function Login() {
         </>
     )
 }
-
-Login.withoutDefaultLayout = true
-Login.checkLoginState = false

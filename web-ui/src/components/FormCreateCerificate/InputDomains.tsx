@@ -111,7 +111,7 @@ export default function InputDomains(props: InputDomainsProps) {
                 <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 align-middle inline-block">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                    Add another domain
+                {t('append_domain')}
             </a>
         </div>
         <div className="mt-4">

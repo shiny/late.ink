@@ -1,32 +1,27 @@
 
-import type { RouteObject } from "react-router-dom"
-
-// import Login from "@/pages/login"
-import Layout from "@/layouts/Dashboard"
-import { lazy, Suspense } from "react"
-
-const Login = lazy(() => import('@/pages/login'))
-const Dashboard = lazy(() => import('@/pages/index'))
-const Create = lazy(() => import('@/pages/certificate/create'))
+import { redirect, RouteObject } from "react-router-dom"
+import { lazy } from "@/utils/router"
 
 export const routes: RouteObject[] = [
     {
         path: '/login',
-        element: <Suspense>
-            <Login />
-        </Suspense>,
+        lazy: () => import('@/pages/login')
+    },
+    {
+        path: '/logout',
+        lazy: () => import('@/pages/logout')
     },
     {
         path: '/',
-        element: <Layout />,
+        lazy: () => import('@/layouts/Dashboard'),
         children: [
             {
                 path: '',
-                element: <Suspense><Dashboard /></Suspense>
+                lazy: () => import('@/pages/index')
             },
             {
                 path: '/certificate/create',
-                element: <Suspense><Create /></Suspense> 
+                lazy: () => import('@/pages/certificate/create')
             }
         ]
     }

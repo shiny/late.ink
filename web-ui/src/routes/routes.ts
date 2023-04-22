@@ -4,6 +4,7 @@ import type { PluginOption } from "vite"
 const routes = [
     "/",
     "/login",
+    "/logout",
     "/certificate",
     "/certificate/create"
 ]

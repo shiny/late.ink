@@ -5,7 +5,7 @@ import ky from 'ky'
 const controller = new AbortController()
 
 const locale = useLocaleStore.getState().locale
-
+let isRequesting = false
 const endpointPrefix = '/api/v1'
 const defaultTimeout = 60 * 1000
 const api = ky.create({
@@ -16,8 +16,16 @@ const api = ky.create({
         beforeRequest: [
             request => request.headers.set('Accept-Language', locale),
             () => {
-                // cancel previous request
-                controller.abort()
+                // only one request at a time
+                if (isRequesting)
+                    controller.abort()
+                else 
+                    isRequesting = true
+            }
+        ],
+        afterResponse: [
+            () => {
+                isRequesting = false
             }
         ]
     }
