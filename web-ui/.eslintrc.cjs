@@ -41,6 +41,7 @@ module.exports = {
         'no-useless-catch': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-no-target-blank': 'off',
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off"
     }
 }
