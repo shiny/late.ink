@@ -1,4 +1,4 @@
-import { ActionFunction, LazyRouteFunction, LoaderFunction, useActionData, useLoaderData } from 'react-router-dom'
+import { ActionFunction, LoaderFunction, useActionData, useLoaderData } from 'react-router-dom'
 
 /**
  * add types for userLoaderData
@@ -12,9 +12,4 @@ export function useDataFromLoader<LoaderFn extends LoaderFunction>(loaderFn: Loa
 
 export function useDataFromAction<ActionFn extends ActionFunction>(actionFn: ActionFn) {
     return useActionData() as Awaited<ReturnType<typeof actionFn>>
-}
-
-export function lazy(path: string) {
-    const module = import('@/pages/index')
-    return module
 }
