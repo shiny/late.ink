@@ -37,12 +37,12 @@ function startRequesting() {
 }
 
 const fetch = async (url: string, options?: Options): Promise<any> => {
-    startRequesting()
+    // startRequesting()
     return api.get(url, options).json()
 }
 
 const post = async (url: string, data = {}, options?: Options): Promise<any> => {
-    startRequesting()
+    // startRequesting()
     return api.post(url, {
         json: data,
         ...options,

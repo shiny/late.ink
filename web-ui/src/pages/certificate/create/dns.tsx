@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export default function SelectDnsProvider() {
+export function Component() {
     const { t } = useTranslation('translation')
     return <div>
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">

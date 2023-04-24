@@ -15,12 +15,30 @@ export const routes: RouteObject[] = [
         lazy: () => import('@/layouts/Dashboard'),
         children: [
             {
-                path: '',
+                index: true,
                 lazy: () => import('@/pages/index')
             },
             {
                 path: '/certificate/create',
-                lazy: () => import('@/pages/certificate/create')
+                lazy: () => import('@/pages/certificate/create/layout'),
+                children: [
+                    {
+                        path: 'domain',
+                        lazy: () => import('@/pages/certificate/create/domain'),
+                    },
+                    {
+                        path: 'ca',
+                        lazy: () => import('@/pages/certificate/create/ca')
+                    },
+                    {
+                        path: 'dns',
+                        lazy: () => import('@/pages/certificate/create/dns')
+                    },
+                    {
+                        path: 'finish',
+                        lazy: () => import('@/pages/certificate/create/finish')
+                    },
+                ]
             }
         ]
     }

@@ -1,4 +1,4 @@
-export default function PanelFinishOrder() {
+export function Component() {
     return <div>
         <div>
             <h2 className="text-2xl font-semibold leading-7 text-gray-900">完成订单

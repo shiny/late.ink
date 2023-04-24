@@ -23,7 +23,7 @@ export function Component() {
                 <Lottie loop={false} animationData={animationData} />
                 <h1 className="text-5xl font-bold">{t('first_cert')}</h1>
                 <p className="py-6">{t('first_cert_description')}</p>
-                <Link to="/certificate/create">
+                <Link to="/certificate/create/domain">
                     <button className="btn btn-primary">{t('get_started')}</button>
                 </Link>
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
