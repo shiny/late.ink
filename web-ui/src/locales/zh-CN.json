@@ -34,7 +34,8 @@
         "cert_authority": "证书颁发机构",
         "select_account": "选择 {name} 账号",
         "create_account": "创建 {name} 账号",
-        "submit_account_creation": "创建账号"
+        "submit_account_creation": "创建账号",
+        "or_create_new_account": "或创建一个新 {name} 账号"
     },
     "dnsProvider": {
         "aliyun": "阿里云 DNS",
@@ -42,6 +43,8 @@
         "qcloud": "腾讯云（DNSPod）"
     },
     "home": "首页",
+    "cancel": "取消",
+    "loading": "加载中…",
     "introduce": {
         "first_cert": "获取第一张证书",
         "first_cert_description": "通过设置域名的自动解析，即可获取并部署免费的 SSL 证书",
