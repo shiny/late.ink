@@ -27,7 +27,6 @@ export default class extends BaseSchema {
 
         this.defer(async () => {
             // Only executed when not running in dry-run mode
-            await this.db.from('users')
             await this.db.table(this.tableName).multiInsert([
                 {
                     ca: 'LetsEncrypt',
