@@ -17,7 +17,7 @@
 | import './routes/customer'
 |
 */
+import { join } from 'path'
+import { requireAll } from '@ioc:Adonis/Core/Helpers'
 
-import './routes/user'
-import './routes/spa'
-import './routes/authority'
+requireAll(join(__dirname, 'routes'))
