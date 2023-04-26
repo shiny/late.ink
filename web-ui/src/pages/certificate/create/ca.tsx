@@ -89,10 +89,10 @@ export function Component() {
                 type="submit"
                 disabled={!isFormReady() || submitting}
                 className="btn btn-primary btn-lg">
-                    {submitting && <>
-                        <IconLoading className="mr-3" /> Submitting
-                    </>}
-                    {!submitting && t('next')}
+                {submitting && <>
+                    <IconLoading className="mr-3" /> Submitting
+                </>}
+                {!submitting && t('next')}
             </button>
         </div>
     </Form>
@@ -107,7 +107,7 @@ function SelectAccount() {
         getAuthority,
         selectDefaultAccountId
     } = useAuthority()
-    const [ isCreate, setCreate ] = useState(accounts.length === 0)
+    const [isCreate, setCreate] = useState(accounts.length === 0)
     const authority = getAuthority()
 
     if (!authority) {
