@@ -13,6 +13,18 @@ export default class extends BaseSchema {
             table.timestamp('created_at', { useTz: true })
             table.timestamp('updated_at', { useTz: true })
         })
+        this.defer(async () => {
+            // Only executed when not running in dry-run mode
+            await this.db.table(this.tableName).multiInsert([
+                {
+                    user_id: 1,
+                    workspace_id: 1,
+                    role: 'owner',
+                    created_at: new Date,
+                    updated_at: new Date
+                }
+            ])
+        })
     }
 
     public async down() {

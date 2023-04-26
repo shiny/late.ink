@@ -1,4 +1,8 @@
+import Application from '@ioc:Adonis/Core/Application'
+import Hash from '@ioc:Adonis/Core/Hash'
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import { string } from '@ioc:Adonis/Core/Helpers'
+import fs from "node:fs"
 
 export default class extends BaseSchema {
     protected tableName = 'users'
@@ -14,6 +18,22 @@ export default class extends BaseSchema {
              */
             table.timestamp('created_at', { useTz: true })
             table.timestamp('updated_at', { useTz: true })
+        })
+
+
+        const randomPassword = string.generateRandom(12)
+        const file = Application.tmpPath('random-admin-password.txt')
+        fs.writeFileSync(file, randomPassword)
+        this.defer(async () => {
+            // Only executed when not running in dry-run mode
+            await this.db.table(this.tableName).multiInsert([
+                {
+                    name: 'admin',
+                    password: await Hash.make(randomPassword),
+                    created_at: new Date,
+                    updated_at: new Date
+                }
+            ])
         })
     }
 
