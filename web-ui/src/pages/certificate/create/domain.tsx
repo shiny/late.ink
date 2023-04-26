@@ -3,7 +3,7 @@ import { IconAdd, IconInfo } from "@/assets/Icons"
 import { useDataFromLoader } from "@/utils/router"
 import { KeyboardEvent, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Form, redirect, useNavigation, useOutletContext, useSubmit } from "react-router-dom"
+import { Form, redirect, useNavigation, useSubmit } from "react-router-dom"
 import { DomainState, useDomains } from "@/data/use-form"
 import { isDeletingKey, isEnterKey } from '@/utils/keyborad'
 

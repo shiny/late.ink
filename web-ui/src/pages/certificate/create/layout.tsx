@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
 
 export async function action() {
