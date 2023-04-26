@@ -3,9 +3,11 @@ import { IconCert, IconDnsVerification, IconAcmeAccount, IconDeployment } from '
 import { Link, useLocation } from 'react-router-dom'
 import LateLogo from "/late.svg"
 import { useTranslation } from 'react-i18next'
+import useUserState from '@/data/use-user-state'
 
 export default function Sidebar() {
     const { t } = useTranslation()
+    const name = useUserState(state => state.name)
     const location = useLocation()
 
     const menus = [
@@ -57,7 +59,7 @@ export default function Sidebar() {
             <div className="grow-0 divider w-32" />
             <div className='grow-0'>
                 <ul className="menu text-base-content">
-                    <li><a>Admin</a></li>
+                    <li><a>{name}</a></li>
                 </ul>
             </div>
         </div>
