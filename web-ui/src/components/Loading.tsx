@@ -1,6 +1,6 @@
-import { IconLoading } from "@/assets/Icons";
-import { PropsWithChildren } from "react";
-import { useTranslation } from "react-i18next";
+import { IconLoading } from "@/assets/Icons"
+import { PropsWithChildren } from "react"
+import { useTranslation } from "react-i18next"
 
 interface Props {
     loading: boolean
