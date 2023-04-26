@@ -38,6 +38,8 @@ export default class extends BaseSchema {
                     revoke_cert: 'https://acme-v02.api.letsencrypt.org/acme/revoke-cert',
                     key_change: 'https://acme-v02.api.letsencrypt.org/acme/key-change',
                     external_account_required: 0,
+                    created_at: new Date,
+                    updated_at: new Date
                 },
                 {
                     ca: 'LetsEncrypt',
@@ -49,6 +51,8 @@ export default class extends BaseSchema {
                     revoke_cert: 'https://acme-staging-v02.api.letsencrypt.org/acme/revoke-cert',
                     key_change: 'https://acme-staging-v02.api.letsencrypt.org/acme/key-change',
                     external_account_required: 0,
+                    created_at: new Date,
+                    updated_at: new Date
                 },
                 {
                     ca: 'ZeroSSL',
@@ -60,6 +64,8 @@ export default class extends BaseSchema {
                     revoke_cert: 'https://acme.zerossl.com/v2/DV90/revokeCert',
                     key_change: 'https://acme.zerossl.com/v2/DV90/keyChange',
                     external_account_required: 1,
+                    created_at: new Date,
+                    updated_at: new Date
                 },
                 {
                     ca: 'BuyPass',
@@ -71,6 +77,8 @@ export default class extends BaseSchema {
                     revoke_cert: 'https://api.buypass.com/acme-v02/revoke-cert',
                     key_change: 'https://api.buypass.com/acme-v02/key-change',
                     external_account_required: 0,
+                    created_at: new Date,
+                    updated_at: new Date
                 },
                 {
                     ca: 'BuyPass',
@@ -82,6 +90,8 @@ export default class extends BaseSchema {
                     revoke_cert: 'https://api.test4.buypass.no/acme-v02/revoke-cert',
                     key_change: 'https://api.test4.buypass.no/acme-v02/key-change',
                     external_account_required: 0,
+                    created_at: new Date,
+                    updated_at: new Date
                 },
             ])
         })
