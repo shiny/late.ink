@@ -5,7 +5,7 @@ import { KeyboardEvent, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Form, redirect, useNavigation, useSubmit } from "react-router-dom"
 import { DomainState, useDomains } from "@/data/use-form"
-import { isDeletingKey, isEnterKey } from '@/utils/keyborad'
+import { isDeletingKey, isEnterKey, isTabKey } from '@/utils/keyborad'
 
 export function loader() {
     return useDomains.getState().domains
@@ -50,10 +50,17 @@ export function Component() {
             setDomains([...domains])
             inputsRef.current[index-1]?.focus()
             e.preventDefault()
+        } else if (isTabKey(key)) {
+            if (index === (domains.length - 1)) {
+                e.preventDefault()
+                domains.push('')
+                setDomains([...domains])
+                inputsRef.current[index]?.focus()
+            }
         }
     }
     const submit = useSubmit()
-    const onKeyUp = (e: any) => {
+    const onKeyUp = (index: number, e: KeyboardEvent) => {
         const key = e.key
         if (isEnterKey(key)) {
             submit(formRef.current)
@@ -85,6 +92,7 @@ export function Component() {
                 >
                     <span className="flex select-none items-center pl-3 text-gray-500 text-2xl">https://</span>
                     <input
+                        spellCheck={false}
                         autoFocus={index === domains.length - 1}
                         type="text"
                         name="domain[]"
@@ -95,7 +103,7 @@ export function Component() {
                         value={domain}
                         onChange={(e) => updateInput(index, e.target.value)}
                         onKeyDown={(e) => onKeyDown(index, e)}
-                        onKeyUp={onKeyUp}
+                        onKeyUp={(e) => onKeyUp(index, e)}
                     />
                 </div>)}
             </Form>
