@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ACME, { Ca } from 'handyacme'
 import AuthorityAccount from './AuthorityAccount'
+import { autoProxyDirectory } from 'App/Utils/Proxy'
 
 export type AvailableAuthority = 'LetsEncrypt' | 'ZeroSSL' | 'BuyPass'
 export type AvailableEnvironment = 'staging' | 'production'
@@ -50,7 +51,8 @@ export default class Authority extends BaseModel {
 
     public async resolveInstance(): Promise<Ca> {
         if (!this.acmeInstance) {
-            this.acmeInstance = await ACME.create(this.ca, this.type)
+            this.acmeInstance = await ACME.create(this.ca, "none")
+            await autoProxyDirectory(this.acmeInstance, this.type)
         }
         return this.acmeInstance
     }
@@ -59,7 +61,8 @@ export default class Authority extends BaseModel {
         authorityName: AvailableAuthority,
         type: AvailableEnvironment
     ) {
-        const ca = await ACME.create(authorityName, type)
+        const ca = await ACME.create(authorityName, "none")
+        await autoProxyDirectory(ca, type)
         return Authority.updateOrCreate(
             {
                 ca: authorityName,

@@ -1,27 +1,66 @@
+import { IconChecked, IconInfo, IconLoading } from "@/assets/Icons"
+import type { InputConfig, Credential, CredentialItem, TestCredentialResponse, Provider } from "@/data/use-dns"
+import useDns from "@/data/use-dns"
+import { useDataFromAction, useDataFromLoader } from "@/utils/router"
+import { FormEventHandler, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Form, Link, redirect, useNavigation } from "react-router-dom"
+
+export async function loader() {
+    const { fetchCredentials } = useDns.getState()
+    return await fetchCredentials()
+}
+
+export async function action({ request }: { request: Request }) {
+    return redirect('/certificate/create/finish')
+}
+
 
 export function Component() {
+    const credentialOptions = useDataFromLoader(loader)
+    const { providerId, credentialId, setCredentialId } = useDns()
+    useEffect(() => {
+        if (!providerId && credentialOptions.length > 0) {
+            setCredentialId(credentialOptions[0].id)
+        }
+    }, [ providerId, credentialOptions])
     const { t } = useTranslation('translation')
-    return <div>
+
+    const currentCredentialOption = credentialOptions.find(item => item.id === credentialId)
+
+    const navigation = useNavigation()
+    const isSubmitting = navigation.state === 'submitting'
+    // const errorMessage = useDataFromAction(action)
+
+    return <Form method="POST">
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
             {t('certificate.DNS_Verification')}
             <div className="tooltip" data-tip="Subjective Alternative Name">
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
+                <IconInfo className="w-6 h-6" />
             </div>
         </h2>
         <div className="divider" />
         <label htmlFor="account" className="block text-lg font-semibold leading-6 text-gray-900">
-            {t('certificate.select_DNS_provider')}
+            {t('certificate.select_DNS_API_Credential')}
         </label>
-        <select id="account" className="select select-bordered text-xl w-full max-w-xs mt-2">
-            <option>{t('dnsProvider.cloudflare')}</option>
-            <option>{t('dnsProvider.aliyun')}</option>
-            <option>{t('dnsProvider.qcloud')}</option>
-        </select>
+        <select
+            id="account"
+            value={credentialId}
+            name="credentialId"
+            className="select select-bordered text-xl w-full max-w-xs mt-2"
+            onChange={e => setCredentialId(parseInt(e.currentTarget.value))}>
+            {credentialOptions.map(item => <option key={`dns-credential-${item.id}`} value={item.id}>
+               [{item.provider.name}] {item.name}
+            </option>)}
+        </select> <Link className="ml-4 link" to={'../dns-credential'}>Create new DNS API Credential</Link>
+        {/* {errorMessage && <div className="mt-4 alert alert-error shadow-lg">{errorMessage}</div>} */}
+        {currentCredentialOption && <div className="p-4 bg-neutral-100 mt-4 rounded">
+            <IconInfo className="w-6 h-6 inline-block align-text-top" /> Domains should host on {currentCredentialOption.provider.name}
+        </div>}
         <div className="mt-4">
-            <button className="btn btn-primary btn-lg">Next</button>
+            {!isSubmitting && <button type="submit" className="btn btn-primary btn-lg">{t('certificate.next')}</button>}
+            {isSubmitting && <button disabled={true} className="btn btn-primary btn-lg">
+                <IconLoading /> {t('certificate.next')}</button>}
         </div>
-    </div>
+    </Form>
 }

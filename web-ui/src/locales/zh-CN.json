@@ -23,10 +23,14 @@
     "certificate": {
         "create_cert": "创建证书",
         "next": "下一步",
+        "test": "测试凭证",
         "input_domains": "输入域名",
         "choose_ca_account": "证书颁发机构/账号",
         "DNS_Verification": "DNS 验证",
         "select_DNS_provider": "选择 DNS 服务商",
+        "create_DNS_credential": "创建 {name} 凭证",
+        "select_DNS_API_Credential": "选择 DNS API 凭证",
+        "credential_name": "凭证名称（方便记忆）",
         "finish": "完成订单",
         "cert_domain": "证书的域名",
         "append_domain": "添加另一个域名",
@@ -38,13 +42,28 @@
         "or_create_new_account": "或创建一个新 {name} 账号"
     },
     "dnsProvider": {
-        "aliyun": "阿里云 DNS",
-        "cloudflare": "Cloudflare",
-        "qcloud": "腾讯云（DNSPod）"
+        "Aliyun": {
+            "name": "阿里云 DNS",
+            "create_link_instruction": "创建阿里云 Access key",
+            "instruction": ""
+        },
+        "Cloudflare": {
+            "name": "Cloudflare",
+            "create_link_instruction": "创建 Cloudflare API 令牌",
+            "instruction": "需要的权限：区域.区域（读取）, 区域.DNS（编辑）"
+        },
+        "QCloud": {
+            "name": "腾讯云（DNSPod）"
+        }
     },
     "home": "首页",
     "cancel": "取消",
+    "retry": "再试一次",
+    "succeed": "成功",
+    "failed": "失败，再检查下",
     "loading": "加载中…",
+    "testing": "测试中…",
+    "input": "输入 {name}",
     "introduce": {
         "first_cert": "获取第一张证书",
         "first_cert_description": "通过设置域名的自动解析，即可获取并部署免费的 SSL 证书",

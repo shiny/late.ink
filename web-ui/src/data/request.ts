@@ -1,6 +1,13 @@
 import useLocaleStore from "@/locales/store"
 import ky, { Options } from 'ky'
 
+export interface ErrorMessage {
+    message: string
+}
+
+export interface ApiResponse {
+    errors?: ErrorMessage[]
+}
 
 const controller = new AbortController()
 
@@ -36,17 +43,17 @@ function startRequesting() {
         isRequesting = true
 }
 
-const fetch = async (url: string, options?: Options): Promise<any> => {
+const fetch = async<T>(url: string, options?: Options) => {
     // startRequesting()
-    return api.get(url, options).json()
+    return api.get(url, options).json<T>()
 }
 
-const post = async (url: string, data = {}, options?: Options): Promise<any> => {
+const post = async<T>(url: string, data = {}, options?: Options) => {
     // startRequesting()
     return api.post(url, {
         json: data,
         ...options,
-    }).json()
+    }).json<T>()
 }
 
 export { fetch, post }

@@ -35,6 +35,10 @@ export const routes: RouteObject[] = [
                         lazy: () => import('@/pages/certificate/create/dns')
                     },
                     {
+                        path: 'dns-credential',
+                        lazy: () => import('@/pages/certificate/create/dns-credential')
+                    },
+                    {
                         path: 'finish',
                         lazy: () => import('@/pages/certificate/create/finish')
                     },

@@ -13,7 +13,11 @@ export function Component() {
     })
 
     const location = useLocation()
-    const step = location.pathname.split('/').pop()
+    /**
+     * 1. get the /last/path/name
+     * 2. dns & dns-credential is the same step
+     */
+    const step = location.pathname.split('/').pop()?.split('-')[0]
 
     const steps = [
         {
