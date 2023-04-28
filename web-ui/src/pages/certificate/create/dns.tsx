@@ -1,8 +1,7 @@
-import { IconChecked, IconInfo, IconLoading } from "@/assets/Icons"
-import type { InputConfig, Credential, CredentialItem, TestCredentialResponse, Provider } from "@/data/use-dns"
+import { IconInfo, IconLoading } from "@/assets/Icons"
 import useDns from "@/data/use-dns"
-import { useDataFromAction, useDataFromLoader } from "@/utils/router"
-import { FormEventHandler, useEffect, useMemo, useState } from "react"
+import { useDataFromLoader } from "@/utils/router"
+import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Form, Link, redirect, useNavigation } from "react-router-dom"
 
@@ -11,7 +10,7 @@ export async function loader() {
     return await fetchCredentials()
 }
 
-export async function action({ request }: { request: Request }) {
+export async function action() {
     return redirect('/certificate/create/finish')
 }
 
