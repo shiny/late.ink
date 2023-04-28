@@ -60,7 +60,7 @@ const useAuthority = create<UseAuthority>((set, get) => {
         fetchAuthorities: async () => {
             set({ loadingAuthority: true })
             try {
-                const authorities = await fetch('authority', {
+                const authorities = await fetch<Authority[]>('authority', {
                     throwHttpErrors: true
                 })
                 set({
@@ -92,7 +92,7 @@ const useAuthority = create<UseAuthority>((set, get) => {
         fetchAccounts: async (authorityId: number) => {
             set({ loadingAccount: true })
             try {
-                const accounts = await fetch(`authority/${authorityId}/account`, {
+                const accounts = await fetch<Account[]>(`authority/${authorityId}/account`, {
                     throwHttpErrors: true
                 })
                 set({
@@ -116,7 +116,7 @@ const useAuthority = create<UseAuthority>((set, get) => {
                 submittingAccount: true
             })
             try {
-                const account = await post(`authority/${authorityId}/account`, {
+                const account = await post<Account>(`authority/${authorityId}/account`, {
                     email
                 }, {
                     throwHttpErrors: true

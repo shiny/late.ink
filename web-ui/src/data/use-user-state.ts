@@ -1,13 +1,13 @@
 import { create } from "zustand"
 import { persist } from 'zustand/middleware'
-import { fetch, post } from './request'
+import { ApiResponse, fetch, post } from './request'
 
 interface UserState {
     workspaceId: number
     name: string
     isLoggedIn?: boolean
     loginPage: string
-    login: (user: User) => Promise<Response>
+    login: (user: User) => Promise<ApiResponse & { success?: boolean }>
     logout: () =>Promise<void>
     syncLoginState: () => Promise<boolean>
     clear: () => void
@@ -30,13 +30,8 @@ export interface User {
     password: string;
 }
 
-interface Response {
-    errors?: { message: '' }[]
-    success: boolean
-}
-
 export async function postLogin(user: User) {
-    const res = await post("user/login", user)
+    const res = await post<ApiResponse & { success?: boolean }>("user/login", user)
     console.log(res)
     return {
         errors: res.errors ?? [],
