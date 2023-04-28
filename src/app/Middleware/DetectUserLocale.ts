@@ -44,7 +44,7 @@ export default class DetectUserLocale {
          * Share i18n with view
          */
         if ('view' in ctx) {
-            ctx.view.share({ i18n: ctx.i18n })
+            (ctx as any).view.share({ i18n: ctx.i18n })
         }
 
         await next()
