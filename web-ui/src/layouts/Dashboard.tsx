@@ -1,9 +1,12 @@
 import DropdownLanguage from '@/components/DropdownLanguage'
 import Sidebar from '@/components/Sidebar'
 import SwapDarkmode from '@/components/SwapDarkmode'
-import { Outlet, redirect } from 'react-router-dom'
+import { Outlet, redirect, useNavigation } from 'react-router-dom'
 import { useDataFromLoader } from '@/utils/router'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import { useEffect } from 'react'
+import NProgress from "nprogress"
+import 'nprogress/nprogress.css'
 
 export async function loader({ request }: { request: Request }) {
     const useUserState = (await import('@/data/use-user-state')).default
@@ -24,6 +27,17 @@ export async function loader({ request }: { request: Request }) {
  */
 export function Component() {
     useDataFromLoader(loader)
+
+    const navigation = useNavigation()
+    const isLoading = navigation.state === 'loading'
+
+    useEffect(() => {
+        if (isLoading) {
+            NProgress.start()
+        } else {
+            NProgress.done()
+        }
+    }, [ isLoading ])
 
     return <div>
         <div className="drawer drawer-mobile bg-base-200">
