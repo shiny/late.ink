@@ -12,6 +12,7 @@ export default class extends BaseSchema {
             table.increments('id')
             table.string('name').unique()
             table.string('password')
+            table.string('remember_me_token')
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
