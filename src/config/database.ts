@@ -52,6 +52,24 @@ const databaseConfig: DatabaseConfig = {
       debug: false,
     },
 
+    testing: {
+      client: 'sqlite',
+      connection: {
+        filename: Application.tmpPath('testing.sqlite3'),
+      },
+      pool: {
+        afterCreate: (conn, cb) => {
+          conn.run('PRAGMA foreign_keys=true', cb)
+        }
+      },
+      migrations: {
+        naturalSort: true,
+      },
+      useNullAsDefault: true,
+      healthCheck: false,
+      debug: false,
+    },
+
     /*
     |--------------------------------------------------------------------------
     | PostgreSQL config
