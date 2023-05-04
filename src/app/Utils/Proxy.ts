@@ -28,6 +28,7 @@ import type { AvailableEnvironment } from "App/Models/Authority"
 export default function autoProxy(_target: Object, _key: string, descriptor: PropertyDescriptor)  {
     const fetch = descriptor.value
     descriptor.value = function(url: string | URL, options?: Options) {
+        const httpsProxy = Config.get('proxy.httpsProxy')
         const optinsWithProxy = options || {}
         optinsWithProxy.http2 = false
         optinsWithProxy.agent = {
@@ -37,22 +38,29 @@ export default function autoProxy(_target: Object, _key: string, descriptor: Pro
                 maxSockets: 256,
                 maxFreeSockets: 256,
                 scheduling: 'lifo',
-                proxy: Config.get('proxy.httpsProxy')
+                proxy: httpsProxy
             }),
         }
-        return fetch.apply(this, [ url, optinsWithProxy ]);
+        if (httpsProxy) {
+            return fetch.apply(this, [ url, optinsWithProxy ])
+        } else {
+            return fetch.apply(this, [ url ])
+        }
     }
 }
 
 export async function autoProxyDirectory(target: Ca, type: AvailableEnvironment) {
-    target.request.agent = new HttpsProxyAgent({
-        keepAlive: true,
-        keepAliveMsecs: 1000,
-        maxSockets: 256,
-        maxFreeSockets: 256,
-        scheduling: 'lifo',
-        proxy: Config.get('proxy.httpsProxy')
-    })
+    const httpsProxy = Config.get('proxy.httpsProxy')
+    if (httpsProxy) {
+        target.request.agent = new HttpsProxyAgent({
+            keepAlive: true,
+            keepAliveMsecs: 1000,
+            maxSockets: 256,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            proxy: Config.get('proxy.httpsProxy')
+        })
+    }
     switch (type) {
         case "production":
                 return await target.setDirectory(target.productionDirectoryUrl)
