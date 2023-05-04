@@ -23,8 +23,12 @@ export default class extends BaseSchema {
 
 
         const randomPassword = string.generateRandom(12)
-        const file = Application.tmpPath('random-admin-password.txt')
-        fs.writeFileSync(file, randomPassword)
+
+        // Do not record password in test environment
+        if (process.env.NODE_ENV !== 'test') {
+            const file = Application.tmpPath('random-admin-password.txt')
+            fs.writeFileSync(file, randomPassword)
+        }
         this.defer(async () => {
             // Only executed when not running in dry-run mode
             await this.db.table(this.tableName).multiInsert([
