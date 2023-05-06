@@ -29,22 +29,22 @@ export default function autoProxy(_target: Object, _key: string, descriptor: Pro
     const fetch = descriptor.value
     descriptor.value = function(url: string | URL, options?: Options) {
         const httpsProxy = Config.get('proxy.httpsProxy')
-        const optinsWithProxy = options || {}
-        optinsWithProxy.http2 = false
-        optinsWithProxy.agent = {
-            https: new HttpsProxyAgent({
-                keepAlive: true,
-                keepAliveMsecs: 1000,
-                maxSockets: 256,
-                maxFreeSockets: 256,
-                scheduling: 'lifo',
-                proxy: httpsProxy
-            }),
-        }
         if (httpsProxy) {
+            const optinsWithProxy = options || {}
+            optinsWithProxy.http2 = false
+            optinsWithProxy.agent = {
+                https: new HttpsProxyAgent({
+                    keepAlive: true,
+                    keepAliveMsecs: 1000,
+                    maxSockets: 256,
+                    maxFreeSockets: 256,
+                    scheduling: 'lifo',
+                    proxy: httpsProxy
+                }),
+            }
             return fetch.apply(this, [ url, optinsWithProxy ])
         } else {
-            return fetch.apply(this, [ url ])
+            return fetch.apply(this, [ url, options ])
         }
     }
 }
