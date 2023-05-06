@@ -1,56 +1,64 @@
-/*
- * @kaperskyguru/adonis-cache
- *
- * (c) Solomon Eseme <kaperskyguru@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+import { cacheConfig } from '@melchyore/adonis-cache/build/config'
 
-import Env from '@ioc:Adonis/Core/Env'
-import { CacheConfig } from '@ioc:Kaperskyguru/Adonis-Cache'
+export default cacheConfig({
+    prefix: 'cache_',
 
-const cacheConfig: CacheConfig = {
-    driver: Env.get('CACHE_DRIVER') as string,
+    store: 'file',
 
-    drivers: {
+    stores: {
+        /*
+        |--------------------------------------------------------------------------
+        | File store
+        |--------------------------------------------------------------------------
+        |
+        | Use this store to store cache in files.
+        | The 'disk' value must point to an existing
+        | disk inside config/drive.ts, e.g:
+        | {
+        |   cache: {
+        |     driver: 'local',
+        |     visibility: 'private',
+        |     root: Application.tmpPath('the-path-you-want-to-use'),
+        |   },
+        | }
+        |
+        | Don't forget to inform Typescript about the new disk:
+        | Open the pre-existing contracts/drive.ts file and
+        | update the `DisksList` interface with the following code:
+        | cache: {
+        |   config: LocalDriverConfig
+        |   implementation: LocalDriverContract
+        | }
+        |
+        */
         file: {
             driver: 'file',
-            path: 'cache/data',
-        },
-
-        array: {
-            driver: 'array',
-            serialize: false,
-        },
-
-        database: {
-            driver: 'database',
-            table: 'cache',
-            connection: null,
-            lock_connection: null,
-        },
-
-        redis: {
-            driver: 'redis',
-            connection: 'cache',
-            lock_connection: 'default',
-        },
-
-        memcached: {
-            driver: Env.get('CACHE_DRIVER', 'memcached') as string,
-            persistent_id: Env.get('MEMCACHED_PERSISTENT_ID') as string,
-            sasl: [Env.get('MEMCACHED_USERNAME') as string, Env.get('MEMCACHED_PASSWORD') as string],
-            options: {
-                // Memcached::OPT_CONNECT_TIMEOUT : 2000,
-            },
-            servers: {
-                host: Env.get('MEMCACHED_HOST', '127.0.0.1') as string,
-                port: Env.get('MEMCACHED_PORT', 11211) as string,
-                weight: 100,
-            },
+            disk: 'cache'
         },
     },
-}
 
-export default cacheConfig
+    /*
+    |--------------------------------------------------------------------------
+    | Time to live (TTL)
+    |--------------------------------------------------------------------------
+    |
+    | TTL is expressed in seconds.
+    | 
+    */
+    ttl: 60,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache events
+    |--------------------------------------------------------------------------
+    |
+    | Enable/disable cache events.
+    | 
+    */
+    events: {
+        'cache:hit': true,
+        'cache:missed': true,
+        'cache:key_written': true,
+        'cache:key_forgotten': true
+    }
+})

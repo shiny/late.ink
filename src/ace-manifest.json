@@ -593,6 +593,93 @@
           "description": "Drop all custom types (Postgres only)"
         }
       ]
+    },
+    "cache:clear": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "@melchyore/adonis-cache/build/commands/Clear",
+      "commandName": "cache:clear",
+      "description": "Flush the application cache",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "store",
+          "name": "store",
+          "required": false,
+          "description": "The name of the store you would like to clear"
+        }
+      ],
+      "aliases": [],
+      "flags": []
+    },
+    "cache:forget": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "@melchyore/adonis-cache/build/commands/Forget",
+      "commandName": "cache:forget",
+      "description": "Remove a cached value by its key",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "key",
+          "name": "key",
+          "required": true,
+          "description": "The key to remove"
+        },
+        {
+          "type": "string",
+          "propertyName": "store",
+          "name": "store",
+          "required": false,
+          "description": "The store to remove the key from"
+        }
+      ],
+      "aliases": [],
+      "flags": []
+    },
+    "cache:dynamodb": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": true
+      },
+      "commandPath": "@melchyore/adonis-cache/build/commands/DynamoDB",
+      "commandName": "cache:dynamodb",
+      "description": "Create a Cache DynamoDB table on AWS",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "tableName",
+          "name": "tableName",
+          "required": false,
+          "description": "Table name"
+        }
+      ],
+      "aliases": [],
+      "flags": []
+    },
+    "cache:table": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "@melchyore/adonis-cache/build/commands/Table",
+      "commandName": "cache:table",
+      "description": "Create a migration for the cache database table",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "cacheTableName",
+          "name": "cacheTableName",
+          "required": false,
+          "description": "Table name"
+        }
+      ],
+      "aliases": [],
+      "flags": []
     }
   },
   "aliases": {}

@@ -80,6 +80,12 @@ export default driveConfig({
             basePath: '/uploads',
         },
 
+        cache: {
+            driver: 'local',
+            visibility: 'private',
+            root: Application.tmpPath('cache'),
+        }
+
         /*
         |--------------------------------------------------------------------------
         | S3 Driver

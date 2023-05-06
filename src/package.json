@@ -71,7 +71,7 @@
         "@adonisjs/lucid": "^18.3.0",
         "@adonisjs/repl": "^3.1.11",
         "@adonisjs/session": "^6.4.0",
-        "@kaperskyguru/adonis-cache": "^2.1.1",
+        "@melchyore/adonis-cache": "^1.0.6",
         "got": "11",
         "handyacme": "^0.1.2",
         "hpagent": "^1.2.0",

@@ -36,7 +36,7 @@
             "@adonisjs/lucid",
             "@adonisjs/auth",
             "@adonisjs/i18n",
-            "@kaperskyguru/adonis-cache"
+            "@melchyore/adonis-cache"
         ]
     }
 }
