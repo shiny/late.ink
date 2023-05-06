@@ -34,5 +34,7 @@ export default Env.rules({
 
     HTTPS_PROXY: Env.schema.string.optional({ format: 'url' }),
     PROXY_RULE: Env.schema.string.optional(),
-    NO_PROXY: Env.schema.string.optional()
+    NO_PROXY: Env.schema.string.optional(),
+
+    DNS_NAMESEVER: Env.schema.string.optional()
 })
