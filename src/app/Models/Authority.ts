@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ACME, { Ca } from 'handyacme'
 import AuthorityAccount from './AuthorityAccount'
 import { autoProxyDirectory } from 'App/Utils/Proxy'
+import BaseModel from './BaseModel'
 
 export type AvailableAuthority = 'LetsEncrypt' | 'ZeroSSL' | 'BuyPass'
 export type AvailableEnvironment = 'staging' | 'production'

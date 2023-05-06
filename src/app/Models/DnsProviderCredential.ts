@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import DnsProvider from './DnsProvider'
+import BaseModel from './BaseModel'
 
 export default class DnsProviderCredential extends BaseModel {
   @column({ isPrimary: true })

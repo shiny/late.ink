@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeSave } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { string } from '@ioc:Adonis/Core/Helpers'
 import PasswordValidator from 'App/Validators/PasswordValidator'
-
 import Database from '@ioc:Adonis/Lucid/Database'
+
+import BaseModel from './BaseModel'
 import Workspace from './Workspace'
 import UserWorkspace from './UserWorkspace'
 

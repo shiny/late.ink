@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, scope } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, scope } from '@ioc:Adonis/Lucid/Orm'
+import Authority from './Authority'
+import BaseModel from './BaseModel'
 
 export default class AuthorityAccount extends BaseModel {
   @column({ isPrimary: true })

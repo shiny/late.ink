@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { column } from '@ioc:Adonis/Lucid/Orm'
 import Dns from "App/Dns"
+import BaseModel from './BaseModel'
 
 export default class DnsProvider extends BaseModel {
 
