@@ -49,6 +49,7 @@
         "@adonisjs/assembler": "^5.9.5",
         "@japa/preset-adonis": "^1.2.0",
         "@japa/runner": "^2.5.1",
+        "@types/luxon": "^3.3.0",
         "@types/proxy-addr": "^2.0.0",
         "@types/source-map-support": "^0.5.6",
         "@typescript-eslint/eslint-plugin": "^5.59.0",
