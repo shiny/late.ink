@@ -31,9 +31,9 @@ export default class AccountController {
         }
         const authorityId = params['authorityId']
         const authority = await Authority.findOrFail(authorityId)
-        return await authority.related('accounts')
+        const accounts =await authority.related('accounts')
             .query()
             .withScopes((scopes) => scopes.inWorkspace(workspaceId))
-
+        return accounts.map(account => account.serialize())
     }
 }
