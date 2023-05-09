@@ -37,7 +37,7 @@ export interface Provider {
      * the credential apply link
      */
     link: string
-    input_config: InputConfig[]
+    inputConfig: InputConfig[]
 }
 
 

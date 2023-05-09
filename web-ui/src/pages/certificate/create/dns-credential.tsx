@@ -98,7 +98,7 @@ export function Component() {
             <div className="py-2 px-6 mt-4 border-l-4 max-w-lg">
                 {credential[provider.name] && <InputCredential
                     key={provider.name}
-                    inputConfig={provider.input_config}
+                    inputConfig={provider.inputConfig}
                     onInput={(credential) => onInputCredential(provider.name, credential)}
                     value={credential[provider.name]}
                 />}

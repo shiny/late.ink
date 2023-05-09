@@ -9,7 +9,7 @@ export interface Authority {
 
 export interface Account {
     email: string
-    authority_id: number
+    authorityId: number
     id: number
 }
 
