@@ -123,8 +123,17 @@ export default class Aliyun extends Base {
         const url = new URL(this.endpoint + '/?' + query)
         url.searchParams.delete('Signature')
         url.searchParams.append('Signature', createGetSignature(url, this.accessKeySecret))
-        const result = await this.fetch<ReturnType>(url)
-        return result.body
+        try {
+            const result = await this.fetch<ReturnType>(url, {
+                throwHttpErrors: true
+            })
+            return result.body
+        } catch (error) {
+            if (error.response) {
+                console.error(`[${error.response.status}] body:`, error.response.body)
+            }
+            throw error
+        }
     }
 
     async query(hostname: string) {
