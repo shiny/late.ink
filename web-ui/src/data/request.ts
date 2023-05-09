@@ -25,6 +25,22 @@ const api = ky.create({
                 const locale = useLocaleStore.getState().locale
                 request.headers.set('Accept-Language', locale)
             }
+        ],
+        beforeError: [
+            async (error) => {
+                const { response } = error
+                const result = await response.json()
+                if (Array.isArray(result) && result.length > 0) {
+                    error.message = result[0].message
+                    if (result[0].type) {
+                        error.name = result[0].type
+                    }
+                }
+                if ('errors' in result && result.errors?.[0].message) {
+                    error.message = result.errors?.[0].message
+                }
+                return error
+            }
         ]
     }
 })
