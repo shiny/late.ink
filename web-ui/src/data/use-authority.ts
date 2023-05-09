@@ -147,9 +147,15 @@ const useAuthority = create<UseAuthority>((set, get) => {
             }
         },
         selectAccountId: (accountId: number) => {
+            const account = get().accounts.find(item => item.id === accountId)
             set({
-                accountId: accountId
+                accountId: accountId,
             })
+            if (account) {
+                set({
+                    authorityId: account.authorityId
+                })
+            }
         },
     }
 })
