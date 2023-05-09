@@ -1,6 +1,7 @@
 
 import { Resolver } from 'node:dns/promises'
 import Config from "@ioc:Adonis/Core/Config"
+import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class Verification {
     public static async haveTxtRecord(host: string, txt: string) {
@@ -12,8 +13,13 @@ export default class Verification {
          *    [ 'v=spf1 +include:_netblocks.m.feishu.cn ~all' ]
          * ]
          */
-        const records = await resolver.resolveTxt(host)
-        return records.some(rows => rows.includes(txt))
+        try {
+            const records = await resolver.resolveTxt(host)
+            return records.some(rows => rows.includes(txt))
+        } catch (error) {
+            Logger.error(error)
+            return false
+        }
     }
 
     static createResolver() {
