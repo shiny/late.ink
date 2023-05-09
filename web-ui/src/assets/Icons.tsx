@@ -50,7 +50,7 @@ export const IconDeployment = ({ className }: IconProps) => <svg
 </svg>
 
 export const IconLoading = ({ className }: IconProps) => <svg
-    className={`animate-spin w-6 h-6 ${className}`}
+    className={`${className ?? 'w-6 h-6'} animate-spin`}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"

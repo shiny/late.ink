@@ -12,7 +12,7 @@ export default function Loading({ loading, tips, className, children }: PropsWit
     const { t } = useTranslation("translation")
     if (loading) {
         return <div className={className ?? ''}>
-            <IconLoading className='inline-block align-middle' />
+            <IconLoading className='inline-block align-middle w-6 h-6' />
             <span className="inline-block mt-5 pl-2">{tips || t('loading')}</span>
         </div>
     } else {

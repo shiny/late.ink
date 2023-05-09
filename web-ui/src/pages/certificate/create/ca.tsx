@@ -90,7 +90,7 @@ export function Component() {
                 disabled={!isFormReady() || submitting}
                 className="btn btn-primary btn-lg">
                 {submitting && <>
-                    <IconLoading className="mr-3" /> Submitting
+                    <IconLoading className="mr-3 w-4 h-4" /> Submitting
                 </>}
                 {!submitting && t('next')}
             </button>
