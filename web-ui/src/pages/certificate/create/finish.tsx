@@ -71,7 +71,7 @@ export function Component() {
                     {order?.certificate?.expiredAt && <div className="py-1 mt-3">
                         <Link
                             target="_blank"
-                            to={`/api/v1/authority/${authorityId}/certificate/${order.certificate.id}/download`}
+                            to={`/api/v1/certificate/${order.certificate.id}/download`}
                             className="btn btn-sm"
                         >{t('cert_download')}</Link>
                     </div>}

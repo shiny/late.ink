@@ -15,10 +15,7 @@ Route.group(() => {
     
     Route.resource('/authority.order', 'Authority/OrderController')
         .paramFor('authority', 'authorityId')
-
     Route.get('/authority/:authorityId/order/:id/processing', 'Authority/OrderController.processing')
-    Route.get('/authority/:authorityId/certificate/:id/download', 'Authority/CertificateController.download')
-
 })
 .prefix('/api/v1')
 .middleware('auth:web')
