@@ -30,7 +30,9 @@ export default class Certificate extends BaseModel {
     @column()
     public orderId: number
 
-    @belongsTo(() => CertificateOrder)
+    @belongsTo(() => CertificateOrder, {
+        foreignKey: 'orderId'
+    })
     public order: BelongsTo<typeof CertificateOrder>
 
     @column({
