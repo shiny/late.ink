@@ -21,6 +21,7 @@
         "logout": "Logout"
     },
     "certificate": {
+        "certificate": "Certificate",
         "create_cert": "Create Certificate",
         "next": "Next",
         "test": "Test Credential",
@@ -39,7 +40,35 @@
         "select_account": "Select {name}'s Account",
         "create_account": "Create {name}'s account",
         "submit_account_creation": "Submit",
-        "or_create_new_account": "Or create a new {name} account"
+        "or_create_new_account": "Or create a new {name} account",
+        "dns_provider_tips": " Domains should host on {name}",
+        "authorization_status": {
+            "pending": "pending for authorizing",
+            "invalid": "verify failed",
+            "valid": "verified",
+            "deactivated": "deactivated",
+            "expired": "expired",
+            "revoked": "revoked"
+        },
+        "order_status_title": "Order's status",
+        "process_status": "current:",
+        "order_status": {
+            "pending": "pending for authorizing",
+            "ready": "Initializing certificate",
+            "valid": "succeed",
+            "invalid": "invalid",
+            "processing": "processing",
+
+            "pending_ready": "start authorizing",
+            "pending_completed": "wait for authorizing",
+            "ready_ready": "Initializing certificate",
+            "ready_completed": "wait for issuing",
+            "valid_ready": "cert syncing",
+            "valid_completed": "issued"
+        },
+        "cert_algorithm": "Cert Algorithm",
+        "cert_expired": "Expired Date",
+        "cert_download": "Download Cert"
     },
     "dnsProvider": {
         "Aliyun": {
@@ -64,6 +93,9 @@
     "loading": "Loading...",
     "testing": "Testing...",
     "input": "Input {name} Here",
+    "datetime": {
+        "short": "MMM D, HH:mm"
+    },
     "introduce": {
         "first_cert": "Get the first certificate",
         "first_cert_description": "You can get and deploy the SSL certificate by set up the DNS resolver API",

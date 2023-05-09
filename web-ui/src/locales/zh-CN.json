@@ -21,6 +21,7 @@
         "logout": "退出登录"
     },
     "certificate": {
+        "certificate": "证书",
         "create_cert": "创建证书",
         "next": "下一步",
         "test": "测试凭证",
@@ -39,7 +40,35 @@
         "select_account": "选择 {name} 账号",
         "create_account": "创建 {name} 账号",
         "submit_account_creation": "创建账号",
-        "or_create_new_account": "或创建一个新 {name} 账号"
+        "or_create_new_account": "或创建一个新 {name} 账号",
+        "dns_provider_tips": "域名解析服务商必须为 {name}",
+        "authorization_status": {
+            "pending": "等待 DNS 验证",
+            "invalid": "验证失败",
+            "valid": "已验证",
+            "deactivated": "已失效",
+            "expired": "验证过期",
+            "revoked": "已吊销"
+        },
+        "order_status_title": "订单状态",
+        "process_status": "签发进度",
+        "order_status": {
+            "pending": "等待验证",
+            "ready": "初始化证书",
+            "valid": "已签发",
+            "invalid": "无效",
+            "processing": "处理中",
+
+            "pending_ready": "开始验证",
+            "pending_completed": "等待验证",
+            "ready_ready": "初始化证书",
+            "ready_completed": "等待签发",
+            "valid_ready": "证书已同步",
+            "valid_completed": "已签发"
+        },
+        "cert_algorithm": "证书算法",
+        "cert_expired": "证书过期",
+        "cert_download": "下载证书"
     },
     "dnsProvider": {
         "Aliyun": {
@@ -64,6 +93,9 @@
     "loading": "加载中…",
     "testing": "测试中…",
     "input": "输入 {name}",
+    "datetime": {
+        "short": "M月D日 HH:mm"
+    },
     "introduce": {
         "first_cert": "获取第一张证书",
         "first_cert_description": "通过设置域名的自动解析，即可获取并部署免费的 SSL 证书",

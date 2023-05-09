@@ -6,12 +6,11 @@ import DnsProviderCredentialValidator from 'App/Validators/DnsProviderCredential
 export default class CredentialController {
     public async test({ request, params }: HttpContextContract) {
         try {
-            const form = await request.validate(DnsProviderCredentialValidator)
+            await request.validate(DnsProviderCredentialValidator)
             const provider = await DnsProvider.findOrFail(params['providerId'])
-            await provider.testCredential(form)
+            await provider.testCredential(request.all())
             
             return {
-                records: await provider.listTxtRecords(request.all(), 'meettea.com'),
                 success: true
             }
         } catch (err) {
@@ -61,7 +60,7 @@ export default class CredentialController {
             }, {
                 workspaceId,
                 dnsProviderId: params['providerId'],
-                credentialConfig: JSON.stringify(credentialConfig)
+                credentialConfig: credentialConfig
             })
             return credential
         } catch (err) {

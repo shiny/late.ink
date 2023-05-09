@@ -7,9 +7,18 @@ import Route from "@ioc:Adonis/Core/Route"
 // or just prefix('/api/v1') to use a short param 
 
 Route.group(() => {
+    
     Route.resource('/authority', 'Authority/AuthorityController')
+
     Route.resource('/authority.account', 'Authority/AccountController')
         .paramFor('authority', 'authorityId')
+    
+    Route.resource('/authority.order', 'Authority/OrderController')
+        .paramFor('authority', 'authorityId')
+
+    Route.get('/authority/:authorityId/order/:id/processing', 'Authority/OrderController.processing')
+    Route.get('/authority/:authorityId/certificate/:id/download', 'Authority/CertificateController.download')
+
 })
 .prefix('/api/v1')
 .middleware('auth:web')

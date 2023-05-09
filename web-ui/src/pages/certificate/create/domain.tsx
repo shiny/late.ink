@@ -21,7 +21,7 @@ export async function action({ request }: { request: Request }) {
 export function Component() {
     const defaultDomains = useDataFromLoader(loader)
     const initlizedDomains = defaultDomains.length === 0 ? [''] : defaultDomains
-    const [ domains, setDomains ] = useState<DomainState["domains"]>(initlizedDomains)
+    const [domains, setDomains] = useState<DomainState["domains"]>(initlizedDomains)
 
     const availableDomains = domains
         .filter(item => item.trim() !== '')
@@ -48,7 +48,7 @@ export function Component() {
             domains.splice(index, 1)
             inputsRef.current.splice(index, 1)
             setDomains([...domains])
-            inputsRef.current[index-1]?.focus()
+            inputsRef.current[index - 1]?.focus()
             e.preventDefault()
         } else if (isTabKey(key)) {
             if (index === (domains.length - 1)) {
@@ -71,24 +71,24 @@ export function Component() {
         domains.push('')
         setDomains([...domains])
     }
-    
+
     const { state } = useNavigation()
     const submitting = state === 'submitting'
 
     return <div>
-        <h2 className="text-2xl font-semibold leading-7 text-gray-900">{t('cert_domain')}
-            <div className="tooltip" data-tip="Subjective Alternative Name">
-                <IconInfo className="w-6 h-6" />
-            </div>
-        </h2>
-        <p className="mt-1 text-base leading-6 text-gray-600">
-        This information will be displayed publicly so be careful what you share.
-        </p>
-        <div>
-            <Form ref={formRef} method="post" className="mt-2 grid gap-2">
+        <Form ref={formRef} method="post" className="mt-2 grid gap-2">
+            <h2 className="text-2xl font-semibold leading-7 text-gray-900">{t('cert_domain')}
+                <div className="tooltip" data-tip="Subjective Alternative Name">
+                    <IconInfo className="w-6 h-6" />
+                </div>
+            </h2>
+            <p className="mt-1 text-base leading-6 text-gray-600">
+                This information will be displayed publicly so be careful what you share.
+            </p>
+            <div>
                 {domains.map((domain, index) => <div
                     key={`domain-${index}`}
-                    className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-[--primary-color]"
+                    className="flex mt-2 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-[--primary-color]"
                 >
                     <span className="flex select-none items-center pl-3 text-gray-500 text-2xl">https://</span>
                     <input
@@ -106,16 +106,16 @@ export function Component() {
                         onKeyUp={(e) => onKeyUp(index, e)}
                     />
                 </div>)}
-            </Form>
-        </div>
-        <div className="mt-2">
-            <a className="link" onClick={createNewInput}>
-                <IconAdd className="w-4 h-4 align-middle inline-block" />
-                {t('append_domain')}
-            </a>
-        </div>
-        <div className="mt-4">
-            <button type="submit" disabled={!isFormReady() || submitting} className="btn btn-primary btn-lg">{t('next')}</button>
-        </div>
+            </div>
+            <div className="mt-2">
+                <a className="link" onClick={createNewInput}>
+                    <IconAdd className="w-4 h-4 align-middle inline-block" />
+                    {t('append_domain')}
+                </a>
+            </div>
+            <div className="mt-4">
+                <button type="submit" disabled={!isFormReady() || submitting} className="btn btn-primary btn-lg">{t('next')}</button>
+            </div>
+        </Form>
     </div>
 }
