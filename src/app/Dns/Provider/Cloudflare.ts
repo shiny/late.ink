@@ -123,9 +123,9 @@ export default class Cloudflare extends Base {
         throw new Error(`Cloudflare error #${defaultError.code} ${defaultError.message}`)
     }
 
-    async get<T>(url, params?: Record<string, any>) {
+    private async get<T>(url, params?: Record<string, any>) {
         const buildRequestUrl = () => {
-            const uri = `${this.endpoint}/${url}`
+            const uri = `${this.endpoint}${url}`
             if (params) {
                 return uri + '?' + (new URLSearchParams(params)).toString()
             } else {
@@ -133,13 +133,14 @@ export default class Cloudflare extends Base {
             }
         }
         const res = await this.fetch<T>(buildRequestUrl(), {
-            headers: this.headers
+            headers: this.headers,
+            throwHttpErrors: true,
         })
         return res.body
     }
 
-    async post<T>(url, body?: Record<string, any>) {
-        const res = await this.fetch<T>(`${this.endpoint}/${url}`, {
+    private async post<T>(url, body?: Record<string, any>) {
+        const res = await this.fetch<T>(`${this.endpoint}${url}`, {
             headers: this.headers,
             method: 'POST',
             body: JSON.stringify(body),
@@ -147,8 +148,8 @@ export default class Cloudflare extends Base {
         return res.body
     }
 
-    async delete<T>(url) {
-        const res = await this.fetch<T>(`${this.endpoint}/${url}`, {
+    private async delete<T>(url) {
+        const res = await this.fetch<T>(`${this.endpoint}${url}`, {
             headers: this.headers,
             method: 'DELETE',
         })
