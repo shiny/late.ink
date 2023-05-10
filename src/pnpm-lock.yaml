@@ -29,8 +29,8 @@ dependencies:
     specifier: '11'
     version: 11.8.6
   handyacme:
-    specifier: ^0.1.2
-    version: 0.1.2
+    specifier: ^0.1.4
+    version: 0.1.4
   hpagent:
     specifier: ^1.2.0
     version: 1.2.0
@@ -3420,8 +3420,8 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
 
-  /handyacme@0.1.2:
-    resolution: {integrity: sha512-55WaQD8w0cPIr6ZvPowXLRZU3Y9Nvk93GDWIXTEcdUwK71o7EcNThQ4QOtyboKkr2c8yskYA8GB75wr+J7hdrQ==}
+  /handyacme@0.1.4:
+    resolution: {integrity: sha512-ghPeRV/fk+jciGwH4S58MwsT2H5vJsgtDl4XHkAS8EaHq//A0QUrE0Om1fGJNdk1Hu900CzrUs8+ay72haC6Ag==}
     dependencies:
       '@peculiar/webcrypto': 1.4.3
       '@peculiar/x509': 1.9.3
