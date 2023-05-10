@@ -2,7 +2,7 @@ FROM node:18 AS base
 WORKDIR /app
 RUN apt-get update && apt-get install dumb-init
 RUN yarn global add pnpm
-RUN mkdir -p /app/web-ui && mkdir -p /app/src && chown -R node:node /app
+RUN mkdir -p /app/web-ui /app/src /app/tmp && chown -R node:node /app
 USER node
 
 # Frontend 
