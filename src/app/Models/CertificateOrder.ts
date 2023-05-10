@@ -38,7 +38,9 @@ export default class CertificateOrder extends BaseModel {
     })
     public domains: string[]
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public orderUrl: string
 
     /**
@@ -52,13 +54,17 @@ export default class CertificateOrder extends BaseModel {
         this.orderUrl = value
     }
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public certificateUrl: string
 
     @column()
     public status: OrderStatusType
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public finalizeUrl: string
 
     @column()

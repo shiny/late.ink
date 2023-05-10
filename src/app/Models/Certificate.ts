@@ -62,12 +62,48 @@ export default class Certificate extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @computed()
+    @computed({
+        serializeAs: null
+    })
     get validToFromCrt(): DateTime | null {
         if (!this.crt) {
             return null
         }
         const cert = new X509Certificate(this.crt)
         return DateTime.fromJSDate(new Date(cert.validTo))
+    }
+
+    public toJSON() {
+        return this.serialize({
+            fields: {
+                omit: ['validToFromCrt']
+            },
+            relations: {
+                order: {
+                    fields: {
+                        omit: [ 'domains', 'createdAt', 'updatedAt']
+                    },
+                    relations: {
+                        authority: {
+                            fields: {
+                                omit: ['directoryUrl', 'newNonce', 'newAccount', 'newOrder', 'revokeCert', 'keyChange', 'createdAt', 'updatedAt']
+                            },
+                        },
+                        dnsProviderCredential: {
+                            fields: {
+                                omit: [ 'createdAt', 'updatedAt']
+                            },
+                            relations: {
+                                provider: {
+                                    fields: {
+                                        omit: [ 'inputConfig', 'createdAt', 'updatedAt']
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+        })
     }
 }
