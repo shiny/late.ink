@@ -16,7 +16,7 @@ export const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                lazy: () => import('@/pages/index')
+                lazy: () => import('@/pages/certificate/index')
             },
             {
                 path: '/certificate/create',

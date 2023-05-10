@@ -200,3 +200,19 @@ body,
 .steps .step-primary + .step-primary::before, .steps .step-primary::after {
     @apply text-gray-800
 }
+.table-auto {
+    @apply bg-[#faf7f5] overflow-hidden;
+}
+.table-auto :where(thead) :where(th, td) {
+    /* background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity)); */
+    @apply text-lg py-5 px-5 text-left border-b  border-dotted border-slate-300;
+}
+.table-auto tr {
+    @apply  p-6;
+}
+.table-auto td {
+    @apply transition border-dashed px-6 py-4;
+}
+.table-auto tbody tr:hover td {
+    @apply bg-[#edf0f0] border-[#edf0f0] text-gray-800 cursor-pointer;
+}

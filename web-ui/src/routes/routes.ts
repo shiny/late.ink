@@ -5,7 +5,6 @@ const routes = [
     "/",
     "/login",
     "/logout",
-    "/certificate",
     "/certificate/create"
 ]
 

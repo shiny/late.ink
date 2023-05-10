@@ -48,7 +48,7 @@ export function Component() {
                         <SwapDarkmode />
                         <DropdownLanguage />
                     </header>
-                    <div className='mx-10 my-5'>
+                    <div className='mx-10 mt-5 mb-2'>
                         <Breadcrumbs/>
                     </div>
                     <Outlet />

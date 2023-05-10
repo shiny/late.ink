@@ -6,6 +6,7 @@ import {
 } from "react-router-dom"
 import  "@/locales"
 import './main.css'
+import 'react-tooltip/dist/react-tooltip.css'
 import { routes } from "./routes/index"
 import useLocaleStore from '@/locales/store'
 

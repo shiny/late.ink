@@ -21,6 +21,7 @@
     "react-head": "^3.4.2",
     "react-i18next": "^12.2.0",
     "react-router-dom": "^6.10.0",
+    "react-tooltip": "^5.11.2",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

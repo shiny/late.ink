@@ -1,10 +1,10 @@
 import useOrder from "@/data/use-order"
-import moment from "moment"
 import { useTranslation } from "react-i18next"
 import { IconChecked, IconLoading } from "@/assets/Icons"
 import useAuthority from "@/data/use-authority"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import { DateTime } from "@/components/DateTime"
 
 async function process(authorityId: number, orderId: number) {
     const shouldRefresh = await useOrder.getState().process(authorityId, orderId)
@@ -66,7 +66,7 @@ export function Component() {
                     </div>}
                     {order?.certificate?.expiredAt && <div className="py-1">
                         <span className="w-32 inline-block">{t('cert_expired')}</span>
-                        <span className="font-bold"><Moment value={order.certificate.expiredAt} format="YYYY-MM-DD HH:mm:ss" /></span>
+                        <span className="font-bold"><DateTime value={order.certificate.expiredAt} /></span>
                     </div>}
                     {order?.certificate?.expiredAt && <div className="py-1 mt-3">
                         <Link
@@ -87,10 +87,6 @@ export function Domain({ value, isWildcard, className }: { value: string, isWild
     } else {
         return <span className={className ?? ''}>{value}</span>
     }
-}
-
-export function Moment({ value, format }: { value: string, format: string }) {
-    return <>{moment(value).format(format)}</>
 }
 
 export function Badge({ type, status }: { type: 'authorization' | 'order', status: string }) {

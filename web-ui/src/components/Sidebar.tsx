@@ -12,7 +12,7 @@ export default function Sidebar() {
 
     const menus = [
         {
-            href: '/certificate/',
+            href: '/',
             title: t('nav.cert'),
             icon: IconCert
         },

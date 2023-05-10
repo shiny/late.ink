@@ -4,6 +4,23 @@ import Certificate from 'App/Models/Certificate'
 import archiver from 'archiver'
 
 export default class CertificateController {
+
+    public async index({ workspaceId, request }: HttpContextContract) {
+        const page = request.input('page', 1)
+        const perPage = 12
+        const list = await Certificate.query().where({
+            workspaceId
+        })
+        .orderBy('id', 'desc')
+        .preload('order')
+        .paginate(page, perPage)
+
+        await Promise.all(list.map(item => item.order.load('dnsProviderCredential')))
+        await Promise.all(list.map(item => item.order.load('authority')))
+        await Promise.all(list.map(item => item.order.dnsProviderCredential.load('provider')))
+        return list.toJSON()
+    }
+
     public async download({ params, workspaceId, response }: HttpContextContract) {
         // check
         const cert = await Certificate.findOrFail(params['id'])
