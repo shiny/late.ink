@@ -26,7 +26,7 @@ dependencies:
     specifier: ^5.3.1
     version: 5.3.1
   got:
-    specifier: '11'
+    specifier: '>=11.8.5'
     version: 11.8.6
   handyacme:
     specifier: ^0.1.4
