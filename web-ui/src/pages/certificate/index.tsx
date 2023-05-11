@@ -40,7 +40,7 @@ export function Component() {
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
             </div>
             <div className="my-5 py-2 pb-6 px-6 rounded-2xl bg-[#faf7f5] shadow">
-                <table className="table-auto text-lg w-full">
+                <table className="sm:overflow-auto table-auto text-lg w-full ">
                     <thead>
                         <tr>
                             <th>{t('certificate.cert_domain')}</th>
