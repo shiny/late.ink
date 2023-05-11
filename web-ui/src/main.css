@@ -175,11 +175,6 @@ body,
     @apply text-zinc-900
 }
 
-/* svg icon color by fill, when HOVER / ACTIVE */
-.menu :where(li)> :where(:not(ul)):hover>svg,
-.menu :where(li).active> :where(:not(ul))>svg {
-    @apply fill-[#4a4a4a];
-}
 
 /* svg icon color by stroke, when HOVER / ACTIVE */
 .menu :where(li)> :where(:not(ul)):hover>svg.stroke,
@@ -189,12 +184,7 @@ body,
 
 /* svg icon color by fill */
 .menu :where(li)> :where(:not(ul))>svg {
-    @apply fill-[#8a95ab] transition duration-500;
-}
-
-/* svg icon color by stroke */
-.menu :where(li)> :where(:not(ul))>svg.stroke {
-    @apply fill-none stroke-[#8a95ab] stroke-[3px];
+    @apply transition duration-500;
 }
 
 .steps .step-primary + .step-primary::before, .steps .step-primary::after {

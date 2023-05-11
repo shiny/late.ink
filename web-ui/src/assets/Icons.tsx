@@ -5,14 +5,16 @@ const defaultProps = {
     className: ''
 }
 export const IconSun = ({ className }: IconProps = defaultProps) => <svg
-    className={`fill-current ${className}`}
+    className={`${className}`}
     xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
     viewBox="0 0 24 24">
     <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
 </svg>
 
 export const IconMoon = ({ className }: IconProps = defaultProps) => <svg
-    className={`fill-current ${className}`}
+    className={`${className}`}
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
 >
@@ -25,12 +27,16 @@ export const IconLang = ({ className }: IconProps) => <svg
 
 export const IconCert = ({ className }: IconProps) => <svg
     className={className ?? ''}
+    fill="currentColor"
     viewBox="0 0 48 48" >
     <path fillRule="evenodd" clipRule="evenodd" d="M24.999 1.347l1.077.757c.083.059.162.123.234.194-.067-.065-.055-.065-.054-.067 0-.002-.007-.006-.068-.048.088.06.2.134.33.218.373.24.816.509 1.318.795a37.83 37.83 0 004.824 2.306c1.659.654 3.43 1.093 5.19 1.353.619.092 1.191.154 1.7.192.294.022.542.034.6.034l1.783.028a1.91 1.91 0 011.879 1.908l.001 1.837.002 4.38.001 2.61a24347.202 24347.202 0 01.002 8.072V26.63l-.001.046v.014c-.014 9.194-11.785 20.13-19.911 20.13C15.78 46.818 4 35.868 4 26.671V9.018a1.91 1.91 0 011.879-1.909l1.818-.028c.026 0 .275-.012.568-.034.509-.038 1.08-.1 1.7-.192 1.759-.26 3.53-.699 5.184-1.352a38.254 38.254 0 004.825-2.31c.844-.48 1.603-.968 1.755-1.084l1.068-.757a1.909 1.909 0 012.202-.005zm14.999 16.499l-.001-2.61-.002-4.339c-.531-.012-1.565-.096-2.703-.264-2.03-.3-4.078-.808-6.033-1.58-3.093-1.22-6.283-2.988-7.356-3.804-.344.244-1.157.759-2.04 1.261a42.053 42.053 0 01-5.31 2.544c-1.953.77-4 1.278-6.03 1.579-1.159.17-2.21.255-2.705.265v15.774C7.818 33.695 17.828 43 23.906 43c6.082 0 16.093-9.304 16.093-16.328v-.757-1.999l-.001-6.07zm-6.734.861a1 1 0 010 1.414l-8.485 8.485-1.415 1.415a1 1 0 01-1.414 0l-1.415-1.414v-.001l-4.242-4.242a1 1 0 010-1.414l1.414-1.415a1 1 0 011.414 0l3.536 3.536 7.778-7.778a1 1 0 011.414 0l1.415 1.414z" />
 </svg>
 
 export const IconDnsVerification = ({ className }: IconProps) => <svg
-    className={`${className ?? ''} stroke`}
+    className={`${className ?? ''}`}
+    fill="none"
+    strokeWidth={3.5}
+    stroke="currentColor"
     viewBox="0 0 48 48">
     <path d="M39 6H9a1 1 0 00-1 1v34a1 1 0 001 1h30a1 1 0 001-1V7a1 1 0 00-1-1z" />
     <path d="M8 7a1 1 0 011-1h30a1 1 0 011 1v34a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM32.072 16.518l-4.14 15.454" />
@@ -39,12 +45,14 @@ export const IconDnsVerification = ({ className }: IconProps) => <svg
 
 export const IconAcmeAccount = ({ className }: IconProps) => <svg
     className={className ?? ''}
+    fill="currentColor"
     viewBox="0 0 48 48">
     <path fillRule="evenodd" clipRule="evenodd" d="M17 9a5.001 5.001 0 000 10 5.001 5.001 0 000-10zm-9 5a9 9 0 1118 0 9 9 0 01-18 0zm3.67 16C8.03 30 5 32.997 5 36.8V40h24v-3.2c0-3.803-3.03-6.8-6.67-6.8H11.67zM1 36.8C1 30.835 5.78 26 11.67 26h10.66C28.22 26 33 30.835 33 36.8v5.4c0 .994-.8 1.8-1.78 1.8H2.78C1.8 44 1 43.194 1 42.2v-5.4zM45.67 42h-8.94v-4H43v-1.2c0-2.004-1.69-3.8-4-3.8h-2.62a10.92 10.92 0 00-1.97-4H39c4.42 0 8 3.492 8 7.8v3.9c0 .718-.6 1.3-1.33 1.3zM33 20c0-1.105.9-2 2-2s2 .895 2 2-.9 2-2 2-2-.895-2-2zm2-6c-3.31 0-6 2.686-6 6s2.69 6 6 6 6-2.686 6-6-2.69-6-6-6z" />
 </svg>
 
 export const IconDeployment = ({ className }: IconProps) => <svg
     className={className ?? ''}
+    fill="currentColor"
     viewBox="0 0 48 48">
     <path fillRule="evenodd" clipRule="evenodd" d="M46 8a2 2 0 00-2-2H4a2 2 0 00-2 2v32a2 2 0 002 2h40a2 2 0 002-2V8zM6 12h36v26H6V12zm23 4a1 1 0 011 1v2a1 1 0 01-1 1H11a1 1 0 01-1-1v-2a1 1 0 011-1h18zm9 4v-4h-4v4h4z" />
 </svg>
@@ -108,4 +116,29 @@ export const IconPlay = ({ className }: IconProps) => <svg
     fill="currentColor"
     className={className}>
     <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+</svg>
+
+export const IconGithub = ({ className }: IconProps) => <svg
+    className={className}
+    fill="currentColor"
+    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+        fill="#24292f"
+    />
+</svg>
+
+export const IconLogout = ({ className }: IconProps) => <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className={`${className}`}
+>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
 </svg>
