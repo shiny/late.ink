@@ -38,7 +38,7 @@
         "cert_domain_tooltips": "domain (Subject Alternative Name)",
         "append_domain": "append another domain",
         "authority_account": "Cert Authority Account",
-        "cert_authority": "Cert Authority",
+        "cert_authority": "Authority",
         "cert_dns_provider": "DNS Provider",
         "select_account": "Select {name}'s Account",
         "create_account": "Create {name}'s account",
@@ -70,7 +70,7 @@
             "valid_completed": "issued"
         },
         "cert_algorithm": "Cert Algorithm",
-        "cert_expired": "Expired Date",
+        "cert_expired": "Expired",
         "cert_download": "Download Cert",
         "cert_archive": "Archive (hide)"
     },

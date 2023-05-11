@@ -38,7 +38,7 @@
         "cert_domain_tooltips": "域名（主题替代名称）",
         "append_domain": "添加另一个域名",
         "authority_account": "颁发机构账号",
-        "cert_authority": "证书颁发机构",
+        "cert_authority": "颁发机构",
         "cert_dns_provider": "DNS 服务商",
         "select_account": "选择 {name} 账号",
         "create_account": "创建 {name} 账号",

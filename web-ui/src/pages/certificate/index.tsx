@@ -34,7 +34,7 @@ export function Component() {
     const { animationData, certificates } = useDataFromLoader(loader)
 
     if (certificates.meta.total > 0) {
-        return <div className="px-10 max-w-6xl">
+        return <div className="px-10 max-w-7xl">
             <div className="flex justify-between">
                 <input type="text" placeholder={t('certificate.search') ?? ''} className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
@@ -76,7 +76,7 @@ export function Component() {
                             </td>
                             <td className="w-36 text-base font-semibold">{cert.expiredAt && <DateTime value={cert.expiredAt} />}</td>
                             <td className="w-36 text-base">{cert.order.authority.ca}</td>
-                            <td className="w-36 text-base">{t(`dnsProvider.${cert.order.dnsProviderCredential.provider.name}.name`)}</td>
+                            <td className="w-48 text-base">{t(`dnsProvider.${cert.order.dnsProviderCredential.provider.name}.name`)}</td>
                             <td className="w-12 text-right">
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0}><IconMore className="w-8 h-8 inline-block cursor-pointer text-gray-400 hover:text-accent" /></label>
