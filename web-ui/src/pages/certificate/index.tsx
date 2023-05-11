@@ -36,17 +36,17 @@ export function Component() {
     if (certificates.meta.total > 0) {
         return <div className="px-10 max-w-6xl">
             <div className="flex justify-between">
-                <input type="text" placeholder="搜索证书域名" className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
-                <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 创建证书</Link>
+                <input type="text" placeholder={t('certificate.search') ?? ''} className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
+                <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
             </div>
             <div className="my-5 py-2 pb-6 px-6 rounded-2xl bg-[#faf7f5] shadow">
                 <table className="table-auto text-lg w-full">
                     <thead>
                         <tr>
-                            <th>域名</th>
-                            <th>证书过期</th>
-                            <th>验证机构</th>
-                            <th>DNS 服务商</th>
+                            <th>{t('certificate.cert_domain')}</th>
+                            <th>{t('certificate.cert_expired')}</th>
+                            <th>{t('certificate.cert_authority')}</th>
+                            <th>{t('certificate.cert_dns_provider')}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@ export function Component() {
                         {certificates.data.map(cert => <tr key={`cert-${cert.id}`}>
                             <td>
                                 <Tooltip openOnClick={true} place="right" id={`tooltip-${cert.id}`}>
-                                    <div className="font-bold">域名（主题替代名称）</div>
+                                    <div className="font-bold">{t('certificate.cert_domain_tooltips')}</div>
                                     <ul>
                                         {cert.domains.map((domain, index) => <li className="block" key={`${domain}-${index}`}>{domain}</li>)}
                                     </ul>
@@ -81,8 +81,8 @@ export function Component() {
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0}><IconMore className="w-8 h-8 inline-block cursor-pointer text-gray-400 hover:text-accent" /></label>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li className="border-b pb-1"><Link target="_blank" to={`/api/v1/certificate/${cert.id}/download`}>下载证书</Link></li>
-                                        <li><span className="md:text-red-600 cursor-not-allowed md:hover:text-red-500 md:hover:bg-red-50">归档（隐藏）</span></li>
+                                        <li className="border-b pb-1"><Link target="_blank" to={`/api/v1/certificate/${cert.id}/download`}>{t('certificate.cert_download')}</Link></li>
+                                        <li><span className="md:text-red-600 cursor-not-allowed md:hover:text-red-500 md:hover:bg-red-50">{t('certificate.cert_archive')}</span></li>
                                     </ul>
                                 </div>
                             </td>

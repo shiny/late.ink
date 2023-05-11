@@ -23,6 +23,7 @@
     "certificate": {
         "certificate": "证书",
         "create_cert": "创建证书",
+        "search": "搜索证书",
         "next": "下一步",
         "test": "测试凭证",
         "input_domains": "输入域名",
@@ -34,9 +35,11 @@
         "credential_name": "凭证名称（方便记忆）",
         "finish": "完成订单",
         "cert_domain": "证书的域名",
+        "cert_domain_tooltips": "域名（主题替代名称）",
         "append_domain": "添加另一个域名",
         "authority_account": "颁发机构账号",
         "cert_authority": "证书颁发机构",
+        "cert_dns_provider": "DNS 服务商",
         "select_account": "选择 {name} 账号",
         "create_account": "创建 {name} 账号",
         "submit_account_creation": "创建账号",
@@ -68,7 +71,8 @@
         },
         "cert_algorithm": "证书算法",
         "cert_expired": "证书过期",
-        "cert_download": "下载证书"
+        "cert_download": "下载证书",
+        "cert_archive": "归档（隐藏）"
     },
     "dnsProvider": {
         "Aliyun": {
@@ -92,6 +96,8 @@
     "failed": "失败，再检查下",
     "loading": "加载中…",
     "testing": "测试中…",
+    "next": "下一步",
+    "previous": "上一步",
     "input": "输入 {name}",
     "datetime": {
         "short": "M月D日 HH:mm"

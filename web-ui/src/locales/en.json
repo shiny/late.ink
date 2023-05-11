@@ -23,6 +23,7 @@
     "certificate": {
         "certificate": "Certificate",
         "create_cert": "Create Certificate",
+        "search": "Search Certificate",
         "next": "Next",
         "test": "Test Credential",
         "input_domains": "Input Domains",
@@ -34,9 +35,11 @@
         "credential_name": "Credential Name (for memory)",
         "finish": "Finish Order",
         "cert_domain": "Cert's Domain",
+        "cert_domain_tooltips": "domain (Subject Alternative Name)",
         "append_domain": "append another domain",
         "authority_account": "Cert Authority Account",
         "cert_authority": "Cert Authority",
+        "cert_dns_provider": "DNS Provider",
         "select_account": "Select {name}'s Account",
         "create_account": "Create {name}'s account",
         "submit_account_creation": "Submit",
@@ -68,7 +71,8 @@
         },
         "cert_algorithm": "Cert Algorithm",
         "cert_expired": "Expired Date",
-        "cert_download": "Download Cert"
+        "cert_download": "Download Cert",
+        "cert_archive": "Archive (hide)"
     },
     "dnsProvider": {
         "Aliyun": {
@@ -92,6 +96,8 @@
     "failed": "Failed, check again",
     "loading": "Loading...",
     "testing": "Testing...",
+    "next": "Next",
+    "previous": "Previous",
     "input": "Input {name} Here",
     "datetime": {
         "short": "MMM D, HH:mm"
