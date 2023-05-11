@@ -8,8 +8,12 @@ USER node
 # Frontend 
 FROM base AS page-deps
 WORKDIR /app/web-ui
-COPY ./web-ui/package.json ./web-ui/pnpm-lock.yaml* ./
-RUN pnpm i --frozen-lockfile
+# pnpm fetch does require only lockfile
+COPY ./web-ui/pnpm-lock.yaml ./
+RUN pnpm fetch
+
+COPY ./web-ui/package.json ./
+RUN pnpm i -r --offline
 
 FROM base AS page-builder
 USER node
@@ -21,8 +25,11 @@ RUN pnpm build
 # Backend
 FROM base AS deps
 WORKDIR /app/src
-COPY --chown=node:node ./src/package*.json ./src/pnpm-lock.yaml ./
-RUN pnpm i --frozen-lockfile
+COPY ./src/pnpm-lock.yaml ./
+RUN pnpm fetch
+
+COPY ./src/package.json ./
+RUN pnpm i -r --offline
 
 FROM deps AS build
 WORKDIR /app/src
@@ -34,8 +41,12 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV HOST=0.0.0.0
-COPY --chown=node:node ./src/package*.json ./src/pnpm-lock.yaml ./
-RUN pnpm i --frozen-lockfile --prod
+
+COPY ./src/pnpm-lock.yaml ./
+RUN pnpm fetch --prod
+
+COPY ./src/package.json ./
+RUN pnpm i -r --offline --prod
 
 # Add compiled js files
 COPY --chown=node:node --from=build /app/src/build .
