@@ -21,7 +21,7 @@ export async function loader({ request }: { request: Request }) {
     }
     const res = await fetch(certificate)
     return {
-        animationData: res.json(),
+        animationData: await res.json(),
         certificates: results
     }
 }
@@ -108,7 +108,7 @@ export function Component() {
             <div className="hero-content text-center">
                 <div className="max-w-md">
                     <Lottie loop={false} animationData={animationData} />
-                    <h1 className="text-5xl font-bold">{t('first_cert')}</h1>
+                    <h1 className="text-5xl font-bold">{t('introduce.first_cert')}</h1>
                     <p className="py-6">{t('introduce.first_cert_description')}</p>
                     <Link to="/certificate/create/domain">
                         <button className="btn btn-primary">{t('introduce.get_started')}</button>
