@@ -4,6 +4,8 @@ interface PaginationProps {
     page: number
     total: number
     perPage: number
+    className?: string
+    hideIfOnlyOnePage?: boolean
     goto?: (page: number) => void 
 }
 
@@ -47,7 +49,12 @@ function createPages(currentPage: number, maxPage: number) {
     return resultPages
 }
 
-export default function Pagination({ page, total, perPage, goto }: PaginationProps) {
+export default function Pagination({ page, total, perPage, goto, hideIfOnlyOnePage, className }: PaginationProps) {
+
+    if (total <= perPage && (hideIfOnlyOnePage ?? true)) {
+        return <></>
+    }
+
     const max = Math.ceil(total / perPage)
     const pages = createPages(page, max)
     const redirectTo = (page: number) => {
@@ -73,7 +80,7 @@ export default function Pagination({ page, total, perPage, goto }: PaginationPro
         }
     }
 
-    return <nav className="isolate inline-flex -space-x-px rounded shadow-sm" aria-label="Pagination">
+    return <nav className={`${className ?? ''} isolate inline-flex -space-x-px rounded shadow-sm`} aria-label="Pagination">
         {max > 1 && <span
             onClick={() => redirectTo(page - 1)}
             className={`${disabled(page - 1, max) ? 'text-gray-400' : 'cursor-pointer'} relative inline-flex items-center rounded-l-md px-4 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}

@@ -39,7 +39,7 @@ export function Component() {
                 <input type="text" placeholder="搜索证书域名" className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 创建证书</Link>
             </div>
-            <div className="my-5 py-2 px-6 rounded-2xl bg-[#faf7f5] shadow">
+            <div className="my-5 py-2 pb-6 px-6 rounded-2xl bg-[#faf7f5] shadow">
                 <table className="table-auto text-lg w-full">
                     <thead>
                         <tr>
@@ -90,8 +90,9 @@ export function Component() {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colSpan={3} className="py-8 px-4" align="left">
+                            <th colSpan={3} align="left">
                                 <Pagination
+                                    className="pt-4 px-4"
                                     perPage={certificates.meta.per_page}
                                     total={certificates.meta.total}
                                     page={certificates.meta.current_page}
