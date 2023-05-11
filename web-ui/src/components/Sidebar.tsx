@@ -1,5 +1,5 @@
 
-import { IconCert, IconDnsVerification, IconAcmeAccount, IconDeployment } from '@/assets/Icons'
+import { IconCert, IconDnsVerification, IconAcmeAccount, IconDeployment, IconGithub, IconLogout } from '@/assets/Icons'
 import { Link, useLocation } from 'react-router-dom'
 import LateLogo from "/late.svg"
 import { useTranslation } from 'react-i18next'
@@ -52,8 +52,16 @@ export default function Sidebar() {
             </ul>
             <div className='grow-0'>
                 <ul className="menu text-base-content">
-                    <li><a>Docs</a></li>
-                    <li><Link to={`/logout?next=${encodeURIComponent(location.pathname)}`}>{t('nav.logout')}</Link></li>
+                    <li>
+                        <Link to={`https://github.com/shiny/late.ink`}>
+                            <IconGithub className="w-5 h-5" />Github
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/logout?next=${encodeURIComponent(location.pathname)}`}>
+                            <IconLogout className="w-5 h-5" />{t('nav.logout')}
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className="grow-0 divider w-32" />
