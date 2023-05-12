@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { ApiResponse, fetch, post } from "./request"
+import type { Pagination } from '@late/Response'
 
 export interface InputConfig {
     name: string
@@ -108,7 +109,7 @@ const useDns = create<UseDns>((set, get) => {
             return credential
         },
         fetchCredentials: async (providerId = 0) => {
-            const credentials = await fetch<CredentialOption[]>(`dns/provider/${providerId}/credential`)
+            const { data: credentials } = await fetch<Pagination<CredentialOption>>(`dns/provider/${providerId}/credential`)
             set({ credentials })
             return credentials
         },

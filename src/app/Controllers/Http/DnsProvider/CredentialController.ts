@@ -23,7 +23,9 @@ export default class CredentialController {
         }
     }
 
-    public async index({ params, workspaceId }: HttpContextContract) {
+    public async index({ params, workspaceId, request }: HttpContextContract) {
+        const prePage = 12
+        const page = request.input('page', 1)
         const credentials = DnsProviderCredential.query().where({
             workspaceId,
         }).preload('provider')
@@ -33,7 +35,8 @@ export default class CredentialController {
                 dnsProviderId: params['providerId']
             })
         }
-        return (await credentials).map(item => item.serialize({
+
+        return (await credentials.paginate(page, prePage)).serialize({
             fields: {
                 omit: ['workspace_id', 'created_at', 'updated_at']
             },
@@ -44,7 +47,7 @@ export default class CredentialController {
                     }
                 }
             }
-        }))
+        })
     }
 
     public async store({ request, params, workspaceId }: HttpContextContract) {
