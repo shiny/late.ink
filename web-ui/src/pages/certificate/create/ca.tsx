@@ -5,6 +5,7 @@ import { useDataFromLoader } from "@/utils/router"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Form, redirect, useNavigation } from "react-router-dom"
+import { HeadProvider, Title } from "react-head"
 
 export async function loader(): Promise<{ authorities: Authority[] }> {
     const authorities = await useAuthority.getState().fetchAuthorities()
@@ -52,6 +53,9 @@ export function Component() {
     const submitting = state === 'submitting'
 
     return <Form method="post">
+        <HeadProvider>
+            <Title>{t('choose_ca_account')}</Title>
+        </HeadProvider>
         <div>
             <h2 className="text-2xl font-semibold leading-7 text-gray-900">{t('authority_account')}
                 <div className="tooltip" data-tip="Production mode">

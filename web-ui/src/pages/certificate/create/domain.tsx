@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { Form, redirect, useNavigation, useSubmit } from "react-router-dom"
 import { DomainState, useDomains } from "@/data/use-form"
 import { isDeletingKey, isEnterKey, isTabKey } from '@/utils/keyborad'
+import { HeadProvider, Title } from "react-head"
 
 export function loader() {
     return useDomains.getState().domains
@@ -76,6 +77,9 @@ export function Component() {
     const submitting = state === 'submitting'
 
     return <div>
+        <HeadProvider>
+            <Title>{t('input_domains')}</Title>
+        </HeadProvider>
         <Form ref={formRef} method="post" className="mt-2 grid gap-2">
             <h2 className="text-2xl font-semibold leading-7 text-gray-900">{t('cert_domain')}
                 <div className="tooltip" data-tip="Subjective Alternative Name">

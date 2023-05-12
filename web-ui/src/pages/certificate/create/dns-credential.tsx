@@ -5,6 +5,8 @@ import { useDataFromAction, useDataFromLoader } from "@/utils/router"
 import { FormEventHandler, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Form, Link, redirect, useNavigation } from "react-router-dom"
+import { HeadProvider, Title } from "react-head"
+
 
 export async function loader() {
     const { fetch } = useDns.getState()
@@ -71,6 +73,9 @@ export function Component() {
     const errorMessage = useDataFromAction(action)
 
     return <Form method="POST">
+        <HeadProvider>
+            <Title>{t('certificate.DNS_Verification')}</Title>
+        </HeadProvider>
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
             {t('certificate.DNS_Verification')}
             <div className="tooltip" data-tip="Subjective Alternative Name">

@@ -5,6 +5,8 @@ import useAuthority from "@/data/use-authority"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { DateTime } from "@/components/DateTime"
+import { HeadProvider, Title } from "react-head"
+
 
 async function process(authorityId: number, orderId: number) {
     const shouldRefresh = await useOrder.getState().process(authorityId, orderId)
@@ -32,10 +34,16 @@ export function Component() {
 
     if (!order) {
         return <>
+            <HeadProvider>
+                <Title>{t('finish')}</Title>
+            </HeadProvider>
             Order is Empty
         </>
     }
     return <div>
+        <HeadProvider>
+            <Title>{t('finish')}</Title>
+        </HeadProvider>
         <div>
             <h2 className="text-2xl font-semibold leading-7 text-gray-900">{t('finish')}</h2>
             <div className="mt-8 px-1">

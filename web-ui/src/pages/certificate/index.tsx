@@ -8,6 +8,7 @@ import { IconMore, IconPlay } from "@/assets/Icons"
 import { DateTime } from "@/components/DateTime"
 import Pagination from "@/components/Pagination"
 import { Tooltip } from 'react-tooltip'
+import { HeadProvider, Title } from "react-head"
 
 export async function loader({ request }: { request: Request }) {
     const url = new URL(request.url)
@@ -35,6 +36,9 @@ export function Component() {
 
     if (certificates.meta.total > 0) {
         return <div className="px-10 max-w-7xl">
+            <HeadProvider>
+                <Title>{t('nav.cert')}</Title>
+            </HeadProvider>
             <div className="flex justify-between">
                 <input type="text" placeholder={t('certificate.search') ?? ''} className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
