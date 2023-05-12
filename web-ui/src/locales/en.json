@@ -17,7 +17,7 @@
         "org": "Organization",
         "ACME_account": "ACME Account",
         "deployment": "Cert Deployment",
-        "DNS_verfication": "DNS Verfication",
+        "DNS_verification": "DNS Verification",
         "logout": "Logout"
     },
     "certificate": {

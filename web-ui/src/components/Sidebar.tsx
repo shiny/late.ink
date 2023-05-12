@@ -18,7 +18,7 @@ export default function Sidebar() {
         },
         {
             href: '/dns-verification/',
-            title: t('nav.DNS_verfication'),
+            title: t('nav.DNS_verification'),
             icon: IconDnsVerification
         },
         {

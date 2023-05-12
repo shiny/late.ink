@@ -17,7 +17,7 @@
         "org": "组织",
         "ACME_account": "ACME 账户",
         "deployment": "证书部署",
-        "DNS_verfication": "DNS 自动验证",
+        "DNS_verification": "DNS 自动验证",
         "logout": "退出登录"
     },
     "certificate": {
