@@ -204,7 +204,7 @@ body,
     @apply transition border-dashed px-6 py-3.5;
 }
 .table-auto tbody tr:hover td {
-    @apply bg-[#edf0f0] border-[#edf0f0] text-gray-800 cursor-pointer;
+    @apply bg-[#edf0f0] border-[#edf0f0] text-gray-800;
 }
 
 .main-container {

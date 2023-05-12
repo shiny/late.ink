@@ -44,7 +44,7 @@ export function Component() {
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
             </div>
             <div className="table-container">
-                <table className="main-table">
+                <table className="main-table cursor-pointer">
                     <thead>
                         <tr>
                             <th>{t('certificate.cert_domain')}</th>
