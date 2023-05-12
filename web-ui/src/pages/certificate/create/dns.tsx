@@ -11,7 +11,7 @@ import { HeadProvider, Title } from "react-head"
 
 export async function loader() {
     const { fetchCredentials } = useDns.getState()
-    return await fetchCredentials()
+    return (await fetchCredentials()).data
 }
 
 export async function action({ request }: { request: Request }) {

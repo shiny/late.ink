@@ -52,7 +52,7 @@ interface UseDns {
     setProviderId: (providerId: number) => void
     test: (providerId: number, credential: CredentialItem) => Promise<TestCredentialResponse>
     createCredential: (providerId: number, form: Record<string, string>) => Promise<any>
-    fetchCredentials: (providerId?: number) => Promise<CredentialOption[]>
+    fetchCredentials: (providerId?: number, page?: number) => Promise<Pagination<CredentialOption>>
     setCredentialId: (credentialId: number) => void
 }
 
@@ -108,10 +108,12 @@ const useDns = create<UseDns>((set, get) => {
             console.log(credential)
             return credential
         },
-        fetchCredentials: async (providerId = 0) => {
-            const { data: credentials } = await fetch<Pagination<CredentialOption>>(`dns/provider/${providerId}/credential`)
-            set({ credentials })
-            return credentials
+        fetchCredentials: async (providerId = 0, page = 1) => {
+            const response = await fetch<Pagination<CredentialOption>>(`dns/provider/${providerId}/credential`, {
+                searchParams: { page }
+            })
+            set({ credentials: response.data })
+            return response
         },
         setCredentialId: (credentialId: number) => {
             set({
