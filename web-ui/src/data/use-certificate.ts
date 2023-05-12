@@ -1,16 +1,6 @@
 import { create } from "zustand"
 import { fetch } from './request'
-
-interface PaginatedResponse {
-    meta: {
-        total: number,
-        per_page: number,
-        current_page: number,
-        last_page: number,
-        first_page: number,
-    },
-    data: Certificate[]
-}
+import type { Pagination } from "@late/Response"
 
 interface Certificate {
     id: number
@@ -38,14 +28,14 @@ interface Certificate {
 
 interface UseCertificate {
     certificates: Certificate[]
-    refresh: (page?: number) => Promise<PaginatedResponse>
+    refresh: (page?: number) => Promise<Pagination<Certificate>>
 }
 
 const useCertificate = create<UseCertificate>((set) => {
     return {
         certificates: [],
         refresh: async (page = 1) => {
-            const response = await fetch<PaginatedResponse>('certificate', {
+            const response = await fetch<Pagination<Certificate>>('certificate', {
                 searchParams: { page }
             })
             set({

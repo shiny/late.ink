@@ -20,6 +20,6 @@
         "@/*": ["src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "global-response.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
