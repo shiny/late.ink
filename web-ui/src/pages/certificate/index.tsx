@@ -4,11 +4,12 @@ import { Link, useSearchParams } from "react-router-dom"
 import certificate from "@/assets/certificate-cuy.json?url"
 import { useDataFromLoader } from "@/utils/router"
 import useCertificate from "@/data/use-certificate"
-import { IconMore, IconPlay } from "@/assets/Icons"
+import { IconPlay } from "@/assets/Icons"
 import { DateTime } from "@/components/DateTime"
 import TFootPagination from "@/components/TFootPagination"
 import { Tooltip } from 'react-tooltip'
 import { HeadProvider, Title } from "react-head"
+import Dropdown from "@/components/Dropdown"
 
 export async function loader({ request }: { request: Request }) {
     const url = new URL(request.url)
@@ -82,13 +83,15 @@ export function Component() {
                             <td className="w-36 text-base">{cert.order.authority.ca}</td>
                             <td className="w-48 text-base">{t(`dnsProvider.${cert.order.dnsProviderCredential.provider.name}.name`)}</td>
                             <td className="w-12 text-right">
-                                <div className="dropdown dropdown-end">
-                                    <label tabIndex={0}><IconMore className="w-8 h-8 inline-block cursor-pointer text-gray-400 hover:text-accent" /></label>
-                                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li className="border-b pb-1"><Link target="_blank" to={`/api/v1/certificate/${cert.id}/download`}>{t('certificate.cert_download')}</Link></li>
-                                        <li><span className="md:text-red-600 cursor-not-allowed md:hover:text-red-500 md:hover:bg-red-50">{t('certificate.cert_archive')}</span></li>
-                                    </ul>
-                                </div>
+                                <Dropdown>
+                                    <Dropdown.Item>
+                                        <Link target="_blank" to={`/api/v1/certificate/${cert.id}/download`}>{t('certificate.cert_download')}</Link>
+                                    </Dropdown.Item>
+                                    <Dropdown.Divide />
+                                    <Dropdown.Item>
+                                        <span className="md:text-red-600 cursor-not-allowed md:hover:text-red-500 md:hover:bg-red-50">{t('certificate.cert_archive')}</span>
+                                    </Dropdown.Item>
+                                </Dropdown>
                             </td>
                         </tr>)}
                     </tbody>
