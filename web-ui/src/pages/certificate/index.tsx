@@ -6,7 +6,7 @@ import { useDataFromLoader } from "@/utils/router"
 import useCertificate from "@/data/use-certificate"
 import { IconMore, IconPlay } from "@/assets/Icons"
 import { DateTime } from "@/components/DateTime"
-import Pagination from "@/components/Pagination"
+import TFootPagination from "@/components/TFootPagination"
 import { Tooltip } from 'react-tooltip'
 import { HeadProvider, Title } from "react-head"
 
@@ -92,19 +92,7 @@ export function Component() {
                             </td>
                         </tr>)}
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colSpan={3} align="left">
-                                <Pagination
-                                    className="pt-4 px-4"
-                                    perPage={certificates.meta.per_page}
-                                    total={certificates.meta.total}
-                                    page={certificates.meta.current_page}
-                                    goto={page => setSearchParams({ page: page.toString() })}
-                                />
-                            </th>
-                        </tr>
-                    </tfoot>
+                    <TFootPagination value={certificates} />
                 </table>
             </div>
         </div>
