@@ -1,15 +1,18 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import HttpNotFoundException from 'App/Exceptions/HttpNotFoundException'
 import DnsProvider from 'App/Models/DnsProvider'
 import DnsProviderCredential from 'App/Models/DnsProviderCredential'
 import DnsProviderCredentialValidator from 'App/Validators/DnsProviderCredentialValidator'
 
 export default class CredentialController {
-    public async test({ request, params }: HttpContextContract) {
+    public async test({ params, workspaceId }: HttpContextContract) {
         try {
-            await request.validate(DnsProviderCredentialValidator)
-            const provider = await DnsProvider.findOrFail(params['providerId'])
-            await provider.testCredential(request.all())
-            
+            const id = params['id']
+            const cred = await DnsProviderCredential.findOrFail(id)
+            if (cred.workspaceId !== workspaceId) {
+                throw new HttpNotFoundException('Credentials not found')
+            }
+            await cred.test()
             return {
                 success: true
             }
