@@ -35,7 +35,7 @@ export function Component() {
     const { animationData, certificates } = useDataFromLoader(loader)
 
     if (certificates.meta.total > 0) {
-        return <div className="px-10 max-w-7xl">
+        return <div className="main-container">
             <HeadProvider>
                 <Title>{t('nav.cert')}</Title>
             </HeadProvider>
@@ -43,8 +43,8 @@ export function Component() {
                 <input type="text" placeholder={t('certificate.search') ?? ''} className="input input-md rounded-lg shadow w-full max-w-sm text-lg cursor-not-allowed" />
                 <Link to={`/certificate/create/domain`} className="btn btn-primary btn-base rounded-lg">🚀 {t('certificate.create_cert')}</Link>
             </div>
-            <div className="my-5 py-2 pb-6 px-6 rounded-2xl bg-[#faf7f5] shadow">
-                <table className="sm:overflow-auto table-auto text-lg w-full ">
+            <div className="table-container">
+                <table className="main-table">
                     <thead>
                         <tr>
                             <th>{t('certificate.cert_domain')}</th>

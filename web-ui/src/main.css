@@ -206,3 +206,15 @@ body,
 .table-auto tbody tr:hover td {
     @apply bg-[#edf0f0] border-[#edf0f0] text-gray-800 cursor-pointer;
 }
+
+.main-container {
+    @apply container px-10 max-w-7xl;
+}
+
+.table-container {
+    @apply my-5 py-2 pb-6 px-6 rounded-2xl bg-[#faf7f5] shadow
+}
+
+.main-table {
+    @apply sm:overflow-auto table-auto text-lg w-full
+}
