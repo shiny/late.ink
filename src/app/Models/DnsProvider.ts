@@ -31,7 +31,7 @@ export default class DnsProvider extends BaseModel {
         } else {
             return Dns.load(this.name)
         }
-  }
+    }
 
     public async testCredential(credential: Record<string, string>) {
         return this.dns().testCred(credential)
