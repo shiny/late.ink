@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Authority from 'App/Models/Authority'
+import AuthorityAccount from 'App/Models/AuthorityAccount'
 
 
 export default class AccountController {
@@ -25,15 +26,19 @@ export default class AccountController {
         return account
     }
 
-    public async index ({ params, workspaceId }: HttpContextContract) {
+    public async index({ params, workspaceId, request }: HttpContextContract) {
+        const prePage = 12
+        const page = request.input('page', 1)
         if (!workspaceId) {
             throw new Error('Session expired')
         }
-        const authorityId = params['authorityId']
-        const authority = await Authority.findOrFail(authorityId)
-        const accounts =await authority.related('accounts')
-            .query()
-            .withScopes((scopes) => scopes.inWorkspace(workspaceId))
-        return accounts.map(account => account.serialize())
+        const authorityId = parseInt(params['authorityId'])
+        const model = AuthorityAccount.query().where({
+            workspaceId,
+        }).preload('authority')
+        if (authorityId) {
+            model.where({ authorityId })
+        }
+        return (await model.paginate(page, prePage)).serialize()
     }
 }

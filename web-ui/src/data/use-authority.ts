@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { fetch, post } from "./request"
+import { Pagination } from "@late/Response"
 
 export interface Authority {
     id: number
@@ -11,6 +12,7 @@ export interface Account {
     email: string
     authorityId: number
     id: number
+    authority: Authority
 }
 
 interface CreateAccountOptions {
@@ -31,7 +33,7 @@ interface UseAuthority {
     setNewEmail: (email: UseAuthority["newEmail"]) => void
     fetchAuthorities: () => Promise<Authority[]>
     getAuthority: () => Authority | undefined
-    fetchAccounts: (authorityId: number) => Promise<void>
+    fetchAccounts: (authorityId?: number, page?: number) => Promise<Pagination<Account>>
     createAccount: (form: CreateAccountOptions) => Promise<any>
     clearAccounts: () => void
     selectAccountId: (accountId: number) => void
@@ -89,12 +91,16 @@ const useAuthority = create<UseAuthority>((set, get) => {
                 await fetchAccounts(newAuthorityId)
             }
         },
-        fetchAccounts: async (authorityId: number) => {
+        fetchAccounts: async (authorityId?: number, page?: number) => {
+            if (!authorityId) authorityId = 0
+            if (!page) page = 1
             set({ loadingAccount: true })
             try {
-                const accounts = await fetch<Account[]>(`authority/${authorityId}/account`, {
+                const response = await fetch<Pagination<Account>>(`authority/${authorityId}/account`, {
+                    searchParams: { page },
                     throwHttpErrors: true
                 })
+                const accounts = response.data
                 set({
                     accounts
                 })
@@ -102,6 +108,7 @@ const useAuthority = create<UseAuthority>((set, get) => {
                 if (!get().accountId && accounts.length > 0 && accounts[0].id) {
                     get().selectAccountId(accounts[0].id)
                 }
+                return response
             } catch (e) {
                 throw e
             } finally {
@@ -122,7 +129,7 @@ const useAuthority = create<UseAuthority>((set, get) => {
                     throwHttpErrors: true
                 })
                 set({
-                    accounts: [ ...accounts, account ],
+                    accounts: [...accounts, account],
                     accountId: account.id,
                 })
                 return account
