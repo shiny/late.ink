@@ -9,10 +9,9 @@ export default function Sidebar() {
     const { t } = useTranslation()
     const name = useUserState(state => state.name)
     const location = useLocation()
-
     const menus = [
         {
-            href: '/',
+            href: '/certificate',
             title: t('nav.cert'),
             icon: IconCert
         },
@@ -22,7 +21,7 @@ export default function Sidebar() {
             icon: IconDnsVerification
         },
         {
-            href: '/ACME-account/',
+            href: '/acme-account/',
             title: t('nav.ACME_account'),
             icon: IconAcmeAccount
         },

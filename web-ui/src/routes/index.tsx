@@ -1,5 +1,5 @@
 
-import {  RouteObject } from "react-router-dom"
+import {  Navigate, RouteObject } from "react-router-dom"
 
 export const routes: RouteObject[] = [
     {
@@ -16,7 +16,23 @@ export const routes: RouteObject[] = [
         children: [
             {
                 index: true,
+                Component: () => <Navigate to="/certificate" replace />
+            },
+            {
+                path: '/certificate',
                 lazy: () => import('@/pages/certificate/index')
+            },
+            {
+                path: '/dns-verification',
+                lazy: () => import('@/pages/dns-verification'),
+            },
+            {
+                path: '/acme-account',
+                lazy: () => import('@/pages/acme-account'),
+            },
+            {
+                path: '/deployment',
+                lazy: () => import('@/pages/deployment'),
             },
             {
                 path: '/certificate/create',
