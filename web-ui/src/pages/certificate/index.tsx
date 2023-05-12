@@ -1,6 +1,6 @@
 import Lottie from "lottie-react"
 import { useTranslation } from "react-i18next"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import certificate from "@/assets/certificate-cuy.json?url"
 import { useDataFromLoader } from "@/utils/router"
 import useCertificate from "@/data/use-certificate"
@@ -31,7 +31,6 @@ export async function loader({ request }: { request: Request }) {
 export function Component() {
 
     const { t } = useTranslation("translation")
-    const [, setSearchParams] = useSearchParams()
 
     const { animationData, certificates } = useDataFromLoader(loader)
 
