@@ -21,28 +21,38 @@ export default class Authority extends BaseModel {
     @column()
     public directoryUrl: string
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public newNonce: string
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public newAccount: string
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public newOrder: string
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public revokeCert: string
 
-    @column()
+    @column({
+        serializeAs: null
+    })
     public keyChange: string
 
     @column()
     public externalAccountRequired: boolean
 
-    @column.dateTime({ autoCreate: true })
+    @column.dateTime({ autoCreate: true, serializeAs: null })
     public createdAt: DateTime
 
-    @column.dateTime({ autoCreate: true, autoUpdate: true })
+    @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
     public updatedAt: DateTime
 
     @hasMany(() => AuthorityAccount)
@@ -86,7 +96,7 @@ export default class Authority extends BaseModel {
     public async createAccount({ email, workspaceId }: { email: string, workspaceId: number }) {
         const client = await this.resolveInstance()
         await client.createAccount(email)
-        
+
         const accountInfo = {
             jwk: await client.account.exportPrivateJwk(),
             email: client.account.email,
@@ -94,6 +104,6 @@ export default class Authority extends BaseModel {
             authorityId: this.id,
             workspaceId
         }
-      return AuthorityAccount.create(accountInfo)
+        return AuthorityAccount.create(accountInfo)
     }
 }
