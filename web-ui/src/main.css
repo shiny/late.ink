@@ -198,10 +198,10 @@ body,
     @apply text-lg py-5 px-5 text-left border-b  border-dotted border-slate-300;
 }
 .table-auto tr {
-    @apply  p-6;
+    @apply p-6;
 }
 .table-auto td {
-    @apply transition border-dashed px-6 py-4;
+    @apply transition border-dashed px-6 py-3.5;
 }
 .table-auto tbody tr:hover td {
     @apply bg-[#edf0f0] border-[#edf0f0] text-gray-800 cursor-pointer;
