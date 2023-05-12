@@ -38,6 +38,7 @@
         "cert_domain_tooltips": "domain (Subject Alternative Name)",
         "append_domain": "append another domain",
         "authority_account": "Cert Authority Account",
+        "authority_account_email": "E-Mail",
         "cert_authority": "Authority",
         "cert_dns_provider": "DNS Provider",
         "select_account": "Select {name}'s Account",

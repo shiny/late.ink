@@ -177,7 +177,7 @@ function CreateAccount({ onCancel }: { onCancel?: () => void }) {
                 name="email"
                 disabled={submittingAccount}
                 onInput={({ currentTarget }) => setNewEmail(currentTarget.value)}
-                placeholder="E-Mail"
+                placeholder={t('certificate.authority_account_email') ?? ''}
                 className="input input-bordered w-full max-w-xs"
                 value={newEmail}
             />
