@@ -2,6 +2,7 @@ import crypto from "node:crypto"
 import querystring from "node:querystring"
 import Base from './Base'
 import { RecordOption, isRecordType } from ".."
+import { Options } from "got/dist/source"
 
 function nonce() {
     return crypto.randomBytes(5).toString('hex')
@@ -100,6 +101,8 @@ export default class Aliyun extends Base {
         const instance = config ? new Aliyun(config) : this
         const { Code, Message } = await instance.action<{ Code: string, Message: string }>({
             Action: 'DescribeDomains',
+        }, {
+            throwHttpErrors: false
         })
         if (Code && Message) {
             throw new Error(Code)
@@ -108,7 +111,7 @@ export default class Aliyun extends Base {
         }
     }
 
-    async action<ReturnType>(params) {
+    async action<ReturnType>(params, options?: Options) {
         const query = querystring.stringify({
             Format: "JSON",
             Version: this.apiVersion,
@@ -125,7 +128,8 @@ export default class Aliyun extends Base {
         url.searchParams.append('Signature', createGetSignature(url, this.accessKeySecret))
         try {
             const result = await this.fetch<ReturnType>(url, {
-                throwHttpErrors: true
+                throwHttpErrors: true,
+                ...options
             })
             return result.body
         } catch (error) {
