@@ -5,7 +5,15 @@ const routes = [
     "/",
     "/login",
     "/logout",
-    "/certificate/create"
+    "/certificate",
+    "/certificate/create/domain",
+    "/certificate/create/ca",
+    "/certificate/create/dns",
+    "/certificate/create/dns-credential",
+    "/certificate/create/finish",
+    "/dns-verification",
+    "/acme-account",
+    "/deployment",
 ]
 
 export default routes
