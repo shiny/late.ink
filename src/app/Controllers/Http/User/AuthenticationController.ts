@@ -5,7 +5,7 @@ export default class AuthenticationController {
     public async login({ auth, request, session }: HttpContextContract) {
         const user = request.input('name')
         const password = request.input('password')
-        const rememberMe = true
+        const rememberMe = false
         await auth.use('web').attempt(user, password, rememberMe)
         const workspaces = await Workspace.query().where({
             founderId: auth.use('web').user?.id,
