@@ -24,4 +24,13 @@ declare module "@late/Response" {
         },
         data: T[]
     }
+
+    export interface Error {
+        message: string
+    }
+
+    export interface SuccessCheck {
+        success?: boolean
+        errors?: Error[]
+    }
 }

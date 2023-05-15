@@ -41,4 +41,29 @@ export default class AccountController {
         }
         return (await model.paginate(page, prePage)).serialize()
     }
+
+    public async test({ workspaceId, params }: HttpContextContract) {
+        try {
+            const authority = await AuthorityAccount.query().where({
+                id: params['id'],
+                workspaceId
+            }).firstOrFail()
+            await authority.load('authority')
+            const { status } = await authority.test()
+            if (status === 'valid') {
+                return {
+                    success: true,
+                }
+            } else {
+                throw new Error(`The account status is ${status}`)
+            }
+        } catch (err) {
+            return {
+                success: false,
+                errors: [
+                    { message: err.message }
+                ]
+            }
+        }
+    }
 }

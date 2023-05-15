@@ -96,4 +96,36 @@ export default class AuthorityAccount extends BaseModel {
         }
         return model
     }
+
+    public async test() {
+        const ca = await this.resolveInstance()
+        const content = await ca.postAsGet(ca.account.accountUrl)
+        const result = await content.json()
+        return result as LetsEncryptAccountEntry | ZeroSSLAccountEntry
+    }
+}
+
+interface LetsEncryptAccountEntry {
+    key: {
+        kty: string
+        crv: string
+        x: string
+        y: string
+    }
+    contact: string[]
+    initialIp: string
+    createdAt: string
+    status: string
+}
+
+interface ZeroSSLAccountEntry {
+    contact: string[]
+    termsOfServiceAgreed: boolean
+    status: string
+    orders: string // url
+    externalAccountBinding: {
+        payload: string
+        protected: string
+        signature: string
+    }
 }

@@ -12,6 +12,8 @@ Route.group(() => {
 
     Route.resource('/authority.account', 'Authority/AccountController')
         .paramFor('authority', 'authorityId')
+
+    Route.post('/authority/:authorityId/account/:id/test', 'Authority/AccountController.test')
     
     Route.resource('/authority.order', 'Authority/OrderController')
         .paramFor('authority', 'authorityId')

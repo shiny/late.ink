@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { fetch, post } from "./request"
-import { Pagination } from "@late/Response"
+import type { Pagination, SuccessCheck } from "@late/Response"
 
 export interface Authority {
     id: number
@@ -39,6 +39,7 @@ interface UseAuthority {
     selectAccountId: (accountId: number) => void
     selectDefaultAccountId: () => void
     selectAuthorityId: (authorityId: number) => Promise<void>
+    test: (accountId: number) => Promise<SuccessCheck>
 }
 
 /**
@@ -164,6 +165,9 @@ const useAuthority = create<UseAuthority>((set, get) => {
                 })
             }
         },
+        test: async (accountId: number): Promise<SuccessCheck> => {
+            return post<SuccessCheck>(`authority/0/account/${accountId}/test`)
+        }
     }
 })
 
