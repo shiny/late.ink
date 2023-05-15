@@ -1,13 +1,14 @@
 import { create } from "zustand"
 import { persist } from 'zustand/middleware'
-import { ApiResponse, fetch, post } from './request'
+import { fetch, post } from './request'
+import type { SuccessCheck } from "@late/Response"
 
 interface UserState {
     workspaceId: number
     name: string
     isLoggedIn?: boolean
     loginPage: string
-    login: (user: User) => Promise<ApiResponse & { success?: boolean }>
+    login: (user: User) => Promise<SuccessCheck>
     logout: () =>Promise<void>
     syncLoginState: () => Promise<boolean>
     clear: () => void
@@ -31,7 +32,7 @@ export interface User {
 }
 
 export async function postLogin(user: User) {
-    const res = await post<ApiResponse & { success?: boolean }>("user/login", user)
+    const res = await post<SuccessCheck>("user/login", user)
     console.log(res)
     return {
         errors: res.errors ?? [],
