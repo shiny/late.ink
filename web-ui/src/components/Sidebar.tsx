@@ -11,7 +11,7 @@ export default function Sidebar() {
     const location = useLocation()
     const menus = [
         {
-            href: '/certificate',
+            href: '/certificate/',
             title: t('nav.cert'),
             icon: IconCert
         },

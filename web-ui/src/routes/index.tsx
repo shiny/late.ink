@@ -16,22 +16,22 @@ export const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                Component: () => <Navigate to="/certificate" replace />
+                Component: () => <Navigate to="/certificate/" replace />
             },
             {
-                path: '/certificate',
+                path: '/certificate/',
                 lazy: () => import('@/pages/certificate/index')
             },
             {
-                path: '/dns-verification',
+                path: '/dns-verification/',
                 lazy: () => import('@/pages/dns-verification'),
             },
             {
-                path: '/acme-account',
+                path: '/acme-account/',
                 lazy: () => import('@/pages/acme-account'),
             },
             {
-                path: '/deployment',
+                path: '/deployment/',
                 lazy: () => import('@/pages/deployment'),
             },
             {
