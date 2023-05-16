@@ -80,3 +80,10 @@ export function Component() {
         </div>
     </>
 }
+
+export const handle = {
+    crumb: {
+        title: 'nav.ACME_account',
+        to: '/acme-account/'
+    }
+}

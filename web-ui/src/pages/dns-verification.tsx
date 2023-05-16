@@ -79,3 +79,11 @@ export function Component() {
         </div>
     </>
 }
+
+
+export const handle = {
+    crumb: {
+        title: 'nav.DNS_verification',
+        to: '/dns-verification/'
+    }
+}

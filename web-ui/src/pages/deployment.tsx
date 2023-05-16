@@ -10,3 +10,11 @@ export function Component() {
         </HeadProvider>
     </>
 }
+
+
+export const handle = {
+    crumb: {
+        title: 'nav.deployment',
+        to: '/deployment/'
+    }
+}
