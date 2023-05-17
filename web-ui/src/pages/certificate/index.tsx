@@ -114,10 +114,3 @@ export function Component() {
         </div>
     }
 }
-
-export const handle = {
-    crumb: {
-        title: 'nav.cert',
-        to: '/certificate/'
-    }
-}

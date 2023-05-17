@@ -1,5 +1,5 @@
 
-import {  Navigate, RouteObject } from "react-router-dom"
+import { Navigate, RouteObject } from "react-router-dom"
 
 export const routes: RouteObject[] = [
     {
@@ -20,7 +20,44 @@ export const routes: RouteObject[] = [
             },
             {
                 path: '/certificate/',
-                lazy: () => import('@/pages/certificate/index')
+                handle: {
+                    crumb: {
+                        title: 'nav.cert',
+                        to: '/certificate/'
+                    }
+                },
+                children: [
+                    {
+                        index: true,
+                        lazy: () => import('@/pages/certificate/index'),
+                    },
+                    {
+                        path: '/certificate/create',
+                        lazy: () => import('@/pages/certificate/create/layout'),
+                        children: [
+                            {
+                                path: 'domain',
+                                lazy: () => import('@/pages/certificate/create/domain'),
+                            },
+                            {
+                                path: 'ca',
+                                lazy: () => import('@/pages/certificate/create/ca')
+                            },
+                            {
+                                path: 'dns',
+                                lazy: () => import('@/pages/certificate/create/dns')
+                            },
+                            {
+                                path: 'dns-credential',
+                                lazy: () => import('@/pages/certificate/create/dns-credential')
+                            },
+                            {
+                                path: 'finish',
+                                lazy: () => import('@/pages/certificate/create/finish')
+                            },
+                        ]
+                    }
+                ]
             },
             {
                 path: '/dns-verification/',
@@ -30,36 +67,6 @@ export const routes: RouteObject[] = [
                 path: '/acme-account/',
                 lazy: () => import('@/pages/acme-account'),
             },
-            {
-                path: '/deployment/',
-                lazy: () => import('@/pages/deployment'),
-            },
-            {
-                path: '/certificate/create',
-                lazy: () => import('@/pages/certificate/create/layout'),
-                children: [
-                    {
-                        path: 'domain',
-                        lazy: () => import('@/pages/certificate/create/domain'),
-                    },
-                    {
-                        path: 'ca',
-                        lazy: () => import('@/pages/certificate/create/ca')
-                    },
-                    {
-                        path: 'dns',
-                        lazy: () => import('@/pages/certificate/create/dns')
-                    },
-                    {
-                        path: 'dns-credential',
-                        lazy: () => import('@/pages/certificate/create/dns-credential')
-                    },
-                    {
-                        path: 'finish',
-                        lazy: () => import('@/pages/certificate/create/finish')
-                    },
-                ]
-            }
         ]
     }
 ]
