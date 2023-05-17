@@ -10,6 +10,7 @@ interface LocaleStoreState {
     locale: string
     setLocale: (locale: string) => void
     init: () => void
+    addResourceBundle: (lng: string, ns: string, resources: Record<string, any>) => void
 }
 
 const useLocaleStore = create(
@@ -25,6 +26,9 @@ const useLocaleStore = create(
                         escapeValue: false, // react already safes from xss
                     },
                 })
+        },
+        addResourceBundle: (lng: string, ns: string, resources: Record<string, any>) => {
+            i18n.addResourceBundle(lng, ns, resources)
         },
         setLocale: (locale: string) => {
             return set({ locale })
