@@ -1,0 +1,28 @@
+lockfileVersion: '6.0'
+
+devDependencies:
+  '@types/node':
+    specifier: ^20.1.5
+    version: 20.1.5
+  adonis-preset-ts:
+    specifier: ^2.1.0
+    version: 2.1.0
+  typescript:
+    specifier: ^5.0.4
+    version: 5.0.4
+
+packages:
+
+  /@types/node@20.1.5:
+    resolution: {integrity: sha512-IvGD1CD/nego63ySR7vrAKEX3AJTcmrAN2kn+/sDNLi1Ff5kBzDeEdqWDplK+0HAEoLYej137Sk0cUU8OLOlMg==}
+    dev: true
+
+  /adonis-preset-ts@2.1.0:
+    resolution: {integrity: sha512-cQH/NP250gOF9k3TTDhVsTOPSAvyH4MhKVZ4ryYiihA+vnP27sut1gVIrRas3Evl5d2wEgWVGI5DgdP/ZFSk0w==}
+    dev: true
+
+  /typescript@5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
+    engines: {node: '>=12.20'}
+    hasBin: true
+    dev: true

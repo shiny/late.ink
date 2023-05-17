@@ -1,0 +1,23 @@
+{
+    "name": "@late.ink/plugin-base",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+      "build": "tsc",
+      "dev": "tsc --watch",
+      "type-check": "tsc --noEmit",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "late-plugin"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@types/node": "^20.1.5",
+      "adonis-preset-ts": "^2.1.0",
+      "typescript": "^5.0.4"
+    }
+  }
+  
