@@ -1,9 +1,15 @@
 import { PropsWithChildren, useCallback, useState } from "react"
-
-import { InputConfig } from '@/data/use-plugin'
 import Field from "./Field"
 
 type FormValue = Record<string, string | number>
+
+export interface InputConfig {
+    name: string
+    type?: 'text' | 'divider'
+    default?: string | number
+    rows?: number
+    className?: string
+}
 
 export interface AutoFormProps extends PropsWithChildren {
     value?: Record<string, any>
