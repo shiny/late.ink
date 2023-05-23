@@ -9,7 +9,11 @@ export default {
     },
     darkMode: 'class',
     // eslint-disable-next-line no-undef
-    plugins: [require("@tailwindcss/typography"), require('daisyui')],
+    plugins: [
+        require("@headlessui/tailwindcss"),
+        require("@tailwindcss/typography"),
+        require('daisyui'),
+    ],
     daisyui: {
         logs: false,
         themes: [
