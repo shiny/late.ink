@@ -28,7 +28,9 @@ const useLocaleStore = create(
                 })
         },
         addResourceBundle: (lng: string, ns: string, resources: Record<string, any>) => {
-            i18n.addResourceBundle(lng, ns, resources)
+            if (!i18n.hasResourceBundle(lng, ns)) {
+                i18n.addResourceBundle(lng, ns, resources)
+            }
         },
         setLocale: (locale: string) => {
             return set({ locale })
