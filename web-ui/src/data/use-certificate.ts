@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { fetch } from './request'
 import type { Pagination } from "@late/Response"
 
-interface Certificate {
+export interface Certificate {
     id: number
     domains: string[]
     expiredAt: string
