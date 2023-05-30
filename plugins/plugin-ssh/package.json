@@ -1,0 +1,27 @@
+{
+  "name": "@late.ink/plugin-ssh",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "late-plugin"
+  ],
+  "author": "@late.ink",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.1.5",
+    "@types/ssh2": "^1.11.11",
+    "adonis-preset-ts": "^2.1.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@late.ink/plugin-base": "^1.0.0",
+    "ssh2": "^1.13.0"
+  }
+}
