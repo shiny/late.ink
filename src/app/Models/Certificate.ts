@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
-import { BelongsTo, belongsTo, column, computed } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, computed, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import BaseModel from "./BaseModel"
 import Workspace from './Workspace'
 import CertificateOrder from './CertificateOrder'
 import { X509Certificate } from 'node:crypto'
+import Deployment from './Deployment'
 
 export enum Algorithm {
     'ECDSA',
@@ -55,6 +56,9 @@ export default class Certificate extends BaseModel {
 
     @column.dateTime()
     public expiredAt: DateTime
+
+    @manyToMany(() => Deployment, { pivotTable: 'deployment_certificates' })
+    public deployments: ManyToMany<typeof Deployment>
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime

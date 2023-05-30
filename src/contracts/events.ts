@@ -31,5 +31,6 @@ declare module '@ioc:Adonis/Core/Event' {
         'order:valid:ready': CertificateOrder
         'order:ready:ready': CertificateOrder
         'order:valid:completed': CertificateOrder
+        'deploymentjob:execute': { id: number }
     }
 }
