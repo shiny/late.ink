@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@late.ink/plugin-base':
+    specifier: ^0.1.0
+    version: 0.1.0
   ssh2:
     specifier: ^1.13.0
     version: 1.13.0
@@ -20,6 +23,10 @@ devDependencies:
     version: 5.0.4
 
 packages:
+
+  /@late.ink/plugin-base@0.1.0:
+    resolution: {integrity: sha512-Bq05QjCtCPxl/f1Sc4Z2J4ArIgoTdrk4ZyMVqPpylBS9ITJyr9FwINMVsa61JwHFk804lAKPdFxQEOcqiRQv1g==}
+    dev: false
 
   /@types/node@18.16.13:
     resolution: {integrity: sha512-uZRomboV1vBL61EBXneL4j9/hEn+1Yqa4LQdpGrKmXFyJmVfWc9JV9+yb2AlnOnuaDnb2PDO3hC6/LKmzJxP1A==}
