@@ -7,9 +7,16 @@ export default class CertificateController {
 
     public async index({ workspaceId, request }: HttpContextContract) {
         const page = request.input('page', 1)
+        const domainName = request.input('domain')
         const perPage = 12
-        const list = await Certificate.query().where({
-            workspaceId
+        const list = await Certificate.query().where(query => {
+            query.where({
+                workspaceId
+            })
+            if (domainName) {
+                query.whereILike('domains', `%${domainName}%`)
+            }
+
         })
         .orderBy('id', 'desc')
         .preload('order')
