@@ -218,3 +218,8 @@ body,
 .main-table {
     @apply sm:overflow-auto table-auto text-lg w-full
 }
+
+.options {
+    @apply my-[1px] border border-stone-300 px-4 py-3 flex bg-base-100  hover:bg-base-200 cursor-pointer transition active:bg-[#edf0f0] rounded-xl;
+    @apply ui-selected:my-0 ui-selected:border-[--primary-color] ui-selected:border-2 ui-selected:bg-[#edf0f0] ui-selected:shadow;
+}
