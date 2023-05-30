@@ -1,5 +1,29 @@
 {
   "commands": {
+    "event:healthy": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "./commands/EventHealthy",
+      "commandName": "event:healthy",
+      "description": "Check event server healthy, exit code 0 on success",
+      "args": [],
+      "aliases": [],
+      "flags": []
+    },
+    "event:start": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": true
+      },
+      "commandPath": "./commands/EventStart",
+      "commandName": "event:start",
+      "description": "Start a stand-alone Event Server",
+      "args": [],
+      "aliases": [],
+      "flags": []
+    },
     "plugin:add": {
       "settings": {
         "loadApp": true,
