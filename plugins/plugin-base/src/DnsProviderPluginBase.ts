@@ -13,7 +13,6 @@ export default abstract class DnsProviderPluginBase {
     }
     abstract test(): Promise<boolean>
     abstract run(): Promise<boolean>
-    abstract validate(config: Record<string, any>): Promise<boolean>
 }
 
 

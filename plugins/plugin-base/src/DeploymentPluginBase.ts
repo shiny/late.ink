@@ -1,3 +1,4 @@
+import { Certificate } from "./CertificateInterface"
 export default abstract class DeploymentPluginBase {
     /**
      * this is a deployment plugin
@@ -8,8 +9,7 @@ export default abstract class DeploymentPluginBase {
     public static locales: Record<string, Record<string, any>>
     public static icon: string
     abstract test(): Promise<boolean>
-    abstract run(): Promise<boolean>
-    abstract validate(config: Record<string, any>): Promise<boolean>
+    abstract run(cert: Certificate): Promise<boolean>
 }
 
 export interface DeploymentPluginContract extends DeploymentPluginBase {
