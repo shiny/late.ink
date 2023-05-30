@@ -13,7 +13,7 @@ COPY ./web-ui/pnpm-lock.yaml ./
 RUN pnpm fetch
 
 COPY ./web-ui/package.json ./
-RUN pnpm i -r --offline
+RUN pnpm i -r --prefer-offline
 
 FROM base AS page-builder
 USER node
@@ -29,7 +29,7 @@ COPY ./src/pnpm-lock.yaml ./
 RUN pnpm fetch
 
 COPY ./src/package.json ./
-RUN pnpm i -r --offline
+RUN pnpm i -r --prefer-offline
 
 FROM deps AS build
 WORKDIR /app/src
@@ -46,7 +46,7 @@ COPY ./src/pnpm-lock.yaml ./
 RUN pnpm fetch --prod
 
 COPY ./src/package.json ./
-RUN pnpm i -r --offline --prod
+RUN pnpm i -r --prefer-offline --prod
 
 # Add compiled js files
 COPY --chown=node:node --from=build /app/src/build .
