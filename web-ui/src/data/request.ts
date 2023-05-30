@@ -5,9 +5,13 @@ export interface ErrorMessage {
     message: string
 }
 
-export interface ApiResponse {
+export type ApiResponse<T> = T & {
     errors?: ErrorMessage[]
 }
+
+export type ApiCheckResponse = ApiResponse<{
+    success: boolean
+}>
 
 const controller = new AbortController()
 

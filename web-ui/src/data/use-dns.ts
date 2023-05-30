@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { ApiResponse, fetch, post } from "./request"
+import { ApiCheckResponse, fetch, post } from "./request"
 import type { Pagination } from '@late/Response'
 
 export interface InputConfig {
@@ -50,15 +50,11 @@ interface UseDns {
     fetch: () => Promise<Provider[]>
     getProvider: () => undefined | Provider
     setProviderId: (providerId: number) => void
-    test: (providerId: number, credential: CredentialItem) => Promise<TestCredentialResponse>
-    testCredential: (id: number) => Promise<TestCredentialResponse>
+    test: (providerId: number, credential: CredentialItem) => Promise<ApiCheckResponse>
+    testCredential: (id: number) => Promise<ApiCheckResponse>
     createCredential: (providerId: number, form: Record<string, string>) => Promise<any>
     fetchCredentials: (providerId?: number, page?: number) => Promise<Pagination<CredentialOption>>
     setCredentialId: (credentialId: number) => void
-}
-
-export interface TestCredentialResponse extends ApiResponse {
-    success: boolean
 }
 
 interface CredentialOption {
@@ -98,12 +94,12 @@ const useDns = create<UseDns>((set, get) => {
                 providerId
             })
         },
-        test: async (providerId: number, credential: CredentialItem): Promise<TestCredentialResponse> => {
-            const { success, errors } = await post<TestCredentialResponse>(`dns/provider/${providerId}/test`, credential)
+        test: async (providerId: number, credential: CredentialItem): Promise<ApiCheckResponse> => {
+            const { success, errors } = await post<ApiCheckResponse>(`dns/provider/${providerId}/test`, credential)
             return { success, errors }
         },
         testCredential: async (id: number) => {
-            const { success, errors } = await post<TestCredentialResponse>(`dns/provider/0/credential/${id}/test`)
+            const { success, errors } = await post<ApiCheckResponse>(`dns/provider/0/credential/${id}/test`)
             return { success, errors }
         },
         createCredential: async (providerId: number, form: Record<string, string>) => {

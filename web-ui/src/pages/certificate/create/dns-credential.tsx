@@ -1,11 +1,12 @@
 import { IconChecked, IconInfo, IconLoading } from "@/assets/Icons"
-import type { InputConfig, Credential, CredentialItem, TestCredentialResponse, Provider } from "@/data/use-dns"
+import type { InputConfig, Credential, CredentialItem, Provider } from "@/data/use-dns"
 import useDns from "@/data/use-dns"
 import { useDataFromAction, useDataFromLoader } from "@/utils/router"
 import { FormEventHandler, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Form, Link, redirect, useNavigation } from "react-router-dom"
 import { HeadProvider, Title } from "react-head"
+import { ApiCheckResponse } from "@/data/request"
 
 
 export async function loader() {
@@ -133,7 +134,7 @@ export function Component() {
 }
 
 interface LinkTestProps {
-    onTesting: () => Promise<TestCredentialResponse>
+    onTesting: () => Promise<ApiCheckResponse>
     className?: string
 }
 
