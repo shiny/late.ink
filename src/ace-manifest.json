@@ -1,5 +1,25 @@
 {
   "commands": {
+    "plugin:add": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "./commands/PluginAdd",
+      "commandName": "plugin:add",
+      "description": "",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "package",
+          "name": "package",
+          "required": true,
+          "description": "package name"
+        }
+      ],
+      "aliases": [],
+      "flags": []
+    },
     "user:create": {
       "settings": {
         "loadApp": true,
