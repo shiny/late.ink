@@ -47,7 +47,7 @@ export default class Manager {
             if (!this.pluginManager.alreadyInstalled(packageName)) {
                 await this.pluginManager.install(packageName)
             }
-            return this.pluginManager.require(packageName)
+            return this.pluginManager.require(packageName).default
         }
     }
 
