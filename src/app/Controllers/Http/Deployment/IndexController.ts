@@ -78,7 +78,7 @@ export default class IndexController {
         if (job.status !== 'Available') {
             throw new Error('you can only trigger an avaiable job')
         }
-        DetachedEvent.emit('deploymentjob:execute', { id: job.id })
+        await DetachedEvent.emit('deploymentjob:execute', { id: job.id })
         return {
             success: true
         }
