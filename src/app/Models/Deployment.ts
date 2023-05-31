@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
 import BaseModel from './BaseModel'
-import { BelongsTo, belongsTo, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, hasMany, HasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Workspace from './Workspace'
 import Plugin from './Plugin'
 import DeploymentPlugin from 'App/Plugins/Deployment'
 import Certificate from './Certificate'
+import Job from './Job'
 
 export default class Deployment extends BaseModel {
     @column({ isPrimary: true })
@@ -34,11 +35,19 @@ export default class Deployment extends BaseModel {
 
     @manyToMany(() => Certificate, { pivotTable: 'deployment_certificates' })
     public certificates: ManyToMany<typeof Certificate>
+
+    @hasMany(() => Job, { foreignKey: 'outerId', onQuery: (query) => {
+        query
+            .where('jobs.name', 'Deploy')
+            .orderBy('jobs.id', 'desc')
+            .limit(1)
+    }})
+    public jobs: HasMany<typeof Job>
   
-    @column.dateTime({ autoCreate: true })
+    @column.dateTime({ autoCreate: true, serializeAs: null })
     public createdAt: DateTime
 
-    @column.dateTime({ autoCreate: true, autoUpdate: true })
+    @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
     public updatedAt: DateTime
 
     async resolve() {

@@ -19,6 +19,7 @@ export default class IndexController {
             .orderBy('id', 'desc')
             .preload('certificates')
             .preload('plugin')
+            .preload('jobs')
             .paginate(page, perPage)
         return result.serialize({
             relations: {
