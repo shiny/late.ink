@@ -38,7 +38,8 @@
             "@adonisjs/lucid",
             "@adonisjs/auth",
             "@adonisjs/i18n",
-            "@melchyore/adonis-cache"
+            "@melchyore/adonis-cache",
+            "@keqin/adonis-sentry"
         ]
     }
 }
