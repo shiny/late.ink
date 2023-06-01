@@ -73,6 +73,7 @@
         "@adonisjs/lucid": "^18.3.0",
         "@adonisjs/repl": "^3.1.11",
         "@adonisjs/session": "^6.4.0",
+        "@keqin/adonis-sentry": "^1.1.1",
         "@late.ink/plugin-base": "^0.1.0",
         "@melchyore/adonis-cache": "^1.0.6",
         "archiver": "^5.3.1",

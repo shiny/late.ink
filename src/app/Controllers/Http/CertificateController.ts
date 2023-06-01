@@ -5,7 +5,12 @@ import archiver from 'archiver'
 
 export default class CertificateController {
 
-    public async index({ workspaceId, request }: HttpContextContract) {
+    public async index({ workspaceId, request, sentryTrx }: HttpContextContract) {
+
+        const span = sentryTrx.startChild({
+            op: 'query',
+            description: "certificate.index"
+        })
         const page = request.input('page', 1)
         const domainName = request.input('domain')
         const perPage = 12
@@ -25,6 +30,7 @@ export default class CertificateController {
         await Promise.all(list.map(item => item.order.load('dnsProviderCredential')))
         await Promise.all(list.map(item => item.order.load('authority')))
         await Promise.all(list.map(item => item.order.dnsProviderCredential.load('provider')))
+        span.finish()
         return list.toJSON()
     }
 

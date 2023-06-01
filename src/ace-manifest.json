@@ -724,6 +724,18 @@
       ],
       "aliases": [],
       "flags": []
+    },
+    "sentry:ping": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": true
+      },
+      "commandPath": "@keqin/adonis-sentry/build/commands/SentryPing",
+      "commandName": "sentry:ping",
+      "description": "",
+      "args": [],
+      "aliases": [],
+      "flags": []
     }
   },
   "aliases": {}

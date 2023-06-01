@@ -5,7 +5,8 @@
         "@adonisjs/core/build/commands/index.js",
         "@adonisjs/repl/build/commands",
         "@adonisjs/lucid/build/commands",
-        "@melchyore/adonis-cache/build/commands"
+        "@melchyore/adonis-cache/build/commands",
+        "@keqin/adonis-sentry/build/commands/SentryPing.js"
     ],
     "exceptionHandlerNamespace": "App/Exceptions/Handler",
     "aliases": {
@@ -27,7 +28,8 @@
         "@adonisjs/lucid",
         "@adonisjs/auth",
         "@adonisjs/i18n",
-        "@melchyore/adonis-cache"
+        "@melchyore/adonis-cache",
+        "@keqin/adonis-sentry"
     ],
     "aceProviders": [
         "@adonisjs/repl"
