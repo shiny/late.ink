@@ -14,5 +14,6 @@ Event.on('order:ready:completed', 'OrderReady.refresh')
 
 Event.on('order:valid:ready', 'OrderValid.onReady')
 Event.on('order:valid:completed', 'OrderValid.onCompleted')
+Event.on('order:valid:completed', 'CertificateRenewalJob.create')
 
 Event.on('deploymentjob:execute', 'DeploymentJob.onExecute')

@@ -38,6 +38,9 @@ export default Env.rules({
     NO_PROXY: Env.schema.string.optional(),
 
     DNS_NAMESEVER: Env.schema.string.optional(),
+    NPM_REGISTRY_URL: Env.schema.string.optional({ format: 'url' }),
+
+    RENEW_BEFORE_EXPIRATION: Env.schema.string.optional(),
 
     SENTRY_DSN: Env.schema.string.optional({ format: 'url' }),
     SENTRY_TRACES_SAMPLE_RATE: Env.schema.string.optional(),
