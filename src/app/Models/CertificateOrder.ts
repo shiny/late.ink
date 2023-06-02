@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BelongsTo, HasMany, HasOne, belongsTo, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Authority from './Authority'
 import Workspace from './Workspace'
 import AuthorityAccount from './AuthorityAccount'
@@ -19,6 +19,12 @@ export enum OrderStatus {
     valid,
     invalid,
 }
+
+export type OrderStateType = "ignore" | "invalid" | "processing" | 
+    "ready:ready" | "ready:processing" | "ready:completed" | "ready:error" |
+    "valid:ready" | "valid:processing" | "valid:completed" | "valid:error" |
+    "pending:ready" | "pending:processing" | "pending:completed" | "pending:error"
+
 export type OrderStatusType = keyof typeof OrderStatus
 
 export interface CertificateOrderCreateOptions {
@@ -26,6 +32,7 @@ export interface CertificateOrderCreateOptions {
     authorityAccountId: number
     workspaceId: number
     dnsProviderCredentialId: number
+    certificateId?: number
 }
 
 export default class CertificateOrder extends BaseModel {
@@ -94,10 +101,11 @@ export default class CertificateOrder extends BaseModel {
     @belongsTo(() => DnsProviderCredential)
     public dnsProviderCredential: BelongsTo<typeof DnsProviderCredential>
 
-    @hasOne(() => Certificate, {
-        foreignKey: 'orderId'
-    })
-    public certificate: HasOne<typeof Certificate>
+    @belongsTo(() => Certificate)
+    public certificate: BelongsTo<typeof Certificate>
+
+    @column()
+    public certificateId: number
 
     @column.dateTime()
     public expiredAt: DateTime
@@ -108,7 +116,14 @@ export default class CertificateOrder extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    public static async createFromRemote({ domains, authorityAccountId, workspaceId, dnsProviderCredentialId }: CertificateOrderCreateOptions) {
+    public static async createFromRemote(options: CertificateOrderCreateOptions) {
+        const {
+            domains,
+            authorityAccountId,
+            workspaceId,
+            dnsProviderCredentialId,
+            certificateId
+        } = options
         const order = new CertificateOrder
         const account = await AuthorityAccount.findOrFail(authorityAccountId)
         order.authorityId = account.authorityId
@@ -117,19 +132,31 @@ export default class CertificateOrder extends BaseModel {
         order.dnsProviderCredentialId = dnsProviderCredentialId
         order.domains = domains
 
-        const remoteOrder = await account.createOrder(domains)
-        order.status = remoteOrder.status
-        order.orderUrl = remoteOrder.url
-        order.finalizeUrl = remoteOrder.finalizeUrl
-        order.certificateUrl = remoteOrder.certificateUrl
-        order.expiredAt = DateTime.fromJSDate(remoteOrder.expiredAt)
+        // when cert is renewing, certificateId is not empty
+        if (certificateId) {
+            order.certificateId = certificateId
+        }
 
+        const {
+            status,
+            url,
+            finalizeUrl,
+            certificateUrl,
+            expiredAt,
+            authorizations
+        } = await account.createOrder(domains)
+
+        order.status = status
+        order.orderUrl = url
+        order.finalizeUrl = finalizeUrl
+        order.certificateUrl = certificateUrl
+        order.expiredAt = DateTime.fromJSDate(expiredAt)
+        const authItems = await authorizations()
 
         await Database.transaction(async trx => {
             order.useTransaction(trx)
             await order.save()
-            const responses = await remoteOrder.authorizations()
-            await Promise.all(responses.map(item => CertificateAuthorization.createFromResponse({
+            await Promise.all(authItems.map(item => CertificateAuthorization.createFromResponse({
                 orderId: order.id,
                 trx,
                 authorization: item,
@@ -177,27 +204,36 @@ export default class CertificateOrder extends BaseModel {
         })
     }
 
-    public async action() {
+    /**
+     * Get the current order processing state
+     * 
+     * State Transitions for Order Objects
+     * ```markdown
+     *     pending --------------+
+     *        |                  |
+     *        | All authz        |
+     *        | "valid"          |
+     *        V                  |
+     *      ready ---------------+
+     *        |                  |
+     *        | Receive          |
+     *        | finalize         |
+     *        | request          |
+     *        V                  |
+     *    processing ------------+
+     *        |                  |
+     *        | Certificate      | Error or
+     *        | issued           | Authorization failure
+     *        V                  V
+     *      valid             invalid
+     * ```
+     */
+    public async getCurrentState(): Promise<OrderStateType> {
         switch (this.status) {
             case 'ready':
             case 'valid':
             case 'pending':
-                // ready:ready
-                // ready:finalizing
-                // ready:finalized
-                // ready:error
-
-                // valid:ready
-                // valid:downloading
-                // valid:downloaded
-                // valid:error
-
-                // 'pending:ready'
-                // 'pending:authorizing'
-                // 'pending:authorized'
-                // 'pending:error'
                 const state = await CertificateAction.whatAbout('Order', this.status, this.id)
-
                 return `${this.status}:${state}`
             case 'invalid':
             case 'processing':
@@ -205,41 +241,50 @@ export default class CertificateOrder extends BaseModel {
         }
     }
 
-    public async process() {
-
+    /**
+     * Processing the order and return it's state (before processing)
+     */
+    public async process(): Promise<OrderStateType> {
         const mutex = await Mutex.acquire(`order:${this.id}`)
-        try {
-            if (!mutex) {
-                return 'ignore'
-            }
-            const state = await this.action()
+        if (!mutex) {
+            return 'ignore'
+        }
 
-            if (!this.authorizations) {
-                await (this as CertificateOrder).load('authorizations')
-            }
-    
+        if (!this.authorizations) {
+            await (this as CertificateOrder).load('authorizations')
+        }
+
+        try {
+            const state = await this.getCurrentState()
             switch (state) {
                 case 'pending:ready':
+                    // go authoring (e.g. Set a DNS text record)
                     await this.startProcess()
                     break
                 case 'pending:completed':
+                    // Verify the local authorzation and fetch state from remote
+                    // e.g. check the DNS record, fetch auth state when DNS has been set
                     await this.completeProcess()
                     break
                 case 'ready:ready':
-                    // should finalize the order
+                    // Finalize the order
                     await Event.emit('order:ready:ready', this)
                     break
                 case 'ready:completed':
+                    // Fetch the order state from acme server
                     await Event.emit('order:ready:completed', this)
                     break
                 case 'valid:ready':
-                    // should download the cert
+                    // Download the cert
                     await Event.emit('order:valid:ready', this)
                     break
                 case 'valid:completed':
-                    // should download the cert
+                    // Do the cleanning, Create a renewal job
                     await Event.emit('order:valid:completed', this)
                     break
+                // others: do nothing and return the state
+                default:
+                    return state
             }
             return state
         } catch (error) {
@@ -255,7 +300,7 @@ export default class CertificateOrder extends BaseModel {
      * @returns true on complete, false on state failure
      */
     public async startProcess() {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         // it's already authorized!
         if (state.startsWith('valid') || state.startsWith('ready')) {
             return true
@@ -295,7 +340,7 @@ export default class CertificateOrder extends BaseModel {
      * Verify and notify the authorization is complete
      */
     public async completeProcess() {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         if (state !== 'pending:completed') {
             return false
         }

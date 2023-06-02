@@ -121,13 +121,35 @@ export default class CertificateAuthorization extends BaseModel {
         return certAuthorization
     }
 
-    public async action() {
+    
+    /**
+     * 
+     * State Transitions for Authorization Objects
+     * ```markdown
+     *                   pending --------------------+
+     *                      |                        |
+     *    Challenge failure |                        |
+     *           or         |                        |
+     *          Error       |  Challenge valid       |
+     *            +---------+---------+              |
+     *            |                   |              |
+     *            V                   V              |
+     *         invalid              valid            |
+     *                                |              |
+     *                                |              |
+     *                                |              |
+     *                 +--------------+--------------+
+     *                 |              |              |
+     *                 |              |              |
+     *          Server |       Client |   Time after |
+     *          revoke |   deactivate |    "expires" |
+     *                 V              V              V
+     *              revoked      deactivated      expired
+     * ```
+     */
+    public async getCurrentState() {
         switch (this.status) {
             case 'pending':
-                // 'pending:ready'
-                // 'pending:authorizing'
-                // 'pending:authorized'
-                // 'pending:error'
                 const state = await CertificateAction.whatAbout('Authorization', this.status, this.id)
                 return `${this.status}:${state}`
 
@@ -144,7 +166,7 @@ export default class CertificateAuthorization extends BaseModel {
      * set the challenge dns
      */
     public async startProcess() {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         const challenge = await this.dnsChallenge()
         // it's already authorized!
         if (state.startsWith('valid')) {
@@ -173,7 +195,7 @@ export default class CertificateAuthorization extends BaseModel {
     }
 
     public async completeProcess() {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         const challenge = await this.dnsChallenge()
         const shouldVerifiy = state === 'pending:completed'
         if (state !== 'pending:completed') {

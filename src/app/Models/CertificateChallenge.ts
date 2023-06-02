@@ -94,7 +94,29 @@ export default class CertificateChallenge extends BaseModel {
         await certChallenge.save()
     }
 
-    public async action() {
+    /**
+     * State Transitions for Challenge Objects
+     * ```markdown
+     *            pending
+     *               |
+     *               | Receive
+     *               | response
+     *               V
+     *           processing <-+
+     *               |   |    | Server retry or
+     *               |   |    | client retry request
+     *               |   +----+
+     *               |
+     *               |
+     *   Successful  |   Failed
+     *   validation  |   validation
+     *     +---------+---------+
+     *     |                   |
+     *     V                   V
+     *   valid              invalid
+     * ```
+     **/
+    public async getCurrentState() {
         if (this.status === 'pending') {
             const state = await CertificateAction.whatAbout('Challenge', this.status, this.id)
             return `${this.status}:${state}`
@@ -104,7 +126,7 @@ export default class CertificateChallenge extends BaseModel {
     }
 
     public async startProcess() {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         if (state.startsWith('valid')) {
             return true
         }
@@ -129,7 +151,7 @@ export default class CertificateChallenge extends BaseModel {
     }
 
     public async completeProcess(shouldVerify = true) {
-        const state = await this.action()
+        const state = await this.getCurrentState()
         if (state !== 'pending:completed' && state !== 'processing') {
             return false
         }

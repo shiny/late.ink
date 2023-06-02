@@ -50,11 +50,11 @@ import Event from '@ioc:Adonis/Core/Event'
  *  - ignore - A same job is running
  */
 
-Event.on('order:ready:ready', 'OrderReady.onReady')
-Event.on('order:ready:completed', 'OrderReady.refresh')
+Event.on('order:ready:ready', 'OrderHandler.finalizeCertificate')
+Event.on('order:ready:completed', 'OrderHandler.refreshAcmeStatus')
 
-Event.on('order:valid:ready', 'OrderValid.onReady')
-Event.on('order:valid:completed', 'OrderValid.onCompleted')
+Event.on('order:valid:ready', 'OrderHandler.downloadCertificate')
+Event.on('order:valid:completed', 'OrderHandler.cleanAll')
 Event.on('order:valid:completed', 'CertificateRenewalJob.create')
 
 /**
