@@ -24,7 +24,8 @@ Server.middleware.register([
     () => import('@ioc:Adonis/Core/BodyParser'),
     () => import('App/Middleware/DetectUserLocale'),
     () => import('App/Middleware/Workspace'),
-    () => import('@keqin/adonis-sentry/build/TracingHandler')
+    () => import('@keqin/adonis-sentry/build/TracingHandler'),
+    () => import('App/Middleware/AttachUserForSentry')
 ])
 
 /*
