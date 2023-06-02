@@ -62,7 +62,7 @@ export default class OrderController {
         if (!order.authorizations) {
             await order.load('authorizations')
         }
-        const authorizations = await Promise.all(order.authorizations.map(item => item.action()))
+        const authorizations = await Promise.all(order.authorizations.map(item => item.getCurrentState()))
         return {
             authorityId: order.authorityId,
             id: order.id,

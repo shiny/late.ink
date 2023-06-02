@@ -78,7 +78,7 @@ export function Component() {
                                 </div>
                                 <div className="badge badge-outline">{cert.algorithm}</div>
                             </td>
-                            <td className="w-36 text-base font-semibold">{cert.expiredAt && <DateTime value={cert.expiredAt} />}</td>
+                            <td className="w-48 text-base font-semibold">{cert.expiredAt && <DateTime value={cert.expiredAt} />}</td>
                             <td className="w-36 text-base">{cert.order.authority.ca}</td>
                             <td className="w-48 text-base">{t(`dnsProvider.${cert.order.dnsProviderCredential.provider.name}.name`)}</td>
                             <td className="w-12 text-right">

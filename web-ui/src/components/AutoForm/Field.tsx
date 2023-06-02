@@ -8,6 +8,11 @@ export default function Field(props: InputFieldProps) {
     case 'divider':
         return createElement(FieldDivider, props)
     case 'text':
+    case 'password':
+    case 'number':
+    case 'url':
+    case 'tel':
+    case 'email':
         return createElement(FieldText, props)
     default:
         throw new Error(`Unknow input type ${props.config.type}`)

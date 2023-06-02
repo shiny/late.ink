@@ -16,6 +16,7 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Sentry from '@ioc:Adonis/Addons/Sentry'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
     protected ignoreStatuses = [404, 422, 403, 401]
@@ -30,6 +31,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
                 error
             ]
         }
+        Sentry.captureException(error)
         return super.handle(error, ctx)
     }
 }

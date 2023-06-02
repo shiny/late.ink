@@ -18,6 +18,7 @@ export default class extends BaseSchema {
       table.integer('authority_id').index()
       table.integer('workspace_id').index()
       table.integer('authority_account_id').index()
+      table.integer('certificate_id').index()
       table.integer('dns_provider_credential_id').index()
 
       /**

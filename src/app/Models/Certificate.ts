@@ -110,4 +110,17 @@ export default class Certificate extends BaseModel {
             }
         })
     }
+
+    public async createRenewalOrder() {
+        if (!this.order) {
+            await (this as Certificate).load('order')
+        }
+        const renewalOrder = await CertificateOrder.createFromRemote({
+            domains: this.domains,
+            authorityAccountId: this.order.authorityAccountId,
+            dnsProviderCredentialId: this.order.dnsProviderCredentialId,
+            workspaceId: this.workspaceId,
+            certificateId: this.id
+        })
+    }
 }

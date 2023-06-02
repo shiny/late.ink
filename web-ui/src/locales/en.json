@@ -77,6 +77,28 @@
         "cert_download": "Download Cert",
         "cert_archive": "Archive (hide)"
     },
+    "deployment": {
+        "cert": "Cert to deploy",
+        "cert_reset": "Repick a certificate",
+        "cert_input_placeholder": "Search via cert domain",
+        "issued_via":"Via",
+        "dns_provider": "Dns",
+        "cert_expired": "Expired at",
+        "create": "Create deployment",
+        "select_deployment_type": "Select a deployment type",
+        "name": "Name",
+        "search": "search",
+        "name_instruction": "Any characters, for recognize",
+        "submit": "Submit",
+        "trigger_now_checkbox": "Trigger a deployment immediately",
+        "trigger_now_title": "Trigger Now",
+        "trigger_now_description": "Deploy on save. You can skip and trigger it manually afterwards.",
+        "status": {
+            "running": "Running",
+            "accomplished": "Finished",
+            "error": "Error"
+        }
+    },
     "dnsProvider": {
         "Aliyun": {
             "name": "Alibaba Cloud Dns",
@@ -102,6 +124,7 @@
     "next": "Next",
     "previous": "Previous",
     "input": "Input {name} Here",
+    "name": "name",
     "datetime": {
         "short": "MMM D, HH:mm"
     },

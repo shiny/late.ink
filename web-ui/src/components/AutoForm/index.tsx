@@ -5,10 +5,11 @@ type FormValue = Record<string, string | number>
 
 export interface InputConfig {
     name: string
-    type?: 'text' | 'divider'
+    type?: 'text' | 'password' | 'number' | 'url' | 'tel' | 'email' | 'divider'
     default?: string | number
     rows?: number
     className?: string
+    required?: boolean
 }
 
 export interface AutoFormProps extends PropsWithChildren {
@@ -46,7 +47,7 @@ export interface InputFieldProps {
  *     localeNamespace={'@late.ink/plugin-ssh'}
  *     inputConfig={inputConfig}
  * />
- * ```
+ * ``` 
  * @returns 
  */
 export default function AutoForm({ localeNamespace, fillEmptyString, className, inputConfig, onInput, value }: AutoFormProps) {
@@ -61,9 +62,9 @@ export default function AutoForm({ localeNamespace, fillEmptyString, className, 
         setUncontrolledValue((result) => {
             result[name] = value
             if (fillEmptyString) {
-                inputConfig.forEach(({ name }) => {
+                inputConfig.forEach(({ name, default: defaultValue }) => {
                     if (typeof result[name] === 'undefined') {
-                        result[name] = ''
+                        result[name] = defaultValue ?? ''
                     }
                 })
             }

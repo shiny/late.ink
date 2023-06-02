@@ -18,6 +18,7 @@ export default function FieldTextInput({ config, onInput, value, localeNamespace
                 defaultValue: ''
             })}`}
             onInput={callback}
+            required={config.required}
             value={value}
             rows={config.rows}></textarea>
     } else {
@@ -25,10 +26,11 @@ export default function FieldTextInput({ config, onInput, value, localeNamespace
             placeholder={`${t(`placeholder.${config.name}`, {
                 defaultValue: ''
             })}`}
+            required={config.required}
             onInput={callback}
             value={value}
             className={`input input-bordered text-xl px-2 ${config.className ?? ' w-full'}`}
-            type="text"
+            type={config.type}
         ></input>
     }
 }

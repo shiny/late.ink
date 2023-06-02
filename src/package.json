@@ -77,6 +77,7 @@
         "@late.ink/plugin-base": "^0.1.0",
         "@melchyore/adonis-cache": "^1.0.6",
         "archiver": "^5.3.1",
+        "croner": "^6.0.3",
         "got": ">=11.8.5",
         "handyacme": "^0.1.4",
         "hpagent": "^1.2.0",

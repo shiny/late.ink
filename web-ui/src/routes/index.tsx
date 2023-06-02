@@ -67,6 +67,25 @@ export const routes: RouteObject[] = [
                 path: '/acme-account/',
                 lazy: () => import('@/pages/acme-account'),
             },
+            {
+                path: '/deployment/',
+                handle: {
+                    crumb: {
+                        title: 'nav.deployment',
+                        to: '/deployment/'
+                    }
+                },
+                children: [
+                    {
+                        index: true,
+                        lazy: () => import('@/pages/deployment/list'),
+                    },
+                    {
+                        path: '/deployment/create',
+                        lazy: () => import('@/pages/deployment/create'),
+                    },
+                ]
+            },
         ]
     }
 ]

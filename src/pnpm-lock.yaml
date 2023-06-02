@@ -31,6 +31,9 @@ dependencies:
   archiver:
     specifier: ^5.3.1
     version: 5.3.1
+  croner:
+    specifier: ^6.0.3
+    version: 6.0.3
   got:
     specifier: '>=11.8.5'
     version: 11.8.6
@@ -2595,6 +2598,11 @@ packages:
     dependencies:
       crc-32: 1.2.2
       readable-stream: 3.6.2
+    dev: false
+
+  /croner@6.0.3:
+    resolution: {integrity: sha512-Go+s9AaI+MeZUDJ6Kp7OYXCbM3svJ0qZ3IpkGoPetZLnP5wpX8MBTEiJOTYDFokP0Ph85GFZEUTBL9fo1e4DtQ==}
+    engines: {node: '>=6.0'}
     dev: false
 
   /cross-spawn@7.0.3:

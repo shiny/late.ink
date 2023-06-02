@@ -12,5 +12,6 @@ export default function FieldTextInstruction({ config, localeNamespace }: InputF
         >
             <IconInfo className="w-6 h-6" />
         </div>}
+        {config.required && <span className='text-red-600'> *</span>}
     </>
 }

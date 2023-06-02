@@ -77,6 +77,28 @@
         "cert_download": "下载证书",
         "cert_archive": "归档（隐藏）"
     },
+    "deployment": {
+        "cert": "部署的证书",
+        "cert_reset": "重选证书",
+        "cert_input_placeholder": "搜索证书的域名",
+        "issued_via": "颁发者",
+        "dns_provider": "Dns 解析",
+        "cert_expired": "过期:",
+        "create": "创建部署",
+        "select_deployment_type": "选择部署方式",
+        "name": "名称",
+        "search": "搜索名称",
+        "name_instruction": "任意不重名的字符，方便识别",
+        "submit": "创建部署",
+        "trigger_now_checkbox": "立即触发一次部署",
+        "trigger_now_title": "立即部署",
+        "trigger_now_description": "保存配置后，立即触发一次证书部署；你也可以在保存之后手动触发部署。",
+        "status": {
+            "running": "运行中",
+            "accomplished": "已执行",
+            "error": "失败"
+        }
+    },
     "dnsProvider": {
         "Aliyun": {
             "name": "阿里云 DNS",
@@ -102,6 +124,8 @@
     "next": "下一步",
     "previous": "上一步",
     "input": "输入 {name}",
+    "name": "名称",
+    "instruction.name":"任意不重复的字符，便于识别",
     "datetime": {
         "short": "M月D日 HH:mm"
     },
