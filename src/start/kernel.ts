@@ -21,10 +21,10 @@ import Server from '@ioc:Adonis/Core/Server'
 |
 */
 Server.middleware.register([
+    () => import('@keqin/adonis-sentry/build/TracingHandler'),
     () => import('@ioc:Adonis/Core/BodyParser'),
     () => import('App/Middleware/DetectUserLocale'),
     () => import('App/Middleware/Workspace'),
-    () => import('@keqin/adonis-sentry/build/TracingHandler'),
     () => import('App/Middleware/AttachUserForSentry')
 ])
 
