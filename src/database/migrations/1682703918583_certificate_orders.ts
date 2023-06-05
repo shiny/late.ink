@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.string('domains')
-      table.string('order_url')
+      table.string('url')
       table.string('certificate_url')
       table.string('finalize_url')
       table.enum("status", Object.keys(OrderStatus))

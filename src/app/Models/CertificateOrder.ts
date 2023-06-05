@@ -48,18 +48,7 @@ export default class CertificateOrder extends BaseModel {
     @column({
         serializeAs: null
     })
-    public orderUrl: string
-
-    /**
-     * alias for orderUrl
-     */
-    public get url() {
-        return this.orderUrl
-    }
-
-    public set url(value) {
-        this.orderUrl = value
-    }
+    public url: string
 
     @column({
         serializeAs: null
@@ -147,7 +136,7 @@ export default class CertificateOrder extends BaseModel {
         } = await account.createOrder(domains)
 
         order.status = status
-        order.orderUrl = url
+        order.url = url
         order.finalizeUrl = finalizeUrl
         order.certificateUrl = certificateUrl
         order.expiredAt = DateTime.fromJSDate(expiredAt)
@@ -170,7 +159,7 @@ export default class CertificateOrder extends BaseModel {
     public toJSON() {
         return this.serialize({
             fields: {
-                omit: ['createdAt', 'updatedAt', 'workspaceId', 'orderUrl', 'finalizeUrl']
+                omit: ['createdAt', 'updatedAt', 'workspaceId', 'url', 'finalizeUrl']
             },
             relations: {
                 authorizations: {
