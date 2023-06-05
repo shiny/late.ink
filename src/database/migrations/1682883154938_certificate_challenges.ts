@@ -1,5 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { ChanllengeStatus, ChanllengeType } from 'App/Models/CertificateChallenge'
+import { ChallengeStatus, ChallengeType } from 'App/Models/CertificateChallenge'
 
 export default class extends BaseSchema {
   protected tableName = 'certificate_challenges'
@@ -7,8 +7,8 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.enum('type', Object.keys(ChanllengeType))
-      table.enum('status', Object.keys(ChanllengeStatus))
+      table.enum('type', Object.keys(ChallengeType))
+      table.enum('status', Object.keys(ChallengeStatus))
       table.string('url')
       table.string('token')
       table.string('signkey')

@@ -9,14 +9,14 @@ import CertificateAction from 'App/Utils/CertificateAction'
 import Verification from 'App/Dns/Verification'
 import Logger from '@ioc:Adonis/Core/Logger'
 
-export enum ChanllengeType {
+export enum ChallengeType {
     'http-01',
     'dns-01',
     'tls-alpn-01'
 }
-export type ChanllengeTypeType = keyof typeof ChanllengeType
+export type ChallengeTypeType = keyof typeof ChallengeType
 
-export enum ChanllengeStatus {
+export enum ChallengeStatus {
     pending,
     processing,
     invalid,
@@ -25,7 +25,7 @@ export enum ChanllengeStatus {
     deactivated,
     expired
 }
-export type ChanllengeStatusType = keyof typeof ChanllengeStatus
+export type ChallengeStatusType = keyof typeof ChallengeStatus
 
 interface CreateFromResponseOptions {
     orderId: number
@@ -40,10 +40,10 @@ export default class CertificateChallenge extends BaseModel {
     public id: number
 
     @column()
-    public type: ChanllengeTypeType
+    public type: ChallengeTypeType
 
     @column()
-    public status: ChanllengeStatusType
+    public status: ChallengeStatusType
 
     @column()
     public url: string
