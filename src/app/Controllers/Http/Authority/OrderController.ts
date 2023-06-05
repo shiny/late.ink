@@ -58,7 +58,7 @@ export default class OrderController {
         if (!order) {
             throw new HttpNotFoundException('Order Not Found')
         }
-        const state = await order.process()
+        const state = await order.bump()
         if (!order.authorizations) {
             await order.load('authorizations')
         }

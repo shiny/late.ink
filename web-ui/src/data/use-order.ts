@@ -73,6 +73,13 @@ const useOrder = create<useOrder>((set, get) => {
             })
         },
         shouldRefresh: (status: string) => {
+            if (status === 'ignore') {
+                return false
+            }
+            // refresh when status has been changed
+            if (get().processStatus !== status) {
+                return true
+            }
             if (status.endsWith('error')) {
                 return false
             }
@@ -80,9 +87,6 @@ const useOrder = create<useOrder>((set, get) => {
                 return false
             }
             if (status === 'valid') {
-                return false
-            }
-            if (status === 'ignore') {
                 return false
             }
             return true
@@ -97,12 +101,12 @@ const useOrder = create<useOrder>((set, get) => {
             const processResult = await fetch<ProcessResult>(`authority/${authorityId}/order/${orderId}/processing`, {
                 throwHttpErrors: true
             })
+            const shouldRefresh = get().shouldRefresh(processResult.order)
             if (processResult.order !== 'ignore') {
                 set({
                     processStatus: processResult.order
                 })
             }
-            const shouldRefresh = get().shouldRefresh(processResult.order)
             //if (!shouldRefresh && Array.isArray(processResult.authorizations)) {
             //    shouldRefresh = processResult.authorizations.some(status => get().shouldRefresh(status))
             //}

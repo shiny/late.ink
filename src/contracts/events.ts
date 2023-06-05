@@ -5,6 +5,8 @@
  * file.
  */
 
+import type CertificateAuthorization from "App/Models/CertificateAuthorization";
+import CertificateChallenge from "App/Models/CertificateChallenge";
 import type CertificateOrder from "App/Models/CertificateOrder";
 
 declare module '@ioc:Adonis/Core/Event' {
@@ -28,9 +30,21 @@ declare module '@ioc:Adonis/Core/Event' {
     |
     */
     interface EventsList {
-        'order:valid:ready': CertificateOrder
         'order:ready:ready': CertificateOrder
+        'order:ready:completed': CertificateOrder
+
+        'order:valid:ready': CertificateOrder
         'order:valid:completed': CertificateOrder
+
+        'authorization:pending:ready': CertificateAuthorization
+        'authorization:pending:completed': CertificateAuthorization
+
+        'challenge:pending:ready': CertificateChallenge
+        'challenge:pending:completed': CertificateChallenge
+
         'deploymentjob:execute': { id: number }
+    }
+    interface EmitterTransportContract {
+        emitSerial(event: string, data: any): Promise<any>;
     }
 }

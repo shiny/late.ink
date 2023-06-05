@@ -4,8 +4,7 @@ import CertificateAuthorization from './CertificateAuthorization'
 import CertificateOrder from './CertificateOrder'
 import { Challenge } from 'handyacme'
 import { TransactionClientContract } from '@ioc:Adonis/Lucid/Database'
-import BaseModel from "./BaseModel"
-import CertificateAction from 'App/Utils/CertificateAction'
+import AcmeObject from "./AcmeObject"
 import Verification from 'App/Dns/Verification'
 import Logger from '@ioc:Adonis/Core/Logger'
 
@@ -35,7 +34,7 @@ interface CreateFromResponseOptions {
 }
 
 
-export default class CertificateChallenge extends BaseModel {
+export default class CertificateChallenge extends AcmeObject {
     @column({ isPrimary: true })
     public id: number
 
@@ -77,6 +76,8 @@ export default class CertificateChallenge extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
+    public readonly acmeObjectType = 'Challenge'
+    public readonly statesShouldProcess = ['pending']
 
     public static async createFromResponse({ orderId, authorizationId, challenge, trx }: CreateFromResponseOptions) {
         const certChallenge = new CertificateChallenge
@@ -94,81 +95,8 @@ export default class CertificateChallenge extends BaseModel {
         await certChallenge.save()
     }
 
-    /**
-     * State Transitions for Challenge Objects
-     * ```markdown
-     *            pending
-     *               |
-     *               | Receive
-     *               | response
-     *               V
-     *           processing <-+
-     *               |   |    | Server retry or
-     *               |   |    | client retry request
-     *               |   +----+
-     *               |
-     *               |
-     *   Successful  |   Failed
-     *   validation  |   validation
-     *     +---------+---------+
-     *     |                   |
-     *     V                   V
-     *   valid              invalid
-     * ```
-     **/
-    public async getCurrentState() {
-        if (this.status === 'pending') {
-            const state = await CertificateAction.whatAbout('Challenge', this.status, this.id)
-            return `${this.status}:${state}`
-        } else {
-            return this.status
-        }
-    }
-
-    public async startProcess() {
-        const state = await this.getCurrentState()
-        if (state.startsWith('valid')) {
-            return true
-        }
-        if (state !== 'pending:ready') {
-            return false
-        }
-        try {
-            if (await CertificateAction.start('Challenge', this.status, this.id)) {
-                await this.setDns()
-                await CertificateAction.done('Challenge', this.status, this.id)
-                return true
-            } else {
-                return false
-            }
-        } catch (error) {
-            
-            if (error.code !== 'ECONNRESET') {
-                await CertificateAction.error('Challenge', this.status, this.id, error.message)
-            }
-            throw error
-        }
-    }
-
-    public async completeProcess(shouldVerify = true) {
-        const state = await this.getCurrentState()
-        if (state !== 'pending:completed' && state !== 'processing') {
-            return false
-        }
-        // verify dns
-        if (shouldVerify) {
-            const verified = await this.isDnsVerified()
-            if (!verified) {
-                return false
-            }
-        }
-        if (!this.order) {
-            await (this as CertificateChallenge).load('order')
-        }
-        if (!this.order.authorityAccount) {
-            await this.order.load('authorityAccount')
-        }
-        await this.order.authorityAccount.syncFromRemote(this)
+    public async isVerified() {
+        return this.isDnsVerified()
     }
 
     public async isDnsVerified() {
@@ -183,10 +111,6 @@ export default class CertificateChallenge extends BaseModel {
         const prefix = '_acme-challenge'
         const hostname = this.authorization.identifierValue
         return `${prefix}.${hostname}`
-    }
-
-    public async dns() {
-        await (this as CertificateChallenge).load('order')
     }
 
     public async setDns() {

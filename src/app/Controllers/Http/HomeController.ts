@@ -18,7 +18,7 @@ export default class HomeController {
         }
     }
 
-    public async index({ sentry, sentryTrx }: HttpContextContract) {
+    public async index({  }: HttpContextContract) {
         // const plugin = await Deployment.from('@late.ink/plugin-ssh').load()
         //** */ @ts-expect-error
         // return await plugin.instance.execute('docker compose -f /data/late.ink/docker-compose.yml ps')

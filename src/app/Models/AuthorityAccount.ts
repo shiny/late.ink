@@ -6,6 +6,7 @@ import BaseModel from './BaseModel'
 import CertificateAuthorization from './CertificateAuthorization'
 import CertificateOrder from './CertificateOrder'
 import CertificateChallenge from './CertificateChallenge'
+import AcmeObject from './AcmeObject'
 
 export default class AuthorityAccount extends BaseModel {
     @column({ isPrimary: true })
@@ -80,7 +81,7 @@ export default class AuthorityAccount extends BaseModel {
     public async syncFromRemote(model: CertificateOrder): Promise<CertificateOrder>;
     public async syncFromRemote(model: CertificateAuthorization): Promise<CertificateAuthorization>;
     public async syncFromRemote(model: CertificateChallenge): Promise<CertificateChallenge>;
-    public async syncFromRemote(model: CertificateChallenge | CertificateAuthorization | CertificateOrder): Promise<CertificateChallenge | CertificateAuthorization | CertificateOrder> {
+    public async syncFromRemote(model: AcmeObject): Promise<AcmeObject> {
 
         const ca = await this.resolveInstance()
         const instances = [CertificateOrder, CertificateAuthorization, CertificateChallenge]

@@ -23,9 +23,11 @@ import Event from '@ioc:Adonis/Core/Event'
  *       valid             invalid
  * 
  *  ## Step One: pending
- *  1. pending:ready - Start
+ *  1. pending:ready - Go authoring (e.g. Set a DNS text record)
  *  2. pending:processing - Authorizing
  *  3. pending:completed - Authorized, wait for the server process
+ *       Verify the local authorzation and fetch state from remote
+ *       e.g. check the DNS record, fetch auth state when DNS has been set
  *  
  *  ## Step Two: ready
  *  1. ready:ready - Start
@@ -49,14 +51,22 @@ import Event from '@ioc:Adonis/Core/Event'
  *  ## Failed to get the mutex
  *  - ignore - A same job is running
  */
+Event.on('order:pending:ready', 'OrderHandler.startAuthorizing')
+Event.on('order:pending:completed', 'OrderHandler.emitAuthorizations')
 
 Event.on('order:ready:ready', 'OrderHandler.finalizeCertificate')
-Event.on('order:ready:completed', 'OrderHandler.refreshAcmeStatus')
 
 Event.on('order:valid:ready', 'OrderHandler.downloadCertificate')
-Event.on('order:valid:completed', 'OrderHandler.cleanAll')
-Event.on('order:valid:completed', 'CertificateRenewalJob.create')
+Event.on('order:valid:ready', 'OrderHandler.cleanAll')
+Event.on('order:valid:ready', 'CertificateHandler.createRenewalJob')
 
+Event.on('authorization:pending:ready', 'AuthorizationHandler.startChallenging')
+Event.on('authorization:pending:completed', 'AuthorizationHandler.refreshAcmeStatus')
+Event.on('authorization:valid', 'AuthorizationHandler.refreshAcmeStatus')
+
+Event.on('challenge:pending:ready', 'ChallengeHandler.setDns')
+Event.on('challenge:pending:completed', 'ChallengeHandler.refreshAcmeStatus')
+Event.on('challenge:valid', 'ChallengeHandler.refreshAcmeStatus')
 /**
  * Deployment Events
  * 

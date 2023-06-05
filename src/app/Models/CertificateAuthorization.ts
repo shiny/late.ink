@@ -4,8 +4,7 @@ import CertificateOrder from './CertificateOrder'
 import CertificateChallenge from './CertificateChallenge'
 import { Authorization } from 'handyacme'
 import { TransactionClientContract } from '@ioc:Adonis/Lucid/Database'
-import BaseModel from "./BaseModel"
-import CertificateAction from 'App/Utils/CertificateAction'
+import AcmeObject from "./AcmeObject"
 
 /**
  * {
@@ -48,7 +47,7 @@ interface CreateFromResponseOptions {
     trx?: TransactionClientContract
 }
 
-export default class CertificateAuthorization extends BaseModel {
+export default class CertificateAuthorization extends AcmeObject {
     @column({ isPrimary: true })
     public id: number
 
@@ -94,6 +93,9 @@ export default class CertificateAuthorization extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
+    public readonly acmeObjectType = 'Authorization'
+    public readonly statesShouldProcess = ['pending']
+
     public static async createFromResponse({ orderId, authorization, trx }: CreateFromResponseOptions) {
         const certAuthorization = new CertificateAuthorization
         certAuthorization.status = authorization.status
@@ -119,100 +121,6 @@ export default class CertificateAuthorization extends BaseModel {
                 }))
         )
         return certAuthorization
-    }
-
-    
-    /**
-     * 
-     * State Transitions for Authorization Objects
-     * ```markdown
-     *                   pending --------------------+
-     *                      |                        |
-     *    Challenge failure |                        |
-     *           or         |                        |
-     *          Error       |  Challenge valid       |
-     *            +---------+---------+              |
-     *            |                   |              |
-     *            V                   V              |
-     *         invalid              valid            |
-     *                                |              |
-     *                                |              |
-     *                                |              |
-     *                 +--------------+--------------+
-     *                 |              |              |
-     *                 |              |              |
-     *          Server |       Client |   Time after |
-     *          revoke |   deactivate |    "expires" |
-     *                 V              V              V
-     *              revoked      deactivated      expired
-     * ```
-     */
-    public async getCurrentState() {
-        switch (this.status) {
-            case 'pending':
-                const state = await CertificateAction.whatAbout('Authorization', this.status, this.id)
-                return `${this.status}:${state}`
-
-            case 'invalid':
-            case 'valid':
-            case 'deactivated':
-            case 'expired':
-            case 'revoked':
-                return this.status
-        }
-    }
-
-    /**
-     * set the challenge dns
-     */
-    public async startProcess() {
-        const state = await this.getCurrentState()
-        const challenge = await this.dnsChallenge()
-        // it's already authorized!
-        if (state.startsWith('valid')) {
-            return true
-        }
-        if (state !== 'pending:ready') {
-            return false
-        }
-        try {
-            if (await CertificateAction.start('Authorization', this.status, this.id)) {
-                const result = await challenge.startProcess()
-                if (!result) {
-                    throw new Error('Challenge dns set failed, may be state problem')
-                }
-                await CertificateAction.done('Authorization', this.status, this.id)
-                return true
-            } else {
-                return false
-            }
-        } catch (error) {
-            if (error.code !== 'ECONNRESET') {
-                await CertificateAction.error('Authorization', this.status, this.id, error.message)
-            }
-            throw error
-        }
-    }
-
-    public async completeProcess() {
-        const state = await this.getCurrentState()
-        const challenge = await this.dnsChallenge()
-        const shouldVerifiy = state === 'pending:completed'
-        if (state !== 'pending:completed') {
-            return false
-        }
-        await challenge.completeProcess(shouldVerifiy)
-        if (challenge.status !== 'valid') {
-            return false
-        }
-
-        if (!this.order) {
-            await (this as CertificateAuthorization).load('order')
-        }
-        if (!this.order.authorityAccount) {
-            await this.order.load('authorityAccount')
-        }
-        await this.order.authorityAccount.syncFromRemote(this)
     }
 
     public async dnsChallenge() {

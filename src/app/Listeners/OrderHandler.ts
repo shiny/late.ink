@@ -4,6 +4,31 @@ import Certificate from 'App/Models/Certificate'
 import { createEcdsaCsr } from 'handyacme'
 import Database from '@ioc:Adonis/Lucid/Database'
 
+
+/**
+ * Get the current order processing state
+ * 
+ * State Transitions for Order Objects
+ * ```markdown
+ *     pending --------------+
+ *        |                  |
+ *        | All authz        |
+ *        | "valid"          |
+ *        V                  |
+ *      ready ---------------+
+ *        |                  |
+ *        | Receive          |
+ *        | finalize         |
+ *        | request          |
+ *        V                  |
+ *    processing ------------+
+ *        |                  |
+ *        | Certificate      | Error or
+ *        | issued           | Authorization failure
+ *        V                  V
+ *      valid             invalid
+ * ```
+ */
 export default class OrderHandler {
 
     public async finalizeCertificate(order: CertificateOrder) {
@@ -79,17 +104,36 @@ export default class OrderHandler {
         }
     }
 
-    public async refreshAcmeStatus(order: CertificateOrder) {
-        await order.load('authorityAccount')
-        const ca = await order.authorityAccount.resolveInstance()
-        const {
-            status,
-            certificateUrl
-        } = await ca.restoreOrder(order.url)
-        if (order.status !== status) {
-            order.status = status
-            order.certificateUrl = certificateUrl
-            await order.save()
+    public async startAuthorizing(order: CertificateOrder) {
+        try {
+            if (!order.authorizations) {
+                await order.load('authorizations')
+            }
+
+            if (!await order.start()) {
+                throw new Error('Failed to start a process')
+            }
+
+            // Some DNS service providers don't support concurrently calling the API.
+            for(const auth of order.authorizations) {
+                await auth.emitState()
+            }
+            await order.done()
+        } catch (error) {
+            if (error.code !== 'ECONNRESET') {
+                await order.failed(error)
+            }
+            throw error
+        }
+    }
+
+    public async emitAuthorizations(order: CertificateOrder) {
+        if (!order.authorizations) {
+            await order.load('authorizations')
+        }
+        // Some DNS service providers don't support concurrently calling the API.
+        for(const auth of order.authorizations) {
+            await auth.emitState()
         }
     }
 }
