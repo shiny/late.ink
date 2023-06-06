@@ -67,7 +67,6 @@ export default function Pagination({ page, total, perPage, goto, hideIfOnlyOnePa
         } else if (page > max) {
             return
         }
-        console.log('max', max)
         if (goto) {
             goto(page)
         } else {
