@@ -24,6 +24,14 @@ export interface Certificate {
             ca: string
         }
     }
+    job?: {
+        id: number
+        interval: number
+        nextRunAt: string
+        lastRunStatus: string
+        lastRunAt: string
+        lastRunMessage: string
+    }
 }
 
 interface UseCertificate {
