@@ -10,6 +10,10 @@ export default abstract class DeploymentPluginBase {
     public static icon: string
     abstract test(): Promise<boolean>
     abstract run(cert: Certificate): Promise<boolean>
+    /**
+     * a human readable name for display 
+     */
+    abstract displayTargetName(): Promise<string> | string
 }
 
 export interface DeploymentPluginContract extends DeploymentPluginBase {

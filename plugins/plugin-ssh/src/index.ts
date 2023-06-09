@@ -14,7 +14,7 @@ export type PluginConfig = {
 export default class PluginSsh extends DeploymentPluginBase {
     public static icon = icon
     public static locales = locales
-    public static inputConfig = [ ...inputConfig]
+    public static inputConfig = [...inputConfig]
 
     constructor(public config?: PluginConfig) {
         super()
@@ -34,6 +34,18 @@ export default class PluginSsh extends DeploymentPluginBase {
         if (!config.sshKey) {
             throw new Error('sshKey is required')
         }
+    }
+
+    displayTargetName() {
+        if (!this.config) {
+            throw new Error(`Config is required`)
+        }
+        const sshDefaultPort = 22
+        const isDefaultPort = this.config.port === sshDefaultPort
+        return this.config.username +
+            '@' + this.config.host +
+            (!isDefaultPort ? `:${this.config.port}` : '') +
+            ':' + this.config.certFilePath
     }
 
     async test() {
@@ -61,7 +73,7 @@ export default class PluginSsh extends DeploymentPluginBase {
         if (!this.config) {
             throw new Error('Config is missing')
         }
-        
+
         return new Promise((resolve, reject) => {
             client.exec(cmd, (err, stream) => {
                 if (err) {
@@ -109,13 +121,13 @@ export default class PluginSsh extends DeploymentPluginBase {
         const client = new Client()
         return new Promise((resolve, reject) => {
             client.on('ready', () => resolve(client))
-            .on('error', (err) => reject(err))
-            .connect({
-                host: this.config?.host.toString(),
-                port: parseInt(this.config?.port.toString() || '22'),
-                username: this.config?.username.toString(),
-                privateKey: this.config?.sshKey.toString()
-            })
+                .on('error', (err) => reject(err))
+                .connect({
+                    host: this.config?.host.toString(),
+                    port: parseInt(this.config?.port.toString() || '22'),
+                    username: this.config?.username.toString(),
+                    privateKey: this.config?.sshKey.toString()
+                })
         })
     }
 }
